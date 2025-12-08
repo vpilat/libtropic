@@ -206,7 +206,7 @@ lt_ret_t lt_port_spi_transfer(lt_l2_state_t *s2, uint8_t offset, uint16_t tx_len
 
     // Prepare the SPI transaction.
     memset(&spi_transaction, 0, sizeof(spi_transaction));
-    spi_transaction.length = tx_len;
+    spi_transaction.length = tx_len * 8;
     spi_transaction.tx_buffer = s2->buff + offset;
     spi_transaction.rx_buffer = s2->buff + offset;
 
