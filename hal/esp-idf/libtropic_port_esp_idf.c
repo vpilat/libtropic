@@ -202,6 +202,7 @@ lt_ret_t lt_port_spi_csn_high(lt_l2_state_t *s2)
 
 lt_ret_t lt_port_spi_transfer(lt_l2_state_t *s2, uint8_t offset, uint16_t tx_len, uint32_t timeout_ms)
 {
+    LT_UNUSED(timeout_ms);
     lt_dev_esp_idf_t *dev = (lt_dev_esp_idf_t *)(s2->device);
     esp_err_t ret;
     spi_transaction_t spi_transaction;
@@ -236,7 +237,7 @@ lt_ret_t lt_port_spi_transfer(lt_l2_state_t *s2, uint8_t offset, uint16_t tx_len
 
 lt_ret_t lt_port_delay(lt_l2_state_t *s2, uint32_t ms)
 {
-    lt_dev_esp_idf_t *dev = (lt_dev_esp_idf_t *)(s2->device);
+    LT_UNUSED(s2);
     TickType_t ticks_to_wait = pdMS_TO_TICKS(ms);
 
     vTaskDelay(ticks_to_wait);
@@ -259,7 +260,7 @@ lt_ret_t lt_port_delay_on_int(lt_l2_state_t *s2, uint32_t ms)
 
 lt_ret_t lt_port_random_bytes(lt_l2_state_t *s2, void *buff, size_t count)
 {
-    lt_dev_esp_idf_t *dev = (lt_dev_esp_idf_t *)(s2->device);
+    LT_UNUSED(s2);
 
     esp_fill_random(buff, count);
     return LT_OK;
