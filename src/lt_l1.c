@@ -232,7 +232,7 @@ lt_ret_t lt_l1_retrieve_alarm_log(lt_l2_state_t *s2, const uint32_t timeout_ms)
     LT_LOG_DEBUG("LOG SIZE: %" PRIu8, log_size);
 
     LT_LOG_DEBUG("------------ DECODED CPU Log BEGIN ------------");
-    for (size_t i = 0; i < log_size; i++) { // log_size is guaranteed to be <= TR01_L2_CHUNK_MAX_DATA_SIZE
+    for (size_t i = 0; i < log_size; i++) {  // log_size is guaranteed to be <= TR01_L2_CHUNK_MAX_DATA_SIZE
         lt_port_log("%c", s2->buff[i + TR01_L2_RSP_DATA_RSP_CRC_OFFSET]);
     }
     lt_port_log("\n");
