@@ -71,6 +71,7 @@ lt_ret_t lt_l1_write(lt_l2_state_t *s2, const uint16_t len, const uint32_t timeo
  *
  * @warning This function is for internal use only and it is not compatible
  * with production TROPIC01 chips.
+ * @note This is called automatically only if LT_RETRIEVE_ALARM_LOG is defined.
  *
  * @param s2          Structure holding l2 state
  * @param timeout_ms  Timeout
