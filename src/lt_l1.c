@@ -228,18 +228,18 @@ lt_ret_t lt_l1_retrieve_alarm_log(lt_l2_state_t *s2, const uint32_t timeout_ms)
         return ret;
     }
 
-    uint8_t log_size = s2->buff[TR01_L2_RSP_LEN_OFFSET];
+    uint8_t log_size = lt_min(s2->buff[TR01_L2_RSP_LEN_OFFSET], TR01_L2_CHUNK_MAX_DATA_SIZE);
     LT_LOG_DEBUG("LOG SIZE: %" PRIu8, log_size);
 
     LT_LOG_DEBUG("------------ DECODED CPU Log BEGIN ------------");
-    for (size_t i = TR01_L2_RSP_DATA_RSP_CRC_OFFSET; i < log_size; i++) {
-        lt_port_log("%c", s2->buff[i]);
+    for (size_t i = 0; i < log_size; i++) { // log_size is guaranteed to be <= TR01_L2_CHUNK_MAX_DATA_SIZE
+        lt_port_log("%c", s2->buff[i + TR01_L2_RSP_DATA_RSP_CRC_OFFSET]);
     }
     lt_port_log("\n");
     LT_LOG_DEBUG("------------- DECODED CPU Log END -------------");
 
     LT_LOG_DEBUG("------------ RAW CPU Log BEGIN ------------");
-    for (size_t i = 0; i < TR01_L2_MAX_FRAME_SIZE; i++) {  // Ignore log size in raw logs.
+    for (size_t i = 0; i < sizeof(s2->buff); i++) {  // Print whole L2 buffer.
         lt_port_log("0x%02x ", s2->buff[i]);
     }
     lt_port_log("\n");
