@@ -124,9 +124,9 @@ lt_ret_t lt_port_delay_on_int(lt_l2_state_t *s2, uint32_t ms);
 lt_ret_t lt_port_random_bytes(lt_l2_state_t *s2, void *buff, size_t count);
 
 /**
- * @brief Port-specific logging function.
- * @note  The caller should not append any newline characters. This function is exlusively used by the logging macros in
- * libtropic_logging.h, that always append "\r\n" at the end.
+ * @brief Port-specific printf-like function used by Libtropic for logging debug information and test outputs.
+ * @note  The implementation shall not modify output in any way (e.g., by appending arbitrary newlines)
+ * apart from behavior expected from a standard printf-like function (e.g., replacing format specifiers).
  * @warning Some implementations use size limited buffer for temporarily storing the log message.
  *
  * @param format      Pointer to a null-terminated byte string specifying how to interpret the data
