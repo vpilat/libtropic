@@ -31,11 +31,11 @@ jobs:
 
       - name: Compile functional mock tests with AddressSanitizer
         run: |
-          cd tests/functional_mock
-          mkdir -p build
-          cd build
-          cmake -DLT_ASAN=1 ..
-          make -j4
+            cd tests/functional_mock
+            mkdir -p build
+            cd build
+            cmake -DLT_ASAN=1 ..
+            make -j4
 
       - name: Execute tests with CTest
         run: |
