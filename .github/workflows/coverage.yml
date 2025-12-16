@@ -63,9 +63,9 @@ jobs:
       - name: Compile and run functional tests with coverage enabled, export trace
         run: |
             cd tropic01_model/
-            cmake ./ -B build -DLT_CAL=mbedtls_v4 -DLT_BUILD_TESTS=1 -DLT_TEST_COVERAGE=1
+            cmake ./ -B build -G Ninja -DLT_CAL=mbedtls_v4 -DLT_BUILD_TESTS=1 -DLT_TEST_COVERAGE=1
             cd build/
-            make
+            ninja
             ctest -V
 
             cd ..
@@ -76,8 +76,8 @@ jobs:
           cd tests/functional_mock
           mkdir -p build
           cd build
-          cmake -DLT_TEST_COVERAGE=1 ..
-          make
+          cmake -G Ninja -DLT_TEST_COVERAGE=1 ..
+          ninja
           ctest -V
 
           cd ..
