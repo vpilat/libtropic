@@ -16,7 +16,9 @@
 #include "libtropic_common.h"
 #include "libtropic_macros.h"
 #include "libtropic_port.h"
+#include "libtropic_logging.h"
 #include "stm32l4xx_hal.h"
+#include "main.h"
 
 lt_ret_t lt_port_random_bytes(lt_l2_state_t *s2, void *buff, size_t count)
 {
@@ -45,7 +47,7 @@ lt_ret_t lt_port_random_bytes(lt_l2_state_t *s2, void *buff, size_t count)
 
 lt_ret_t lt_port_spi_csn_low(lt_l2_state_t *h)
 {
-    lt_dev_nucleo_l432kc_t *device = (lt_dev_nucleo_l432kc_t *)(h->device);
+    lt_dev_stm32_nucleo_l432kc_t *device = (lt_dev_stm32_nucleo_l432kc_t *)(h->device);
 
     HAL_GPIO_WritePin(device->spi_cs_gpio_bank, device->spi_cs_gpio_pin, GPIO_PIN_RESET);
     while (HAL_GPIO_ReadPin(device->spi_cs_gpio_bank, device->spi_cs_gpio_pin));
@@ -55,7 +57,7 @@ lt_ret_t lt_port_spi_csn_low(lt_l2_state_t *h)
 
 lt_ret_t lt_port_spi_csn_high(lt_l2_state_t *h)
 {
-    lt_dev_nucleo_l432kc_t *device = (lt_dev_nucleo_l432kc_t *)(h->device);
+    lt_dev_stm32_nucleo_l432kc_t *device = (lt_dev_stm32_nucleo_l432kc_t *)(h->device);
 
     HAL_GPIO_WritePin(device->spi_cs_gpio_bank, device->spi_cs_gpio_pin, GPIO_PIN_SET);
     while (!HAL_GPIO_ReadPin(device->spi_cs_gpio_bank, device->spi_cs_gpio_pin));
@@ -96,7 +98,6 @@ lt_ret_t lt_port_init(lt_l2_state_t *h)
 
     // GPIO for chip select.
     GPIO_InitTypeDef GPIO_InitStruct = {0};
-    LT_SPI_CS_CLK_ENABLE();
     HAL_GPIO_WritePin(device->spi_cs_gpio_bank, device->spi_cs_gpio_pin, GPIO_PIN_SET);
     GPIO_InitStruct.Pin = device->spi_cs_gpio_pin;
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
