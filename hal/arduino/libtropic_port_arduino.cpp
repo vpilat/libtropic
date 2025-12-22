@@ -128,8 +128,7 @@ int lt_port_log(const char *format, ...)
         for (size_t i = 0; i < len; ++i) {
             char c = log_buff[i];
             if (c == '\n') {
-                Serial.write('\r');
-                Serial.write('\n');
+                Serial.println(); // Let Arduino Library handle newlines properly.
             } else {
                 Serial.write(c);
             }
