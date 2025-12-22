@@ -50,17 +50,18 @@ int main(void)
     }
 #endif
 
-    lt_handle_t __lt_handle__ = {0};
+    lt_handle_t handle = {0};              // Local variable for the handle.
+    lt_handle_t *__lt_handle__ = &handle;  // Variable used by tests and examples template.
 #if LT_SEPARATE_L3_BUFF
     uint8_t l3_buffer[LT_SIZE_OF_L3_BUFF] __attribute__((aligned(16))) = {0};
-    __lt_handle__.l3.buff = l3_buffer;
-    __lt_handle__.l3.buff_len = sizeof(l3_buffer);
+    handle.l3.buff = l3_buffer;
+    handle.l3.buff_len = sizeof(l3_buffer);
 #endif
     // Initialize device before handing handle to the test.
     lt_dev_posix_tcp_t device;
     device.addr = inet_addr("127.0.0.1");
     device.port = 28992;
-    __lt_handle__.l2.device = &device;
+    handle.l2.device = &device;
 
     // Initialize crypto context.
 #if LT_USE_TREZOR_CRYPTO
@@ -69,7 +70,7 @@ int main(void)
     lt_ctx_mbedtls_v4_t
 #endif
         crypto_ctx;
-    __lt_handle__.l3.crypto_ctx = &crypto_ctx;
+    handle.l3.crypto_ctx = &crypto_ctx;
 
     // Generate seed for the PRNG.
     unsigned int prng_seed;
