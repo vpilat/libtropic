@@ -34,8 +34,8 @@ jobs:
             cd tests/functional_mock
             mkdir -p build
             cd build
-            cmake -DLT_ASAN=1 ..
-            make -j4
+            cmake -DLT_ASAN=1 -G Ninja ..
+            ninja
 
       - name: Execute tests with CTest
         run: |
