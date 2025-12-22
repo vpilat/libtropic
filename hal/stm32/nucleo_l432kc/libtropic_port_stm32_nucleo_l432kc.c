@@ -2,7 +2,7 @@
  * @file libtropic_port_stm32_nucleo_l432kc.c
  * @copyright Copyright (c) 2020-2025 Tropic Square s.r.o.
  * @brief Port for STM32 L432KC using native SPI HAL (and GPIO HAL for chip select).
- * 
+ *
  * @license For the license see LICENSE.md in the root directory of this source tree.
  */
 
@@ -14,11 +14,11 @@
 #include <string.h>
 
 #include "libtropic_common.h"
+#include "libtropic_logging.h"
 #include "libtropic_macros.h"
 #include "libtropic_port.h"
-#include "libtropic_logging.h"
-#include "stm32l4xx_hal.h"
 #include "main.h"
+#include "stm32l4xx_hal.h"
 
 lt_ret_t lt_port_random_bytes(lt_l2_state_t *s2, void *buff, size_t count)
 {
@@ -43,7 +43,6 @@ lt_ret_t lt_port_random_bytes(lt_l2_state_t *s2, void *buff, size_t count)
 
     return LT_OK;
 }
-
 
 lt_ret_t lt_port_spi_csn_low(lt_l2_state_t *h)
 {
