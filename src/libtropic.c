@@ -1779,7 +1779,7 @@ lt_ret_t lt_print_chip_id(const struct lt_chip_id_t *chip_id, int (*print_func)(
     if (LT_OK
             != lt_print_bytes(chip_id->provisioning_date, sizeof(chip_id->provisioning_date), print_bytes_buff,
                               sizeof(print_bytes_buff))
-        || 0 > print_func("Prov date              = 0x%s \n", print_bytes_buff)) {
+        || 0 > print_func("Prov date              = 0x%s\n", print_bytes_buff)) {
         return LT_FAIL;
     }
 
