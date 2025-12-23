@@ -46,7 +46,6 @@ lt_ret_t lt_port_random_bytes(lt_l2_state_t *s2, void *buff, size_t count)
     return LT_OK;
 }
 
-
 lt_ret_t lt_port_spi_csn_low(lt_l2_state_t *s2)
 {
     lt_dev_stm32_nucleo_l432kc_t *device = (lt_dev_stm32_nucleo_l432kc_t *)(s2->device);

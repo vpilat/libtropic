@@ -76,7 +76,7 @@ lt_ret_t lt_port_spi_csn_high(lt_l2_state_t *s2)
             return LT_OK;
         }
     }
-    
+
     LT_LOG_ERROR("Failed to set CSN high!");
     return LT_L1_SPI_ERROR;
 }
