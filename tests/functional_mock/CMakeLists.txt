@@ -14,6 +14,7 @@ endif()
 
 include(FetchContent)
 include(${PATH_TO_LIBTROPIC}cmake/strict_compile_flags.cmake)
+include(${PATH_TO_LIBTROPIC}cmake/static_asan_flags.cmake)
 
 ###########################################################################
 #                                                                         #
@@ -22,12 +23,25 @@ include(${PATH_TO_LIBTROPIC}cmake/strict_compile_flags.cmake)
 ###########################################################################
 
 option(LT_STRICT_COMPILATION "Enable strict compilation flags" ON)
+option(LT_VALGRIND "Run tests with Valgrind" OFF)
+option(LT_ASAN "Enable static AddressSanitizer (ASan)" OFF)
+
+if (${LT_ASAN} AND ${LT_VALGRIND})
+    message(WARNING "Using Valgrind with ASan enabled may lead to unexpected behavior.")
+endif()
 
 ###########################################################################
 #                                                                         #
 #   Add libtropic library and set it up                                   #
 #                                                                         #
 ###########################################################################
+
+if(LT_ASAN)
+    message(STATUS "Enabling static AddressSanitizer (ASan).")
+    # This applies the flags to all targets
+    add_compile_options(${LT_ASAN_COMPILE_FLAGS})
+    add_link_options(${LT_ASAN_LINK_FLAGS})
+endif()
 
 # Add path to libtropic's repository root folder
 if (NOT LT_LOG_LVL)
@@ -144,7 +158,9 @@ foreach(test_name IN LISTS LIBTROPIC_MOCK_TEST_LIST)
     target_include_directories(${exe_name} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
     # Add CTest entry.
-    add_test(NAME ${test_name}
-                COMMAND ./${exe_name}
-    )
+    if (LT_VALGRIND)
+        add_test(NAME ${test_name} COMMAND valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --error-exitcode=1 ./${exe_name})
+    else()
+        add_test(NAME ${test_name} COMMAND ./${exe_name})
+    endif()
 endforeach()
