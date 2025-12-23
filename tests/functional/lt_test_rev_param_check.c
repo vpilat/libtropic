@@ -14,6 +14,7 @@
 #include "libtropic_logging.h"
 #include "lt_l3_api_structs.h"
 #include "lt_l2_api_structs.h"
+#include "lt_test_common.h"
 
 void lt_test_rev_param_check(lt_handle_t *h)
 {
