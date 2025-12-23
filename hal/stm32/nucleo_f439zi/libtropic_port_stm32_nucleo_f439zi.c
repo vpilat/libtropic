@@ -20,7 +20,6 @@
 #include "libtropic_logging.h"
 #include "libtropic_macros.h"
 #include "libtropic_port.h"
-#include "main.h"
 #include "stm32f4xx_hal.h"
 
 #define LT_STM32_F439ZI_GPIO_OUTPUT_CHECK_ATTEMPTS 10
@@ -114,7 +113,6 @@ lt_ret_t lt_port_init(lt_l2_state_t *s2)
 
     // GPIO for chip select.
     GPIO_InitTypeDef GPIO_InitStruct = {0};
-    LT_SPI_CS_CLK_ENABLE();
     HAL_GPIO_WritePin(device->spi_cs_gpio_bank, device->spi_cs_gpio_pin, GPIO_PIN_SET);
     GPIO_InitStruct.Pin = device->spi_cs_gpio_pin;
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -124,7 +122,6 @@ lt_ret_t lt_port_init(lt_l2_state_t *s2)
 
 #if LT_USE_INT_PIN
     // GPIO for INT pin.
-    LT_INT_CLK_ENABLE();
     GPIO_InitStruct.Pin = device->int_gpio_pin;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
