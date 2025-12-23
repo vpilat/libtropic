@@ -17,7 +17,6 @@
 #include "libtropic_logging.h"
 #include "libtropic_macros.h"
 #include "libtropic_port.h"
-#include "main.h"
 #include "stm32l4xx_hal.h"
 
 #define LT_STM32_L432KC_GPIO_OUTPUT_CHECK_ATTEMPTS 10
@@ -118,7 +117,6 @@ lt_ret_t lt_port_init(lt_l2_state_t *s2)
 
 #if LT_USE_INT_PIN
     // GPIO for INT pin.
-    LT_INT_CLK_ENABLE();
     GPIO_InitStruct.Pin = device->int_gpio_pin;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
