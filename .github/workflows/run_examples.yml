@@ -47,9 +47,9 @@ jobs:
       - name: Compile libtropic with examples and AddressSanitizer
         run: |
             cd tropic01_model/
-            cmake ./ -B build -DLT_CAL=mbedtls_v4 -DLT_BUILD_EXAMPLES=1 -DCMAKE_BUILD_TYPE=Debug -DLT_ASAN=1
+            cmake ./ -B build -G Ninja -DLT_CAL=mbedtls_v4 -DLT_BUILD_EXAMPLES=1 -DCMAKE_BUILD_TYPE=Debug -DLT_ASAN=1
             cd build/
-            make
+            ninja
 
       - name: Create configuration for the model
         run: |
@@ -114,9 +114,9 @@ jobs:
       - name: Compile libtropic with examples
         run: |
             cd tropic01_model/
-            cmake ./ -B build -DLT_CAL=mbedtls_v4 -DLT_BUILD_EXAMPLES=1 -DCMAKE_BUILD_TYPE=Debug
+            cmake ./ -B build -G Ninja -DLT_CAL=mbedtls_v4 -DLT_BUILD_EXAMPLES=1 -DCMAKE_BUILD_TYPE=Debug
             cd build/
-            make
+            ninja
 
       - name: Create configuration for the model
         run: |
