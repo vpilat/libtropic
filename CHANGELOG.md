@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- STM32 HAL: updated L432KC and started active support again.
+- STM32 HAL: moved clock initialization out of the HALs to remove dependency on user's `main.h` and allow for higher flexibility.
+  - Clock initialization is up to the user now and it is demonstrated in our integration examples.
 
 ### Added
 - Logging: `lt_port_log` function for platform-specific logging mechanism; is used by the logging macros declared in `libtropic_logging.h`.
