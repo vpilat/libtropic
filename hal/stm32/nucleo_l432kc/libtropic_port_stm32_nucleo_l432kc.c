@@ -20,6 +20,8 @@
 #include "main.h"
 #include "stm32l4xx_hal.h"
 
+#define LT_STM32_L432KC_GPIO_OUTPUT_CHECK_ATTEMPTS 10
+
 lt_ret_t lt_port_random_bytes(lt_l2_state_t *s2, void *buff, size_t count)
 {
     lt_dev_stm32_nucleo_l432kc_t *device = (lt_dev_stm32_nucleo_l432kc_t *)(s2->device);
@@ -44,29 +46,40 @@ lt_ret_t lt_port_random_bytes(lt_l2_state_t *s2, void *buff, size_t count)
     return LT_OK;
 }
 
-lt_ret_t lt_port_spi_csn_low(lt_l2_state_t *h)
+
+lt_ret_t lt_port_spi_csn_low(lt_l2_state_t *s2)
 {
-    lt_dev_stm32_nucleo_l432kc_t *device = (lt_dev_stm32_nucleo_l432kc_t *)(h->device);
+    lt_dev_stm32_nucleo_l432kc_t *device = (lt_dev_stm32_nucleo_l432kc_t *)(s2->device);
 
     HAL_GPIO_WritePin(device->spi_cs_gpio_bank, device->spi_cs_gpio_pin, GPIO_PIN_RESET);
-    while (HAL_GPIO_ReadPin(device->spi_cs_gpio_bank, device->spi_cs_gpio_pin));
+    for (uint8_t read_attempts = 0; read_attempts < LT_STM32_L432KC_GPIO_OUTPUT_CHECK_ATTEMPTS; read_attempts++) {
+        if (!HAL_GPIO_ReadPin(device->spi_cs_gpio_bank, device->spi_cs_gpio_pin)) {
+            return LT_OK;
+        }
+    }
 
-    return LT_OK;
+    LT_LOG_ERROR("Failed to set CSN low!");
+    return LT_L1_SPI_ERROR;
 }
 
-lt_ret_t lt_port_spi_csn_high(lt_l2_state_t *h)
+lt_ret_t lt_port_spi_csn_high(lt_l2_state_t *s2)
 {
-    lt_dev_stm32_nucleo_l432kc_t *device = (lt_dev_stm32_nucleo_l432kc_t *)(h->device);
+    lt_dev_stm32_nucleo_l432kc_t *device = (lt_dev_stm32_nucleo_l432kc_t *)(s2->device);
 
     HAL_GPIO_WritePin(device->spi_cs_gpio_bank, device->spi_cs_gpio_pin, GPIO_PIN_SET);
-    while (!HAL_GPIO_ReadPin(device->spi_cs_gpio_bank, device->spi_cs_gpio_pin));
+    for (uint8_t read_attempts = 0; read_attempts < LT_STM32_L432KC_GPIO_OUTPUT_CHECK_ATTEMPTS; read_attempts++) {
+        if (HAL_GPIO_ReadPin(device->spi_cs_gpio_bank, device->spi_cs_gpio_pin)) {
+            return LT_OK;
+        }
+    }
 
-    return LT_OK;
+    LT_LOG_ERROR("Failed to set CSN high!");
+    return LT_L1_SPI_ERROR;
 }
 
-lt_ret_t lt_port_init(lt_l2_state_t *h)
+lt_ret_t lt_port_init(lt_l2_state_t *s2)
 {
-    lt_dev_stm32_nucleo_l432kc_t *device = (lt_dev_stm32_nucleo_l432kc_t *)(h->device);
+    lt_dev_stm32_nucleo_l432kc_t *device = (lt_dev_stm32_nucleo_l432kc_t *)(s2->device);
     int ret;
 
     // Set the SPI parameters.
@@ -149,9 +162,9 @@ lt_ret_t lt_port_spi_transfer(lt_l2_state_t *s2, uint8_t offset, uint16_t tx_dat
     return LT_OK;
 }
 
-lt_ret_t lt_port_delay(lt_l2_state_t *h, uint32_t ms)
+lt_ret_t lt_port_delay(lt_l2_state_t *s2, uint32_t ms)
 {
-    LT_UNUSED(h);
+    LT_UNUSED(s2);
 
     HAL_Delay(ms);
 
