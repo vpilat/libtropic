@@ -30,8 +30,7 @@ lt_ret_t lt_X25519(const uint8_t *privkey, const uint8_t *pubkey, uint8_t *secre
     ret = wc_curve25519_init(&wc_priv);
     if (ret != 0) {
         LT_LOG_ERROR("Failed to initialize X25519 private key, ret=%d (%s)", ret, wc_GetErrorString(ret));
-        lt_ret = LT_CRYPTO_ERR;
-        goto lt_X25519_cleanup;
+        return LT_CRYPTO_ERR;
     }
 
     ret = wc_curve25519_init(&wc_pub);
@@ -112,8 +111,7 @@ lt_ret_t lt_X25519_scalarmult(const uint8_t *sk, uint8_t *pk)
     ret = wc_curve25519_init(&wc_secret);
     if (ret != 0) {
         LT_LOG_ERROR("Failed to initialize X25519 private key, ret=%d (%s)", ret, wc_GetErrorString(ret));
-        lt_ret = LT_CRYPTO_ERR;
-        goto lt_X25519_scalarmult_cleanup;
+        return LT_CRYPTO_ERR;
     }
 
     ret = wc_curve25519_import_private_ex(sk, TR01_X25519_KEY_LEN, &wc_secret, EC25519_LITTLE_ENDIAN);
@@ -130,6 +128,7 @@ lt_ret_t lt_X25519_scalarmult(const uint8_t *sk, uint8_t *pk)
         lt_ret = LT_CRYPTO_ERR;
         goto lt_X25519_scalarmult_cleanup;
     }
+    rng_initialized = true;
 
     ret = wc_curve25519_set_rng(&wc_secret, &rng);
     if (ret != 0) {
