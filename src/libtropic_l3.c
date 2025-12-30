@@ -81,111 +81,119 @@ lt_ret_t lt_in__session_start(lt_handle_t *h, const uint8_t *stpub, const lt_pke
                                  'A', 'E', 'S', 'G', 'C', 'M', '_', 'S', 'H', 'A', '2', '5', '6', 0x00, 0x00, 0x00};
     uint8_t hash[LT_SHA256_DIGEST_LENGTH] = {0};
     lt_ret_t ret;
+    lt_ret_t ret_unused;
 
-    // h = SHA_256(protocol_name)
+    // Initialize SHA-256 context.
     ret = lt_sha256_init(h->l3.crypto_ctx);
     if (ret != LT_OK) {
         return ret;
     }
+
+    // h = SHA_256(protocol_name)
     ret = lt_sha256_start(h->l3.crypto_ctx);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_update(h->l3.crypto_ctx, protocol_name, sizeof(protocol_name));
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_finish(h->l3.crypto_ctx, hash);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
 
     // h = SHA256(h||SHiPUB)
     ret = lt_sha256_start(h->l3.crypto_ctx);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_update(h->l3.crypto_ctx, hash, sizeof(hash));
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_update(h->l3.crypto_ctx, shipub, TR01_SHIPUB_LEN);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_finish(h->l3.crypto_ctx, hash);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
 
     // h = SHA256(h||STPUB)
     ret = lt_sha256_start(h->l3.crypto_ctx);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_update(h->l3.crypto_ctx, hash, sizeof(hash));
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_update(h->l3.crypto_ctx, stpub, TR01_STPUB_LEN);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_finish(h->l3.crypto_ctx, hash);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
 
     // h = SHA256(h||EHPUB)
     ret = lt_sha256_start(h->l3.crypto_ctx);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_update(h->l3.crypto_ctx, hash, sizeof(hash));
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_update(h->l3.crypto_ctx, host_eph_keys->ehpub, TR01_EHPUB_LEN);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_finish(h->l3.crypto_ctx, hash);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
 
     // h = SHA256(h||PKEY_INDEX)
     ret = lt_sha256_start(h->l3.crypto_ctx);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_update(h->l3.crypto_ctx, hash, sizeof(hash));
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_update(h->l3.crypto_ctx, (uint8_t *)&pkey_index, 1);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_finish(h->l3.crypto_ctx, hash);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
 
     // h = SHA256(h||ETPUB)
     ret = lt_sha256_start(h->l3.crypto_ctx);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_update(h->l3.crypto_ctx, hash, sizeof(hash));
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_update(h->l3.crypto_ctx, p_rsp->e_tpub, TR01_ETPUB_LEN);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_in__session_start_sha256_cleanup;
     }
     ret = lt_sha256_finish(h->l3.crypto_ctx, hash);
+
+    // Deinitialize SHA-256 context, not needed anymore.
+lt_in__session_start_sha256_cleanup:
+    ret_unused = lt_sha256_deinit(h->l3.crypto_ctx);
+    LT_UNUSED(ret_unused);
     if (ret != LT_OK) {
         return ret;
     }
@@ -262,7 +270,6 @@ lt_ret_t lt_in__session_start(lt_handle_t *h, const uint8_t *stpub, const lt_pke
     return LT_OK;
 
     // If something went wrong during session keys establishment, better clean up AES GCM contexts
-    lt_ret_t ret_unused;
 exit:
     ret_unused = lt_aesgcm_encrypt_deinit(h->l3.crypto_ctx);
     ret_unused = lt_aesgcm_decrypt_deinit(h->l3.crypto_ctx);
@@ -1177,20 +1184,28 @@ lt_ret_t lt_out__ecc_ecdsa_sign(lt_handle_t *h, const lt_ecc_slot_t slot, const 
     // Prepare hash of a message
     uint8_t msg_hash[32] = {0};
     lt_ret_t ret;
+    lt_ret_t ret_unused;
 
+    // Initialize SHA-256 context.
     ret = lt_sha256_init(h->l3.crypto_ctx);
     if (ret != LT_OK) {
         return ret;
     }
+
     ret = lt_sha256_start(h->l3.crypto_ctx);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_out__ecc_ecdsa_sign_sha256_cleanup;
     }
     ret = lt_sha256_update(h->l3.crypto_ctx, (uint8_t *)msg, msg_len);
     if (ret != LT_OK) {
-        return ret;
+        goto lt_out__ecc_ecdsa_sign_sha256_cleanup;
     }
     ret = lt_sha256_finish(h->l3.crypto_ctx, msg_hash);
+
+    // Deinitialize SHA-256 context.
+lt_out__ecc_ecdsa_sign_sha256_cleanup:
+    ret_unused = lt_sha256_deinit(h->l3.crypto_ctx);
+    LT_UNUSED(ret_unused);
     if (ret != LT_OK) {
         return ret;
     }
