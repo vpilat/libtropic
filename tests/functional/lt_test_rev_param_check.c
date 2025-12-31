@@ -251,7 +251,7 @@ void lt_test_rev_param_check(lt_handle_t *h)
         LT_TEST_ASSERT(LT_PARAM_ERR, lt_mac_and_destroy(h, TR01_MAC_AND_DESTROY_SLOT_0, out, NULL));
     }
 
-    LT_TEST_ASSERT(0, strcmp(lt_ret_verbose(LT_RET_T_LAST_VALUE + 1), "FATAL ERROR, unknown return value"));
+    LT_TEST_ASSERT(0, strcmp(lt_ret_verbose(LT_RET_T_LAST_VALUE), "FATAL ERROR, unknown return value"));
 
     // --------------------------------------------------------
     // Silicon revision specific functions
