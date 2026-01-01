@@ -89,9 +89,9 @@ lt_ret_t lt_X25519(const uint8_t *privkey, const uint8_t *pubkey, uint8_t *secre
     }
 
 lt_X25519_cleanup:
-    if (priv) EVP_PKEY_free(priv);
-    if (pub) EVP_PKEY_free(pub);
-    if (ctx) EVP_PKEY_CTX_free(ctx);
+    EVP_PKEY_free(priv);
+    EVP_PKEY_free(pub);
+    EVP_PKEY_CTX_free(ctx);
     return lt_ret;
 }
 
@@ -129,6 +129,6 @@ lt_ret_t lt_X25519_scalarmult(const uint8_t *sk, uint8_t *pk)
     }
 
 lt_X25519_scalarmult_cleanup:
-    if (priv) EVP_PKEY_free(priv);
+    EVP_PKEY_free(priv);
     return lt_ret;
 }

@@ -78,7 +78,7 @@ lt_ret_t lt_hmac_sha256(const uint8_t *key, const uint32_t key_len, const uint8_
     }
 
 lt_hmac_sha256_cleanup:
-    if (pkey) EVP_PKEY_free(pkey);
-    if (ctx) EVP_MD_CTX_free(ctx);
+    EVP_PKEY_free(pkey);
+    EVP_MD_CTX_free(ctx);
     return ret;
 }

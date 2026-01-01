@@ -23,6 +23,7 @@ lt_ret_t lt_aesgcm_encrypt_init(void *ctx, const uint8_t *key, const uint32_t ke
     lt_ctx_openssl_t *_ctx = (lt_ctx_openssl_t *)ctx;
     unsigned long err_code;
 
+    // Initialize AES-GCM encryption context.
     _ctx->aesgcm_encrypt_ctx = EVP_CIPHER_CTX_new();
     if (!_ctx->aesgcm_encrypt_ctx) {
         err_code = ERR_get_error();
@@ -31,6 +32,7 @@ lt_ret_t lt_aesgcm_encrypt_init(void *ctx, const uint8_t *key, const uint32_t ke
         return LT_CRYPTO_ERR;
     }
 
+    // Set cipher type.
     if (!EVP_EncryptInit_ex(_ctx->aesgcm_encrypt_ctx, EVP_aes_256_gcm(), NULL, NULL, NULL)) {
         err_code = ERR_get_error();
         LT_LOG_ERROR("Failed to initialize AES-GCM encryption context with cipher type, err_code=%lu (%s)", err_code,
@@ -38,6 +40,7 @@ lt_ret_t lt_aesgcm_encrypt_init(void *ctx, const uint8_t *key, const uint32_t ke
         return LT_CRYPTO_ERR;
     }
 
+    // Set IV length.
     if (!EVP_CIPHER_CTX_ctrl(_ctx->aesgcm_encrypt_ctx, EVP_CTRL_GCM_SET_IVLEN, TR01_L3_IV_SIZE, NULL)) {
         err_code = ERR_get_error();
         LT_LOG_ERROR("Failed to initialize AES-GCM encryption context with IV length, err_code=%lu (%s)", err_code,
@@ -45,6 +48,7 @@ lt_ret_t lt_aesgcm_encrypt_init(void *ctx, const uint8_t *key, const uint32_t ke
         return LT_CRYPTO_ERR;
     }
 
+    // Set encryption key.
     if (!EVP_EncryptInit_ex(_ctx->aesgcm_encrypt_ctx, NULL, NULL, key, NULL)) {
         err_code = ERR_get_error();
         LT_LOG_ERROR("Failed to initialize AES-GCM encryption context with key, err_code=%lu (%s)", err_code,
@@ -61,6 +65,7 @@ lt_ret_t lt_aesgcm_decrypt_init(void *ctx, const uint8_t *key, const uint32_t ke
     lt_ctx_openssl_t *_ctx = (lt_ctx_openssl_t *)ctx;
     unsigned long err_code;
 
+    // Initialize AES-GCM decryption context.
     _ctx->aesgcm_decrypt_ctx = EVP_CIPHER_CTX_new();
     if (!_ctx->aesgcm_decrypt_ctx) {
         err_code = ERR_get_error();
@@ -69,6 +74,7 @@ lt_ret_t lt_aesgcm_decrypt_init(void *ctx, const uint8_t *key, const uint32_t ke
         return LT_CRYPTO_ERR;
     }
 
+    // Set cipher type.
     if (!EVP_DecryptInit_ex(_ctx->aesgcm_decrypt_ctx, EVP_aes_256_gcm(), NULL, NULL, NULL)) {
         err_code = ERR_get_error();
         LT_LOG_ERROR("Failed to initialize AES-GCM decryption context with cipher type, err_code=%lu (%s)", err_code,
@@ -76,6 +82,7 @@ lt_ret_t lt_aesgcm_decrypt_init(void *ctx, const uint8_t *key, const uint32_t ke
         return LT_CRYPTO_ERR;
     }
 
+    // Set IV length.
     if (!EVP_CIPHER_CTX_ctrl(_ctx->aesgcm_decrypt_ctx, EVP_CTRL_GCM_SET_IVLEN, TR01_L3_IV_SIZE, NULL)) {
         err_code = ERR_get_error();
         LT_LOG_ERROR("Failed to initialize AES-GCM decryption context with IV length, err_code=%lu (%s)", err_code,
@@ -83,6 +90,7 @@ lt_ret_t lt_aesgcm_decrypt_init(void *ctx, const uint8_t *key, const uint32_t ke
         return LT_CRYPTO_ERR;
     }
 
+    // Set decryption key.
     if (!EVP_DecryptInit_ex(_ctx->aesgcm_decrypt_ctx, NULL, NULL, key, NULL)) {
         err_code = ERR_get_error();
         LT_LOG_ERROR("Failed to initialize AES-GCM decryption context with key, err_code=%lu (%s)", err_code,
