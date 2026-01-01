@@ -22,7 +22,7 @@ lt_ret_t lt_sha256_init(void *ctx)
     unsigned long err_code;
 
     _ctx->sha256_ctx = EVP_MD_CTX_new();
-    if (_ctx->sha256_ctx == NULL) {
+    if (!_ctx->sha256_ctx) {
         err_code = ERR_get_error();
         LT_LOG_ERROR("Failed to allocate SHA-256 context, err_code=%lu (%s)", err_code,
                      ERR_error_string(err_code, NULL));

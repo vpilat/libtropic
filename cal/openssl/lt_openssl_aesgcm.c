@@ -24,7 +24,7 @@ lt_ret_t lt_aesgcm_encrypt_init(void *ctx, const uint8_t *key, const uint32_t ke
     unsigned long err_code;
 
     _ctx->aesgcm_encrypt_ctx = EVP_CIPHER_CTX_new();
-    if (_ctx->aesgcm_encrypt_ctx == NULL) {
+    if (!_ctx->aesgcm_encrypt_ctx) {
         err_code = ERR_get_error();
         LT_LOG_ERROR("Failed to allocate AES-GCM encryption context, err_code=%lu (%s)", err_code,
                      ERR_error_string(err_code, NULL));
@@ -62,7 +62,7 @@ lt_ret_t lt_aesgcm_decrypt_init(void *ctx, const uint8_t *key, const uint32_t ke
     unsigned long err_code;
 
     _ctx->aesgcm_decrypt_ctx = EVP_CIPHER_CTX_new();
-    if (_ctx->aesgcm_decrypt_ctx == NULL) {
+    if (!_ctx->aesgcm_decrypt_ctx) {
         err_code = ERR_get_error();
         LT_LOG_ERROR("Failed to allocate AES-GCM decryption context, err_code=%lu (%s)", err_code,
                      ERR_error_string(err_code, NULL));
