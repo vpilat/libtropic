@@ -14,12 +14,12 @@
 #include "libtropic_common.h"
 #include "libtropic_logging.h"
 #include "libtropic_port_mock.h"
+#include "lt_aesgcm.h"
 #include "lt_crc16.h"
 #include "lt_l1.h"
 #include "lt_l2_api_structs.h"
 #include "lt_l2_frame_check.h"
 #include "lt_l3_process.h"
-#include "lt_aesgcm.h"
 
 void add_resp_crc(void *resp_buf)
 {
@@ -73,12 +73,13 @@ lt_ret_t mock_init_communication(lt_handle_t *h, const uint8_t riscv_fw_ver[4])
     return LT_OK;
 }
 
-lt_ret_t mock_session_start(lt_handle_t *h, const uint8_t kcmd[TR01_AES256_KEY_LEN], const uint8_t kres[TR01_AES256_KEY_LEN]) {
-    
+lt_ret_t mock_session_start(lt_handle_t *h, const uint8_t kcmd[TR01_AES256_KEY_LEN],
+                            const uint8_t kres[TR01_AES256_KEY_LEN])
+{
     // Check if kcmd and kres are equal.
     // This is needed so we can reuse AES-GCM functions currently provided by CAL and not having to reinitializace AES
     // with swapped encryption and decryption keys everytime.
-    if(memcmp(kcmd, kres, TR01_AES256_KEY_LEN) != 0) {
+    if (memcmp(kcmd, kres, TR01_AES256_KEY_LEN) != 0) {
         LT_LOG_ERROR("kcmd and kres has to match for L3 mocking to work (simplification).");
         return LT_PARAM_ERR;
     }
@@ -102,8 +103,8 @@ lt_ret_t mock_session_start(lt_handle_t *h, const uint8_t kcmd[TR01_AES256_KEY_L
     return LT_OK;
 }
 
-lt_ret_t mock_session_abort(lt_handle_t *h) {
-
+lt_ret_t mock_session_abort(lt_handle_t *h)
+{
     lt_l3_invalidate_host_session_data(&h->l3);
 
     return LT_OK;
@@ -114,13 +115,14 @@ lt_ret_t mock_l3_result(lt_handle_t *h, const uint8_t *result_plaintext, const s
     uint8_t l2_frame[TR01_L2_MAX_FRAME_SIZE];
 
     size_t packet_size = TR01_L3_SIZE_SIZE + result_plaintext_size + TR01_L3_TAG_SIZE;
-    size_t frame_size = TR01_L1_CHIP_STATUS_SIZE + TR01_L2_STATUS_SIZE + TR01_L2_REQ_RSP_LEN_SIZE + packet_size + TR01_L2_REQ_RSP_CRC_SIZE;
+    size_t frame_size = TR01_L1_CHIP_STATUS_SIZE + TR01_L2_STATUS_SIZE + TR01_L2_REQ_RSP_LEN_SIZE + packet_size
+                        + TR01_L2_REQ_RSP_CRC_SIZE;
 
     if (packet_size > TR01_L2_CHUNK_MAX_DATA_SIZE) {
         LT_LOG_ERROR("Payloads >%u b not supported due to chunking not implemented.", TR01_L2_CHUNK_MAX_DATA_SIZE);
         return LT_PARAM_ERR;
     }
-    
+
     // This will happen only if the internal macros are implemented incorrectly.
     if (frame_size > TR01_L2_MAX_FRAME_SIZE) {
         LT_LOG_ERROR("Implementation error! Total frame size won't fit to the buffer.  Need at least: %zu", frame_size);
@@ -128,21 +130,26 @@ lt_ret_t mock_l3_result(lt_handle_t *h, const uint8_t *result_plaintext, const s
     }
 
     l2_frame[TR01_L2_CHIP_STATUS_OFFSET] = TR01_L1_CHIP_MODE_READY_bit;
-    l2_frame[TR01_L2_STATUS_OFFSET]      = TR01_L2_STATUS_RESULT_OK;
+    l2_frame[TR01_L2_STATUS_OFFSET] = TR01_L2_STATUS_RESULT_OK;
     l2_frame[TR01_L2_RSP_LEN_OFFSET] = (uint8_t)packet_size;
 
-    l2_frame[TR01_L2_RSP_DATA_RSP_CRC_OFFSET]     = result_plaintext_size;
+    l2_frame[TR01_L2_RSP_DATA_RSP_CRC_OFFSET] = result_plaintext_size;
     l2_frame[TR01_L2_RSP_DATA_RSP_CRC_OFFSET + 1] = 0x00;
 
     lt_ret_t ret;
-    if (LT_OK != (ret = lt_aesgcm_encrypt(h->l3.crypto_ctx, h->l3.decryption_IV, TR01_L3_IV_SIZE, NULL, 0, result_plaintext, result_plaintext_size, &l2_frame[TR01_L2_RSP_DATA_RSP_CRC_OFFSET + TR01_L3_SIZE_SIZE], result_plaintext_size + TR01_L3_TAG_SIZE))) {
+    if (LT_OK
+        != (ret
+            = lt_aesgcm_encrypt(h->l3.crypto_ctx, h->l3.decryption_IV, TR01_L3_IV_SIZE, NULL, 0, result_plaintext,
+                                result_plaintext_size, &l2_frame[TR01_L2_RSP_DATA_RSP_CRC_OFFSET + TR01_L3_SIZE_SIZE],
+                                result_plaintext_size + TR01_L3_TAG_SIZE))) {
         LT_LOG_ERROR("Encryption failed! ret=%d", ret);
         return ret;
     }
-    
-    uint16_t crc = crc16(&l2_frame[TR01_L2_STATUS_OFFSET], TR01_L2_STATUS_SIZE + TR01_L2_REQ_RSP_LEN_SIZE + packet_size);
+
+    uint16_t crc
+        = crc16(&l2_frame[TR01_L2_STATUS_OFFSET], TR01_L2_STATUS_SIZE + TR01_L2_REQ_RSP_LEN_SIZE + packet_size);
     size_t crc_offset = TR01_L2_RSP_DATA_RSP_CRC_OFFSET + packet_size;
-    l2_frame[crc_offset] = crc >> 8;   
+    l2_frame[crc_offset] = crc >> 8;
     l2_frame[crc_offset + 1] = crc & 0x00FF;
 
     lt_mock_hal_enqueue_response(&h->l2, l2_frame, frame_size);
@@ -150,8 +157,8 @@ lt_ret_t mock_l3_result(lt_handle_t *h, const uint8_t *result_plaintext, const s
     return LT_OK;
 }
 
-lt_ret_t mock_l3_command_responses(lt_handle_t *h, size_t chunk_count) {
-
+lt_ret_t mock_l3_command_responses(lt_handle_t *h, size_t chunk_count)
+{
     if (chunk_count > 1) {
         LT_LOG_ERROR("Only single chunk supported now!");
         return LT_PARAM_ERR;
@@ -165,11 +172,10 @@ lt_ret_t mock_l3_command_responses(lt_handle_t *h, size_t chunk_count) {
     }
 
     uint8_t req_ok_frame[5] = {
-        TR01_L1_CHIP_MODE_READY_bit,
-        TR01_L2_STATUS_REQUEST_OK,
-        0x00, // Zero RSP length
-        0x00, // | Dummy CRC -- will be calculated later
-        0x00  // |
+        TR01_L1_CHIP_MODE_READY_bit, TR01_L2_STATUS_REQUEST_OK,
+        0x00,  // Zero RSP length
+        0x00,  // | Dummy CRC -- will be calculated later
+        0x00   // |
     };
 
     uint16_t crc = crc16(req_ok_frame + 1, 2);
@@ -177,7 +183,7 @@ lt_ret_t mock_l3_command_responses(lt_handle_t *h, size_t chunk_count) {
     req_ok_frame[TR01_L2_RSP_DATA_RSP_CRC_OFFSET + 1] = crc & 0x00FF;
 
     ret = lt_mock_hal_enqueue_response(&h->l2, req_ok_frame, sizeof(req_ok_frame));
-    if(LT_OK != ret) {
+    if (LT_OK != ret) {
         LT_LOG_ERROR("Failed to enqueue L3 Command response 2/2 (L2 Response)");
     };
 

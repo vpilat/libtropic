@@ -22,10 +22,10 @@
 #include "lt_l1.h"
 #include "lt_l2_api_structs.h"
 #include "lt_l2_frame_check.h"
-#include "lt_mock_helpers.h"
-#include "lt_test_common.h"
-#include "lt_port_wrap.h"
 #include "lt_l3_process.h"
+#include "lt_mock_helpers.h"
+#include "lt_port_wrap.h"
+#include "lt_test_common.h"
 
 int lt_test_mock_hardware_fail(lt_handle_t *h)
 {
@@ -51,7 +51,7 @@ int lt_test_mock_hardware_fail(lt_handle_t *h)
 
     LT_LOG_INFO("Mocking HARDWARE_FAIL in Pairing_Key_Write reply...");
     uint8_t dummy_key[TR01_SHIPUB_LEN];
-    for (int slot = TR01_PAIRING_KEY_SLOT_INDEX_0; slot <= TR01_PAIRING_KEY_SLOT_INDEX_3; slot++){
+    for (int slot = TR01_PAIRING_KEY_SLOT_INDEX_0; slot <= TR01_PAIRING_KEY_SLOT_INDEX_3; slot++) {
         LT_LOG_INFO("Mocking for slot %d...", slot);
         // Mock replies to the command.
         LT_TEST_ASSERT(LT_OK, mock_l3_command_responses(h, 1));
@@ -69,7 +69,7 @@ int lt_test_mock_hardware_fail(lt_handle_t *h)
     // ----------------------------------------------------------------------------------------------------------
 
     LT_LOG_INFO("Mocking HARDWARE_FAIL in Pairing_Key_Invalidate reply...");
-    for (int slot = TR01_PAIRING_KEY_SLOT_INDEX_0; slot <= TR01_PAIRING_KEY_SLOT_INDEX_3; slot++){
+    for (int slot = TR01_PAIRING_KEY_SLOT_INDEX_0; slot <= TR01_PAIRING_KEY_SLOT_INDEX_3; slot++) {
         LT_LOG_INFO("Mocking for slot %d...", slot);
         // Mock replies to the command.
         LT_TEST_ASSERT(LT_OK, mock_l3_command_responses(h, 1));
@@ -78,7 +78,8 @@ int lt_test_mock_hardware_fail(lt_handle_t *h)
         uint8_t pairing_key_invalidate_plaintext[] = {
             TR01_L3_RESULT_HARDWARE_FAIL,
         };
-        LT_TEST_ASSERT(LT_OK, mock_l3_result(h, pairing_key_invalidate_plaintext, sizeof(pairing_key_invalidate_plaintext)));
+        LT_TEST_ASSERT(LT_OK,
+                       mock_l3_result(h, pairing_key_invalidate_plaintext, sizeof(pairing_key_invalidate_plaintext)));
         LT_TEST_ASSERT(LT_L3_HARDWARE_FAIL, lt_pairing_key_invalidate(h, slot));
     }
 
@@ -93,7 +94,7 @@ int lt_test_mock_hardware_fail(lt_handle_t *h)
         TR01_L3_RESULT_HARDWARE_FAIL,
     };
     LT_TEST_ASSERT(LT_OK, mock_l3_result(h, r_config_write_plaintext, sizeof(r_config_write_plaintext)));
-    LT_TEST_ASSERT(LT_L3_HARDWARE_FAIL, lt_r_config_write(h, TR01_CFG_START_UP_ADDR, 0x00)); // Dummy object
+    LT_TEST_ASSERT(LT_L3_HARDWARE_FAIL, lt_r_config_write(h, TR01_CFG_START_UP_ADDR, 0x00));  // Dummy object
 
     // ----------------------------------------------------------------------------------------------------------
 
@@ -106,7 +107,7 @@ int lt_test_mock_hardware_fail(lt_handle_t *h)
         TR01_L3_RESULT_HARDWARE_FAIL,
     };
     LT_TEST_ASSERT(LT_OK, mock_l3_result(h, i_config_write_plaintext, sizeof(i_config_write_plaintext)));
-    LT_TEST_ASSERT(LT_L3_HARDWARE_FAIL, lt_i_config_write(h, TR01_CFG_START_UP_ADDR, 0x00)); // Dummy object
+    LT_TEST_ASSERT(LT_L3_HARDWARE_FAIL, lt_i_config_write(h, TR01_CFG_START_UP_ADDR, 0x00));  // Dummy object
 
     // ----------------------------------------------------------------------------------------------------------
 
@@ -123,9 +124,10 @@ int lt_test_mock_hardware_fail(lt_handle_t *h)
     uint16_t random_r_mem_slot;
     LT_TEST_ASSERT(LT_OK, lt_random_bytes(h, &random_r_mem_slot, sizeof(random_r_mem_slot)));
     random_r_mem_slot %= TR01_R_MEM_DATA_SLOT_MAX + 1;
-    uint8_t random_r_mem_data[16]; // Arbitrary size. Exact number not important, we just need some dummy data.
+    uint8_t random_r_mem_data[16];  // Arbitrary size. Exact number not important, we just need some dummy data.
     LT_TEST_ASSERT(LT_OK, lt_random_bytes(h, random_r_mem_data, sizeof(random_r_mem_data)));
-    LT_TEST_ASSERT(LT_L3_HARDWARE_FAIL, lt_r_mem_data_write(h, random_r_mem_slot, random_r_mem_data, sizeof(random_r_mem_data)));
+    LT_TEST_ASSERT(LT_L3_HARDWARE_FAIL,
+                   lt_r_mem_data_write(h, random_r_mem_slot, random_r_mem_data, sizeof(random_r_mem_data)));
 
     // ----------------------------------------------------------------------------------------------------------
 
@@ -134,6 +136,6 @@ int lt_test_mock_hardware_fail(lt_handle_t *h)
 
     LT_LOG_INFO("Deinitializing handle");
     LT_TEST_ASSERT(LT_OK, lt_deinit((lt_handle_t *)h));
-    
+
     return 0;
 }
