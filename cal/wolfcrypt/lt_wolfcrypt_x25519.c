@@ -82,6 +82,7 @@ lt_ret_t lt_X25519(const uint8_t *privkey, const uint8_t *pubkey, uint8_t *secre
     if (secret_out_len != TR01_X25519_KEY_LEN) {
         LT_LOG_ERROR("X25519 shared secret key has unexpected length: %u", secret_out_len);
         lt_ret = LT_CRYPTO_ERR;
+        goto lt_X25519_cleanup;
     }
 
 lt_X25519_cleanup:
@@ -149,6 +150,7 @@ lt_ret_t lt_X25519_scalarmult(const uint8_t *sk, uint8_t *pk)
     if (pk_out_len != TR01_X25519_KEY_LEN) {
         LT_LOG_ERROR("X25519 public key has unexpected length: %u", pk_out_len);
         lt_ret = LT_CRYPTO_ERR;
+        goto lt_X25519_scalarmult_cleanup;
     }
 
 lt_X25519_scalarmult_cleanup:
