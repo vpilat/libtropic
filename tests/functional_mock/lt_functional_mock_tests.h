@@ -45,6 +45,8 @@ int lt_test_mock_attrs(lt_handle_t *h);
  */
 int lt_test_mock_invalid_in_crc(lt_handle_t *h);
 
+int lt_test_mock_hardware_fail(lt_handle_t *h);
+
 #ifdef __cplusplus
 }
 #endif
