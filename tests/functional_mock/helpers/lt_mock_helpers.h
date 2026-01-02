@@ -49,6 +49,12 @@ size_t calc_mocked_resp_len(const void *resp_buf);
  */
 lt_ret_t mock_init_communication(lt_handle_t *h, const uint8_t riscv_fw_ver[4]);
 
+lt_ret_t mock_session_start(lt_handle_t *h, const uint8_t kcmd[TR01_AES256_KEY_LEN], const uint8_t kres[TR01_AES256_KEY_LEN]);
+
+lt_ret_t mock_l3_result(lt_handle_t *h, const uint8_t *result_plaintext, const size_t result_plaintext_size);
+
+lt_ret_t mock_l3_command_responses(lt_handle_t *h, size_t chunk_count);
+
 #ifdef __cplusplus
 }
 #endif
