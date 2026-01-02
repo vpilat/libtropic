@@ -96,7 +96,7 @@ lt_ret_t mock_session_abort(lt_handle_t *h);
  * @warning Currently only Results which fits to a single chunk are supported, as chunking
  * is not implemented yet.
  *
- * @param h Pointer to an lt_handle_t to use (for encryption and enqueing).
+ * @param h Pointer to an lt_handle_t to use (for encryption and enqueuing).
  * @param result_plaintext Plaintext of the L3 Result data to use.
  * @param result_plaintext_size Size of the result_plaintext.
  *
