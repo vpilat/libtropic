@@ -54,7 +54,7 @@ lt_ret_t mock_init_communication(lt_handle_t *h, const uint8_t riscv_fw_ver[4]);
  *
  * Prepares the provided handle for use in mocked TR01 operations, using the
  * supplied AES-256 keys for L3 Result encryption. This does not simulate
- * comunication of Secure Session handshake, just prepares the handle.
+ * communication of Secure Session handshake, just prepares the handle.
  *
  * On success, *h is initialized as if the Secure Session handshake occurred.
  *
