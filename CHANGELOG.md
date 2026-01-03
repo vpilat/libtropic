@@ -141,7 +141,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Renamed `session_state_t` to `lt_session_state_t`.
 - Renamed `LT_L2_SLEEP_KIND_SLEEP` to `TR01_L2_SLEEP_KIND_SLEEP`.
 - Renamed `LT_MODE_APP` to `TR01_MODE_APP`.
-- Renamed `LT_MODE_APP` to `TR01_MODE_APP`.
 - Renamed `LT_MODE_MAINTENANCE` to `TR01_MODE_MAINTENANCE`.
 - Renamed `GET_LOG_MAX_MSG_LEN` to `TR01_GET_LOG_MAX_MSG_LEN`.
 - Renamed `RANDOM_VALUE_GET_LEN_MAX` to `TR01_RANDOM_VALUE_GET_LEN_MAX`.
