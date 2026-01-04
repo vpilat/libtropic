@@ -30,19 +30,24 @@ The `tropic01_model/CMakeLists.txt` uses the TCP HAL implemented in `hal/posix/t
 ## Model Setup
 First, install the model by following the README in the [ts-tvl](https://github.com/tropicsquare/ts-tvl) repository.
 
-Next, you can initialize the model with data so it behaves like a real provisioned chip. To do that, pass a YAML configuration file to the model — see the [Model Server](https://github.com/tropicsquare/ts-tvl?tab=readme-ov-file#model-server) and [Model Configuration](https://github.com/tropicsquare/ts-tvl?tab=readme-ov-file#model-configuration) sections in the [ts-tvl](https://github.com/tropicsquare/ts-tvl) repository. To create such a YAML configuration, use the `tropic01_model/create_model_cfg.py` script in the libtropic repository (example usage follows).
+Next, you can initialize the model with data so it behaves like a real provisioned chip. To do that, pass a YAML configuration file to the model — see the [Model Configuration](https://github.com/tropicsquare/ts-tvl?tab=readme-ov-file#model-configuration) section in the [ts-tvl](https://github.com/tropicsquare/ts-tvl) repository. To create a YAML configuration for use with Libtropic, refer to [Create a Model Configuration to Use with Libtropic](#create-a-model-configuration-for-use-with-libtropic).
 
 !!! question "When to Handle Model Configuration?"
     When running tests using CTest, no manual steps for creating the model configuration or initializing the model are necessary — CTest handles this. When running examples (or tests without CTest), start the model manually and apply a configuration so at least pairing key slot 0 is written to enable establishing a Secure Channel Session.
 
-Data, from which the `tropic01_model/create_model_cfg.py` script creates the YAML configuration file for the model, can be found in `tropic01_model/provisioning_data/` directory - see [Provisioning Data](provisioning_data.md) section for more information about the directory structure.
-
-To create a model configuration that will initialize the model to the state which is almost identical to the provisioned chip, the `tropic01_model/create_model_cfg.py` script is run as:
+### Create a Model Configuration for Use with Libtropic
+To create a model configuration that will initialize the model to the state which is almost identical to the provisioned chip, use the `tropic01_model/create_model_cfg.py` script. Run `--help` to see available options and their explanation:
 ```shell
 cd tropic01_model/
-python3 create_model_cfg.py --pkg-dir <path_to_the_lab_batch_package_directory>
+python3 create_model_cfg.py --help
 ```
-where `<path_to_the_lab_batch_package_directory>` is the path to one of the lab batch packages inside `tropic01_model/provisioning_data/`. Running the script creates a file named `model_cfg.yml`, which can be passed directly to the model using the `-c` flag.
+!!! info "The `--pkg-dir` Option"
+    The script expects a path to one of the lab batch packages inside `tropic01_model/provisioning_data/` - see [Provisioning Data](provisioning_data.md) for more information.
+
+The created YAML configuration can be passed directly to the model using the `-c` flag, which will start the model server and configure it:
+```shell
+model_server tcp -c model_cfg.yml
+```
 
 ## Running the Examples
 1. Switch to the `tropic01_model/` directory:
@@ -65,7 +70,9 @@ As a result, executables for each example are built in the `tropic01_model/build
 
 3. Create a YAML configuration for the model from one of the lab batch packages:
 ```shell
-python3 ../create_model_cfg.py --pkg-dir ../provisioning_data/2025-06-27T07-51-29Z__prod_C2S_T200__provisioning__lab_batch_package/
+python3 ../create_model_cfg.py \
+    --pkg-dir ../provisioning_data/2025-06-27T07-51-29Z__prod_C2S_T200__provisioning__lab_batch_package/ \
+    --riscv-fw-ver 2.0.0
 ```
 As a result, `model_cfg.yml` is created.
 
