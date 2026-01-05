@@ -152,7 +152,11 @@ lt_ret_t mock_l3_result(lt_handle_t *h, const uint8_t *result_plaintext, const s
     l2_frame[crc_offset] = crc >> 8;
     l2_frame[crc_offset + 1] = crc & 0x00FF;
 
-    lt_mock_hal_enqueue_response(&h->l2, l2_frame, frame_size);
+    ret = lt_mock_hal_enqueue_response(&h->l2, l2_frame, frame_size);
+    if (LT_OK != ret) {
+        LT_LOG_ERROR("Failed to enqueue response with L3 Result!");
+        return ret;
+    }
 
     return LT_OK;
 }
