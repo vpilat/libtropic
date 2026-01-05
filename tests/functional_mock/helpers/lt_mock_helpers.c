@@ -189,7 +189,8 @@ lt_ret_t mock_l3_command_responses(lt_handle_t *h, size_t chunk_count)
     ret = lt_mock_hal_enqueue_response(&h->l2, req_ok_frame, sizeof(req_ok_frame));
     if (LT_OK != ret) {
         LT_LOG_ERROR("Failed to enqueue L3 Command response 2/2 (L2 Response)");
-    };
+        return ret;
+    }
 
     return LT_OK;
 }
