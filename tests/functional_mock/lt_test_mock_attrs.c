@@ -58,6 +58,6 @@ void lt_test_mock_attrs(lt_handle_t *h)
         }
 
         LT_LOG_INFO("Deinitializing handle");
-        LT_TEST_ASSERT(LT_OK, lt_deinit((lt_handle_t *)h));
+        LT_TEST_ASSERT(LT_OK, lt_deinit(h));
     }
 }
