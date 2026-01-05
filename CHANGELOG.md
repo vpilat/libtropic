@@ -110,8 +110,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Users should verify the signatures themselves e.g., using functions provided by their crypto library.
 - `lt_update_mode` function.
 - `R_MEM_DATA_SIZE_MAX` macro, as the value is different for some Application FW versions. Use the correct version of [User API or datasheet](https://github.com/tropicsquare/tropic01?tab=readme-ov-file#datasheet-and-user-api) (based on the used Application FW) as the source of truth for these kind of constants.
-- 
-
 ## [2.0.1]
 
 ### Added
