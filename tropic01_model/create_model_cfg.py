@@ -66,21 +66,21 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--pkg-dir",
-        help="Path to the batch package directory.",
+        help="Path to the batch package directory. You can use batch packages inside 'tropic01_model/provisioning_data/'.",
         type=pathlib.Path,
         required=True
     )
 
     parser.add_argument(
         "--riscv-fw-ver",
-        help="RISC-V FW version.",
+        help="RISC-V FW version in format [0-9].[0-9].[0-9] (e.g. 1.0.0). Note that the configured FW version does not affect the model behavior; Libtropic requires valid FW version to configure some properties at runtime.",
         type=validate_and_parse_riscv_fw_ver,
         required=True
     )
 
     parser.add_argument(
         "--model-cfg",
-        help="Path to the file where to put created YAML model configuration.",
+        help="Path to the file where to write the created YAML model configuration (default: 'model_cfg.yml').",
         type=pathlib.Path,
         default="model_cfg.yml"
     )
