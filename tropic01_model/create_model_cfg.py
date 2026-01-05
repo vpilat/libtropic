@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--riscv-fw-ver",
-        help="RISC-V FW version in format [0-9].[0-9].[0-9] (e.g. 1.0.0). Note that the configured FW version does not change the model behavior; Libtropic requires valid FW version to configure some properties at runtime.",
+        help="RISC-V FW version in format [0-9].[0-9].[0-9] (e.g. 1.0.0). Note that the configured FW version does not affect the model behavior; Libtropic requires valid FW version to configure some properties at runtime.",
         type=validate_and_parse_riscv_fw_ver,
         required=True
     )
