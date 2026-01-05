@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--model-cfg",
-        help="Path to the file where to put created YAML model configuration (default: 'model_cfg.yml').",
+        help="Path to the file where to write the created YAML model configuration (default: 'model_cfg.yml').",
         type=pathlib.Path,
         default="model_cfg.yml"
     )
