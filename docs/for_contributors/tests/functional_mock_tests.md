@@ -62,13 +62,13 @@ There are several helper functions to help you mock the Secure Session:
 
 As you can see, there are two functions for mocking replies. Normally, you have to use both. To understand why, you need to understand how the L3 communication works. For example, you will call `lt_ping`. Let's assume a small payload, so it'll fit into a single chunk. From a communication perspective, Libtropic will:
 
-1. Write a L2 Request with L3 Command as a payload. It will receive single `CHIP_STATUS` as a response.
+1. Write an L2 Request with L3 Command as a payload. It will receive single `CHIP_STATUS` as a response.
 2. Read a confirmation response (using `Get_Response`) to confirm that the chunk was received OK. It will receive a short frame with `STATUS=REQ_OK`.
 3. After confirmation that the chunk was received OK, Libtropic will send another `Get_Response` to get the L3 Result itself.
 
 Steps 1. and 2. are mocked using the `mock_l3_command_responses()`, step 3. using `mock_l3_result()`.
 
-!!! info "Chunking"
+!!! warning "Chunking"
     Commands with large payloads that do not fit into a single chunk are not supported yet, because chunking is not implemented in the mock HAL.
 
 ### Creating the Test
