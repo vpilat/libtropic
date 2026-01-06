@@ -163,7 +163,7 @@ lt_ret_t mock_l3_result(lt_handle_t *h, const uint8_t *result_plaintext, const s
     return LT_OK;
 }
 
-lt_ret_t mock_l3_command_responses(lt_handle_t *h, size_t chunk_count)
+lt_ret_t mock_l3_command_responses(lt_handle_t *h, const size_t chunk_count)
 {
     if (chunk_count > 1) {
         LT_LOG_ERROR("Only single chunk supported now!");

@@ -110,7 +110,7 @@ lt_ret_t mock_l3_result(lt_handle_t *h, const uint8_t *result_plaintext, const s
  *
  * @return LT_OK on success, or an appropriate lt_ret_t error code on failure.
  */
-lt_ret_t mock_l3_command_responses(lt_handle_t *h, size_t chunk_count);
+lt_ret_t mock_l3_command_responses(lt_handle_t *h, const size_t chunk_count);
 
 #ifdef __cplusplus
 }
