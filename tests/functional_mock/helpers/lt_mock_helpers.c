@@ -119,7 +119,7 @@ lt_ret_t mock_l3_result(lt_handle_t *h, const uint8_t *result_plaintext, const s
                         + TR01_L2_REQ_RSP_CRC_SIZE;
 
     if (packet_size > TR01_L2_CHUNK_MAX_DATA_SIZE) {
-        LT_LOG_ERROR("Payloads >%u b not supported due to chunking not implemented.", TR01_L2_CHUNK_MAX_DATA_SIZE);
+        LT_LOG_ERROR("Payloads >%u B not supported due to chunking not implemented.", TR01_L2_CHUNK_MAX_DATA_SIZE);
         return LT_PARAM_ERR;
     }
 
