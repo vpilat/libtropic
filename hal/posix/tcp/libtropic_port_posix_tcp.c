@@ -224,11 +224,8 @@ lt_ret_t lt_port_spi_csn_low(lt_l2_state_t *s2)
 
     LT_LOG_DEBUG("-- Driving Chip Select to Low.");
     dev->tx_buffer.tag = LT_TCP_TAG_SPI_DRIVE_CSN_LOW;
-    if (communicate(dev, NULL, NULL) != LT_OK) {
-        return LT_FAIL;
-    }
 
-    return LT_OK;
+    return communicate(dev, NULL, NULL);
 }
 
 lt_ret_t lt_port_spi_csn_high(lt_l2_state_t *s2)
@@ -237,11 +234,8 @@ lt_ret_t lt_port_spi_csn_high(lt_l2_state_t *s2)
 
     LT_LOG_DEBUG("-- Driving Chip Select to High.");
     dev->tx_buffer.tag = LT_TCP_TAG_SPI_DRIVE_CSN_HIGH;
-    if (communicate(dev, NULL, NULL) != LT_OK) {
-        return LT_FAIL;
-    }
 
-    return LT_OK;
+    return communicate(dev, NULL, NULL);
 }
 
 lt_ret_t lt_port_spi_transfer(lt_l2_state_t *s2, uint8_t offset, uint16_t tx_data_length, uint32_t timeout_ms)
@@ -285,11 +279,7 @@ lt_ret_t lt_port_delay(lt_l2_state_t *s2, uint32_t ms)
     dev->rx_buffer.payload[2] = (ms & 0x00ff0000) >> 16;
     dev->rx_buffer.payload[3] = (ms & 0xff000000) >> 24;
 
-    if (communicate(dev, &payload_length, NULL) != LT_OK) {
-        return LT_FAIL;
-    }
-
-    return LT_OK;
+    return communicate(dev, &payload_length, NULL);
 }
 
 lt_ret_t lt_port_random_bytes(lt_l2_state_t *s2, void *buff, size_t count)
