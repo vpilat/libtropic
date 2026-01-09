@@ -65,11 +65,6 @@ int main(void)
     // It is declared here (on stack) for
     // simplicity. In production, you put it on heap if needed.
     lt_handle_t lt_handle = {0};
-#if LT_SEPARATE_L3_BUFF
-    uint8_t l3_buffer[LT_SIZE_OF_L3_BUFF] __attribute__((aligned(16))) = {0};
-    lt_handle.l3.buff = l3_buffer;
-    lt_handle.l3.buff_len = sizeof(l3_buffer);
-#endif
 
     // Device structure.
     //
