@@ -11,10 +11,14 @@ include(CheckIncludeFiles)
 # Used in the tropic01_model/CMakeLists.txt and platform repositories
 include(cmake/coverage_flags.cmake)
 
-option(LT_BUILD_EXAMPLES "Compile example code as part of libtropic library" OFF)
-# This switch controls if helper utilities are compiled in. In most cases this should be ON,
-# examples and tests need to have helpers utilities compiled.
-# Switch it off to compile only basic libtropic API.
+###########################################################################
+#                                                                         #
+#   Library configuration                                                 #
+#                                                                         #
+###########################################################################
+
+# This switch controls if helper utilities are compiled in.
+# Switch it off to compile only core libtropic API.
 option(LT_HELPERS "Compile helper function" ON)
 # Enable usage of INT pin during communication. Instead of polling for response,
 # host will be notified by INT pin when response is ready.
@@ -48,14 +52,6 @@ endif()
 # Logging options
 set(LT_LOG_LVL "" CACHE STRING "Set log level")
 set_property(CACHE LT_LOG_LVL PROPERTY STRINGS "None" "Error" "Warning" "Info" "Debug")
-
-# Use INFO logging level when building tests/examples
-if(LT_BUILD_EXAMPLES)
-    if(NOT LT_LOG_LVL)
-        message(STATUS "No logging level specified, defaulting to INFO for tests/examples.")
-        set(LT_LOG_LVL "Info" CACHE BOOL "Set log level to INFO." FORCE)
-    endif()
-endif()
 
 # These are internal macros for enabling the logging macros
 # Default: all logging disabled
@@ -185,58 +181,6 @@ set(SDK_DIRS_PUB ${SDK_DIRS_PUB}
     ${CMAKE_CURRENT_SOURCE_DIR}/TROPIC01_fw_update_files/${BL_FOLDER}/fw_v_${LT_CPU_FW_UPDATE_DATA_VER}/
 )
 
-
-###########################################################################
-# Libtropic examples:                                                     #
-# Collect files to be compiled when "examples" are enabled                #
-###########################################################################
-set(LIBTROPIC_EXAMPLE_LIST
-    lt_ex_show_chip_id_and_fwver
-    lt_ex_hello_world_separate_API
-    lt_ex_hello_world
-    lt_ex_hardware_wallet
-    lt_ex_macandd
-    lt_ex_fw_update
-)
-
-# Export example list to parent project (usually platform-specific implementation) if parent project exists.
-if (HAS_PARENT_SCOPE)
-    set(LIBTROPIC_EXAMPLE_LIST ${LIBTROPIC_EXAMPLE_LIST} PARENT_SCOPE)
-endif()
-
-if(LT_BUILD_EXAMPLES)
-    set(SDK_SRCS ${SDK_SRCS}
-        ${CMAKE_CURRENT_SOURCE_DIR}/examples/lt_ex_fw_update.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/examples/lt_ex_show_chip_id_and_fwver.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/examples/lt_ex_hello_world_separate_API.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/examples/lt_ex_hello_world.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/examples/lt_ex_hw_wallet.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/examples/lt_ex_macandd.c
-    )
-    set(SDK_DIRS_PUB ${SDK_DIRS_PUB}
-        ${CMAKE_CURRENT_SOURCE_DIR}/examples/
-    )
-endif()
-
-# Create an example registry based on the example list above. This example registry is then included
-# in platform-specific main.c.
-set(LIBTROPIC_EXAMPLE_FUNCTIONS_CONTENT "")
-foreach(example_name ${LIBTROPIC_EXAMPLE_LIST})
-    # Create a correct macro from example name.
-    string(TOUPPER ${example_name} example_macro)
-    string(REPLACE " " "_" example_macro ${example_macro})
-    string(APPEND LIBTROPIC_EXAMPLE_FUNCTIONS_CONTENT
-        "#elif defined(${example_macro})\n"
-        "__lt_ex_return_val__ = ${example_name}(__lt_handle__);\n"
-    )
-endforeach()
-
-configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/examples/lt_ex_registry_template.c.inc
-    ${CMAKE_CURRENT_BINARY_DIR}/lt_ex_registry.c.inc
-    @ONLY
-)
-
 add_library(tropic ${SDK_SRCS} ${SDK_INCS})
 
 target_include_directories(tropic PRIVATE ${SDK_DIRS_PRIV})
@@ -253,14 +197,6 @@ target_compile_options(tropic PRIVATE -ffunction-sections -fdata-sections)
 target_link_options(tropic INTERFACE -Wl,--gc-sections)
 
 target_compile_definitions(tropic PRIVATE "$<$<CONFIG:DEBUG>:LT_REDUNDANT_ARG_CHECK>")
-
-# Propagate SH0 macros (examples/tests)
-if(LT_BUILD_TESTS OR LT_BUILD_EXAMPLES)
-    target_compile_definitions(tropic PUBLIC
-        LT_USE_SH0_ENG_SAMPLE=${LT_USE_SH0_ENG_SAMPLE}
-        LT_USE_SH0_PROD0=${LT_USE_SH0_PROD0}
-    )
-endif()
 
 # Propagate logging settings
 target_compile_definitions(tropic PUBLIC
