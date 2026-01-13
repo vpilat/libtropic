@@ -250,7 +250,7 @@ static lt_ret_t lt_new_PIN_setup(lt_handle_t *h, const uint8_t *master_secret, c
         printf("OK\n");
 
         // This call of a M&D sequence overwrites a previous slot, but key w is returned.
-        // This key is later used to derive k_i (used to encrypt precious final_key).
+        // This key is later used to derive k_i, which is used to encrypt the master_secret.
         printf("\tDoing M&D sequence to overwrite previous slot...");
         ret = lt_mac_and_destroy(h, i, v, w_i);
         if (ret != LT_OK) {
