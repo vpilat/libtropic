@@ -62,6 +62,12 @@ lt_ret_t lt_port_init(lt_l2_state_t *s2)
     esp_err_t esp_ret;
     lt_ret_t lt_ret;
 
+    // Ensure device handles are in a known state before initialization.
+    dev->spi_handle = NULL;
+#if LT_USE_INT_PIN
+    dev->int_gpio_sem = NULL;
+#endif
+
     // Create configuration for the SPI bus.
     spi_bus_config_t spi_bus_cfg = {.mosi_io_num = dev->spi_mosi_pin,
                                     .miso_io_num = dev->spi_miso_pin,
