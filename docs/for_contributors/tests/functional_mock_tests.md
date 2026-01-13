@@ -1,5 +1,5 @@
 # Functional Mock Tests
-Functional Mock Tests run against the *mock HAL* (not a real target or model). They are used to verify behavior that is difficult or impossible to reproduce on a real device (for example, rare hardware error conditions or unusual timing). These tests live in `tests/functional_mock` and require you to explicitly mock the data that would appear on the MISO line.
+Functional Mock Tests run against the *mock HAL* (not a real target or a model). They are used to verify behavior that is difficult or impossible to reproduce on a real device (for example, rare hardware error conditions or unusual timing). These tests live in `tests/functional_mock` and require you to explicitly mock the data that would appear on the MISO line.
 
 ## Compiling and Running Tests
 These tests are compiled standalone in the `tests/functional_mock` directory. The tests can be compiled and run as follows:
@@ -9,7 +9,7 @@ cd tests/functional_mock
 mkdir -p build
 cd build
 cmake ..
-make
+make -j
 ctest -V
 ```
 
@@ -19,7 +19,7 @@ ctest -V
 ## Adding a New Test
 
 !!! important
-    If possible and feasible, prefer implementing classic functional tests, as they can run on all platforms. Use functional mock tests only to cover behavior that cannot be easily tested on real targets (for example, extremely rare hardware errors) or do not use any communication at all (typically parameter checking tests).
+    If possible and feasible, prefer implementing classic functional tests, as they can run on all platforms. Use functional mock tests only to cover behavior that cannot be easily tested on real targets (for example, extremely rare hardware errors) or for tests that do not use any communication at all (typically parameter checking tests).
 
 ### Basic concepts
 You must understand three TROPIC01 protocol layers when writing these tests:
@@ -122,5 +122,5 @@ int lt_test_mock_my_test(lt_handle_t *h)
 }
 ```
 
-!!! info "Mock helpers usage"
+!!! info "Usage of Mock Helpers"
     Refer to already existing tests for examples on mock helpers usage.
