@@ -513,6 +513,10 @@ exit:
     memset(w_i, 0, sizeof(w_i));
     memset(k_i, 0, sizeof(k_i));
     memset(v_, 0, sizeof(v_));
+    memset(s_, 0, sizeof(s_));
+    memset(t_, 0, sizeof(t_));
+    memset(u, 0, sizeof(u));
+    memset(&nvm, 0, sizeof(nvm));
 
     return ret;
 }
