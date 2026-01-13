@@ -777,7 +777,7 @@ static int session3(lt_handle_t *h)
         printf("\tWriting pairing key slot %" PRIu8 "...", i);
         ret = lt_pairing_key_write(h, dummy_key, i);
         if (LT_L3_UNAUTHORIZED != ret) {
-            printf("\n\tReturn value is not LT_L3_UNAUTHORIZED, ret=%s\n", lt_ret_verbose(ret));
+            fprintf(stderr, "\n\tReturn value is not LT_L3_UNAUTHORIZED, ret=%s\n", lt_ret_verbose(ret));
             lt_session_abort(h);
             return -1;
         }
