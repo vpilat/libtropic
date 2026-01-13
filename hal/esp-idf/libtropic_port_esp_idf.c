@@ -92,7 +92,7 @@ lt_ret_t lt_port_init(lt_l2_state_t *s2)
     spi_device_interface_config_t spi_dev_cfg = {.mode = 0,  // TROPIC01 supports only CPOL=0 and CPHA=0.
                                                  .clock_speed_hz = dev->spi_clk_hz,
                                                  .spics_io_num = -1,  // We handle CS ourselves.
-                                                 .queue_size = 7,     // 7 is often used as default.
+                                                 .queue_size = 1,
                                                  .pre_cb = NULL,
                                                  .post_cb = NULL};
 
