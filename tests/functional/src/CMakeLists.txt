@@ -89,6 +89,11 @@ if(LT_STRICT_COMPILATION)
     target_link_libraries(tropic PRIVATE libtropic::strict_comp_flags)
 endif()
 
+if (LT_ASAN)
+    message("Enabling ASAN for libtropic and consumers.")
+    target_link_libraries(tropic PUBLIC libtropic::static_asan_flags)
+endif()
+
 # Propagate SH0 macros
 target_compile_definitions(tropic PUBLIC
     LT_USE_SH0_ENG_SAMPLE=${LT_USE_SH0_ENG_SAMPLE}
@@ -298,10 +303,3 @@ target_compile_definitions(libtropic_functional_tests PUBLIC
     LT_USE_TREZOR_CRYPTO=${LT_USE_TREZOR_CRYPTO}
     LT_USE_MBEDTLS_V4=${LT_USE_MBEDTLS_V4}
 )
-
-# Turn on ASAN for entire project
-if(LT_ASAN)
-    message(STATUS "AddressSanitizer (ASan) is enabled for the entire project.")
-    add_compile_options(${LT_ASAN_COMPILE_FLAGS})
-    add_link_options(${LT_ASAN_LINK_FLAGS})
-endif()

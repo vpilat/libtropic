@@ -36,13 +36,6 @@ endif()
 #                                                                         #
 ###########################################################################
 
-if(LT_ASAN)
-    message(STATUS "Enabling static AddressSanitizer (ASan).")
-    # This applies the flags to all targets
-    add_compile_options(${LT_ASAN_COMPILE_FLAGS})
-    add_link_options(${LT_ASAN_LINK_FLAGS})
-endif()
-
 # Add path to libtropic's repository root folder
 if (NOT LT_LOG_LVL)
     message(STATUS "No logging level specified, defaulting to INFO for tests.")
@@ -56,6 +49,11 @@ target_compile_options(tropic PRIVATE -ffunction-sections -fdata-sections)
 if(LT_STRICT_COMPILATION)
     message(STATUS "Enabling strict compilation flags.")
     target_link_libraries(tropic PRIVATE libtropic::strict_comp_flags)
+endif()
+
+if (LT_ASAN)
+    message("Enabling ASAN for libtropic and consumers.")
+    target_link_libraries(tropic PUBLIC libtropic::static_asan_flags)
 endif()
 
 ###########################################################################
