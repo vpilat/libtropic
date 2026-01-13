@@ -59,7 +59,8 @@ static void IRAM_ATTR int_gpio_pin_isr_handler(void *esp_idf_dev)
 lt_ret_t lt_port_init(lt_l2_state_t *s2)
 {
     lt_dev_esp_idf_t *dev = (lt_dev_esp_idf_t *)(s2->device);
-    esp_err_t ret;
+    esp_err_t esp_ret;
+    lt_ret_t lt_ret;
 
     // Create configuration for the SPI bus.
     spi_bus_config_t spi_bus_cfg = {.mosi_io_num = dev->spi_mosi_pin,
@@ -75,9 +76,9 @@ lt_ret_t lt_port_init(lt_l2_state_t *s2)
                                     .flags = (SPICOMMON_BUSFLAG_MASTER | SPICOMMON_BUSFLAG_GPIO_PINS)};
 
     // Initialize the SPI bus.
-    ret = spi_bus_initialize(dev->spi_host_id, &spi_bus_cfg, SPI_DMA_CH_AUTO);
-    if (ret != ESP_OK) {
-        LT_LOG_ERROR("spi_bus_initialize() failed: %s", esp_err_to_name(ret));
+    esp_ret = spi_bus_initialize(dev->spi_host_id, &spi_bus_cfg, SPI_DMA_CH_AUTO);
+    if (esp_ret != ESP_OK) {
+        LT_LOG_ERROR("spi_bus_initialize() failed: %s", esp_err_to_name(esp_ret));
         return LT_FAIL;
     }
 
@@ -90,11 +91,11 @@ lt_ret_t lt_port_init(lt_l2_state_t *s2)
                                                  .post_cb = NULL};
 
     // Add the SPI device to the bus.
-    ret = spi_bus_add_device(dev->spi_host_id, &spi_dev_cfg, &dev->spi_handle);
-    if (ret != ESP_OK) {
-        LT_LOG_ERROR("spi_bus_add_device() failed: %s", esp_err_to_name(ret));
-        lt_port_deinit(s2);
-        return LT_FAIL;
+    esp_ret = spi_bus_add_device(dev->spi_host_id, &spi_dev_cfg, &dev->spi_handle);
+    if (esp_ret != ESP_OK) {
+        LT_LOG_ERROR("spi_bus_add_device() failed: %s", esp_err_to_name(esp_ret));
+        lt_ret = LT_FAIL;
+        goto spi_bus_add_device_error;
     }
 
     // Create configuration for the SPI CS GPIO pin.
@@ -110,19 +111,19 @@ lt_ret_t lt_port_init(lt_l2_state_t *s2)
     };
 
     // Configure the SPI CS GPIO pin.
-    ret = gpio_config(&spi_cs_gpio_cfg);
-    if (ret != ESP_OK) {
-        LT_LOG_ERROR("gpio_config() failed: %s", esp_err_to_name(ret));
-        lt_port_deinit(s2);
-        return LT_FAIL;
+    esp_ret = gpio_config(&spi_cs_gpio_cfg);
+    if (esp_ret != ESP_OK) {
+        LT_LOG_ERROR("gpio_config() failed: %s", esp_err_to_name(esp_ret));
+        lt_ret = LT_FAIL;
+        goto cs_gpio_config_error;
     }
 
     // Set SPI CS GPIO pin level to high.
-    ret = gpio_set_level(dev->spi_cs_gpio_pin, 1);
-    if (ret != ESP_OK) {
-        LT_LOG_ERROR("gpio_set_level() failed: %s", esp_err_to_name(ret));
-        lt_port_deinit(s2);
-        return LT_FAIL;
+    esp_ret = gpio_set_level(dev->spi_cs_gpio_pin, 1);
+    if (esp_ret != ESP_OK) {
+        LT_LOG_ERROR("gpio_set_level() failed: %s", esp_err_to_name(esp_ret));
+        lt_ret = LT_FAIL;
+        goto cs_gpio_set_level_error;
     }
 
 #if LT_USE_INT_PIN
@@ -139,31 +140,49 @@ lt_ret_t lt_port_init(lt_l2_state_t *s2)
     };
 
     // Configure the GPIO interrupt pin.
-    ret = gpio_config(&int_gpio_cfg);
-    if (ret != ESP_OK) {
-        LT_LOG_ERROR("gpio_config() failed: %s", esp_err_to_name(ret));
-        lt_port_deinit(s2);
-        return LT_FAIL;
+    esp_ret = gpio_config(&int_gpio_cfg);
+    if (esp_ret != ESP_OK) {
+        LT_LOG_ERROR("gpio_config() failed: %s", esp_err_to_name(esp_ret));
+        lt_ret = LT_FAIL;
+        goto int_gpio_config_error;
     }
 
     // Create a semaphore used for the GPIO interrupt pin.
     dev->int_gpio_sem = xSemaphoreCreateBinary();
     if (!dev->int_gpio_sem) {
         LT_LOG_ERROR("Failed to create semaphore with xSemaphoreCreateBinary!");
-        lt_port_deinit(s2);
-        return LT_FAIL;
+        lt_ret = LT_FAIL;
+        goto xSemaphoreCreateBinary_error;
     }
 
     // Register the ISR handler for the GPIO interrupt pin.
-    ret = gpio_isr_handler_add(dev->int_gpio_pin, int_gpio_pin_isr_handler, dev);
-    if (ret != ESP_OK) {
-        LT_LOG_ERROR("gpio_isr_handler_add() failed: %s", esp_err_to_name(ret));
-        lt_port_deinit(s2);
-        return LT_FAIL;
+    esp_ret = gpio_isr_handler_add(dev->int_gpio_pin, int_gpio_pin_isr_handler, dev);
+    if (esp_ret != ESP_OK) {
+        LT_LOG_ERROR("gpio_isr_handler_add() failed: %s", esp_err_to_name(esp_ret));
+        lt_ret = LT_FAIL;
+        goto gpio_isr_handler_add_error;
     }
 #endif
 
     return LT_OK;
+
+#if LT_USE_INT_PIN
+gpio_isr_handler_add_error:
+    vSemaphoreDelete(dev->int_gpio_sem);
+    dev->int_gpio_sem = NULL;
+xSemaphoreCreateBinary_error:
+int_gpio_config_error:
+    gpio_reset_pin(dev->int_gpio_pin);
+#endif
+cs_gpio_set_level_error:
+cs_gpio_config_error:
+    gpio_reset_pin(dev->spi_cs_gpio_pin);
+    spi_bus_remove_device(dev->spi_handle);
+    dev->spi_handle = NULL;
+spi_bus_add_device_error:
+    spi_bus_free(dev->spi_host_id);
+
+    return lt_ret;
 }
 
 lt_ret_t lt_port_deinit(lt_l2_state_t *s2)
@@ -171,14 +190,20 @@ lt_ret_t lt_port_deinit(lt_l2_state_t *s2)
     lt_dev_esp_idf_t *dev = (lt_dev_esp_idf_t *)(s2->device);
 
     // Return values are ignored, because the entire cleanup should always be done.
-    spi_bus_remove_device(dev->spi_handle);
-    spi_bus_free(dev->spi_host_id);
-    gpio_reset_pin(dev->spi_cs_gpio_pin);
 #if LT_USE_INT_PIN
     gpio_isr_handler_remove(dev->int_gpio_pin);
+    if (dev->int_gpio_sem != NULL) {
+        vSemaphoreDelete(dev->int_gpio_sem);
+        dev->int_gpio_sem = NULL;
+    }
     gpio_reset_pin(dev->int_gpio_pin);
-    vSemaphoreDelete(dev->int_gpio_sem);
 #endif
+    gpio_reset_pin(dev->spi_cs_gpio_pin);
+    if (dev->spi_handle != NULL) {
+        spi_bus_remove_device(dev->spi_handle);
+        dev->spi_handle = NULL;
+    }
+    spi_bus_free(dev->spi_host_id);
 
     return LT_OK;
 }
