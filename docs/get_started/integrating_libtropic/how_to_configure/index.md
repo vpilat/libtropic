@@ -13,12 +13,6 @@ set(LT_CFG_OPT value)
 
 ## Available CMake Options
 
-### `LT_BUILD_EXAMPLES`
-- boolean
-- default value: `OFF`
-
-[Examples](../../examples/index.md) will be built as part of the Libtropic library.
-
 ### `LT_BUILD_TESTS`
 - boolean
 - default value: `OFF`
