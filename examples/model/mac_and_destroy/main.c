@@ -304,6 +304,7 @@ exit:
     memset(v, 0, sizeof(v));
     memset(w_i, 0, sizeof(w_i));
     memset(k_i, 0, sizeof(k_i));
+    memset(&nvm, 0, sizeof(nvm));
 
     return ret;
 }
