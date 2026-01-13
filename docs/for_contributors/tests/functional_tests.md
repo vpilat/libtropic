@@ -60,6 +60,9 @@ Options common for all host platforms:
 | `LT_STRICT_COMPILATION` | Enables strict compilation flags                                            | boolean | ON      |
 | `LT_VALGRIND`           | CTest runs the binaries with Valgrind                                       | boolean | OFF     |
 
+### Debugging
+We support running tests with GNU Debugger, Valgrind and Address Sanitizer. See [Debugging](../../get_started/debugging.md).
+
 ## Compatibility
 Not all tests are compatible with the model, as it does not implement all of the TROPIC01's functionality. To see which tests are unavailable for the model, simply run `ctest -N` and compare with the sources or have a look at `CMakeLists.txt`, where the tests are removed using `list(REMOVE_ITEM LIBTROPIC_TEST_LIST <list>)`.
 
