@@ -47,8 +47,6 @@ typedef struct lt_dev_linux_spi_t {
     /** @private @brief GPIO request structure for interrupt pin. */
     struct gpio_v2_line_request gpioreq_int;
 #endif
-    /** @private @brief SPI mode. */
-    uint32_t mode;
 } lt_dev_linux_spi_t;
 
 #ifdef __cplusplus

@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - `lt_print_bytes` function now returns `LT_PARAM_ERR` when incorrect parameters are passed instead of `LT_FAIL`.
 - `lt_print_fw_header` function now returns `LT_PARAM_ERR` when incorrect bank ID is used instead of `LT_FAIL`.
+- Linux SPI HAL: If SPI mode 0 is not supported, cleanup and return with an error.
 
 ### Removed
 - Logging: Redundant/unused macros `LT_LOG`, `LT_LOG_RESULT`, `LT_LOG_VALUE`.
