@@ -244,10 +244,15 @@ lt_ret_t lt_port_spi_csn_high(lt_l2_state_t *s2)
 
 lt_ret_t lt_port_spi_transfer(lt_l2_state_t *s2, uint8_t offset, uint16_t tx_len, uint32_t timeout_ms)
 {
-    LT_UNUSED(timeout_ms);
     lt_dev_esp_idf_t *dev = (lt_dev_esp_idf_t *)(s2->device);
     esp_err_t ret;
     spi_transaction_t spi_transaction;
+    TickType_t ticks_to_wait = pdMS_TO_TICKS(timeout_ms);
+
+    // If ticks==0, we wait indefinitely.
+    if (ticks_to_wait == 0) {
+        ticks_to_wait = portMAX_DELAY;
+    }
 
     // Prepare the SPI transaction.
     memset(&spi_transaction, 0, sizeof(spi_transaction));
@@ -255,18 +260,30 @@ lt_ret_t lt_port_spi_transfer(lt_l2_state_t *s2, uint8_t offset, uint16_t tx_len
     spi_transaction.tx_buffer = s2->buff + offset;
     spi_transaction.rx_buffer = s2->buff + offset;
 
-    // Acquire the SPI bus.
-    // portMAX_DELAY is required by the implementation.
+    // Acquire the SPI bus. Use portMAX_DELAY for acquisition because some
+    // ESP-IDF versions fail when a different timeout is used. We implement
+    // the user-provided `timeout_ms` for the transaction completion below.
     ret = spi_device_acquire_bus(dev->spi_handle, portMAX_DELAY);
     if (ret != ESP_OK) {
         LT_LOG_ERROR("spi_device_acquire_bus() failed: %s", esp_err_to_name(ret));
         return LT_FAIL;
     }
 
-    // Execute the SPI transaction.
-    ret = spi_device_polling_transmit(dev->spi_handle, &spi_transaction);
+    // Queue the transaction and wait for its completion using the provided
+    // timeout (converted to ticks). This avoids busy polling while still
+    // respecting `timeout_ms`.
+    ret = spi_device_queue_trans(dev->spi_handle, &spi_transaction, 0);
     if (ret != ESP_OK) {
-        LT_LOG_ERROR("spi_device_polling_transmit() failed: %s", esp_err_to_name(ret));
+        LT_LOG_ERROR("spi_device_queue_trans() failed: %s", esp_err_to_name(ret));
+        spi_device_release_bus(dev->spi_handle);
+        return LT_FAIL;
+    }
+
+    spi_transaction_t *rtrans = NULL;
+    ret = spi_device_get_trans_result(dev->spi_handle, &rtrans, ticks_to_wait);
+    if (ret != ESP_OK) {
+        LT_LOG_ERROR("spi_device_get_trans_result() failed: %s", esp_err_to_name(ret));
+        // Release the SPI bus.
         spi_device_release_bus(dev->spi_handle);
         return LT_FAIL;
     }
