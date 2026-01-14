@@ -47,12 +47,22 @@ theme:
     - navigation.top
     - navigation.footer
     - search.suggest
+    - content.tabs.link # Allow linking tabs with the same label on a page.
 
 # Navigation menu setup
 nav:
   - Introduction: index.md
   - Get Started:
     - get_started/index.md
+    - Tutorials:
+      - get_started/tutorials/index.md
+      - Model:
+        - get_started/tutorials/model/index.md
+        - 1. Your First Steps: get_started/tutorials/model/first_steps.md
+        - 2. Understanding Libtropic: get_started/tutorials/model/understanding_libtropic.md
+      - Linux:
+        - RPi / Arduino Devkit: get_started/tutorials/linux/arduino_rpi_shield.md
+        - USB Devkit: get_started/tutorials/linux/usb_devkit.md
     - Libtropic Architecture: get_started/libtropic_architecture.md
     - Integrating Libtropic:
       - get_started/integrating_libtropic/index.md
@@ -63,10 +73,6 @@ nav:
       - How to Configure: get_started/integrating_libtropic/how_to_configure/index.md
       - How to Use: get_started/integrating_libtropic/how_to_use/index.md
       - Integration Examples: get_started/integrating_libtropic/integration_examples.md
-    - Examples:
-      - get_started/examples/index.md
-      - Reversible Examples: get_started/examples/reversible_examples.md
-      - Irreversible Examples: get_started/examples/irreversible_examples.md
     - TROPIC01 Firmware: get_started/tropic01_fw.md
     - Default Pairing Keys for a Secure Channel Handshake: get_started/default_pairing_keys.md
     - Logging: get_started/logging.md
@@ -87,9 +93,7 @@ nav:
   - FAQ: faq.md
   - Other:
     - other/index.md
-    - TROPIC01 Model:
-      - other/tropic01_model/index.md
-      - Provisioning Data: other/tropic01_model/provisioning_data.md
+    - Provisioning Data: other/provisioning_data.md
     - Supported Host Platforms:
       - other/supported_host_platforms/index.md
       - STM32: other/supported_host_platforms/stm32.md
@@ -133,6 +137,9 @@ markdown_extensions:
   - pymdownx.inlinehilite  # Inline code highlighting
   - pymdownx.superfences   # Fenced code blocks
   - pymdownx.tasklist      # Checklists
+  - pymdownx.tabbed:       # Tabs. Requires superfences.
+      alternate_style: true
+  - pymdownx.keys          # Allow rendering of keys (Ctrl, ...) to illustrate shortcuts.
 
 extra:
   version:

@@ -8,22 +8,22 @@ To measure total code coverage from both functional and functional mock tests, c
     - CAL is also excluded from coverage collection because we cannot mock CFP return values, which makes full coverage impossible without unit tests.
 
 ## Running Functional Tests with Coverage against Model
-We support collecting coverage only against [TROPIC01 Model](../../other/tropic01_model/index.md) (refer to this link for preparation instructions).
+We support collecting coverage only against [TROPIC01 Model](../../get_started/tutorials/model/index.md) (refer to this link for preparation instructions).
 
 To activate coverage collection, add the switch `-DLT_TEST_COVERAGE=1` when invoking `cmake`. Follow these steps:
 ```shell
-cd tropic01_model
+cd tests/functional/model
 mkdir -p build
 cd build
-cmake -DLT_BUILD_TESTS=1 -DLT_TEST_COVERAGE=1 -DLT_CAL="mbedtls_v4" ..
-make
+cmake -DLT_TEST_COVERAGE=1 -DLT_CAL="mbedtls_v4" ..
+make -j
 ctest -V
 ```
 
 After CTest finishes, use [gcovr](https://github.com/gcovr/gcovr) to export results:
 ```shell
-# Execute this from the tropic01_model/ directory!
-gcovr --json coverage_trace.json --exclude 'build/_deps/.*|\.\./tests/.*|\.\./vendor/.*|\.\./hal/.*|\.\./cal/.*'
+# Execute this from the tests/functional/model/build directory!
+gcovr --json coverage_trace.json --exclude '.*_deps/.*|.*cal/.*|.*hal/.*' -r ../../../..
 ```
 
 ## Running Functional Mock Tests
@@ -34,14 +34,14 @@ cd tests/functional_mock
 mkdir -p build
 cd build
 cmake -DLT_TEST_COVERAGE=1 ..
-make
+make -j
 ctest -V
 ```
 
 After CTest finishes, use [gcovr](https://github.com/gcovr/gcovr) to export results:
 ```shell
-# Execute this from the tests/functional_mock directory!
-gcovr --json coverage_trace.json --exclude 'build/_deps/.*|\.\./tests/.*|\.\./vendor/.*|\.\./\.\./hal/.*|\.\./\.\./cal/.*'
+# Execute this from the tests/functional_mock/build directory!
+gcovr --json coverage_trace.json --exclude '.*_deps/.*|.*cal/.*|.*hal/.*' -r ../../..
 ```
 
 ## Merging and Exporting Total Coverage
@@ -49,7 +49,7 @@ Use the following command to merge results and export in text format:
 
 ```shell
 # Execute this from the repository root (or adjust paths accordingly)
-gcovr --json-add-tracefile tropic01_model/coverage_trace.json  --json-add-tracefile tests/functional_mock/coverage_trace.json --txt coverage.txt
+gcovr --json-add-tracefile tests/functional_mock/build/coverage_trace.json --json-add-tracefile tests/functional/model/build/coverage_trace.json --txt coverage.txt
 ```
 
 !!! tip "Tip: Gcovr Output Formats"
