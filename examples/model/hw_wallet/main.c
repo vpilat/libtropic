@@ -505,8 +505,7 @@ static int session1(lt_handle_t *h)
         printf("\tWriting pairing key slot %" PRIu8 "...", i);
         ret = lt_pairing_key_write(h, dummy_key, i);
         if (LT_L3_UNAUTHORIZED != ret) {
-            fprintf(stderr, "\n\tReturn value is not LT_L3_UNAUTHORIZED, ret=%s\n", (int)TR01_ECC_SLOT_0,
-                    lt_ret_verbose(ret));
+            fprintf(stderr, "\n\tReturn value is not LT_L3_UNAUTHORIZED, ret=%s\n", lt_ret_verbose(ret));
             lt_session_abort(h);
             return -1;
         }
@@ -563,8 +562,7 @@ static int session2(lt_handle_t *h)
     printf("Trying to store key into ECC slot %d (should fail due to unauthorized access)...", (int)TR01_ECC_SLOT_0);
     ret = lt_ecc_key_store(h, TR01_ECC_SLOT_0, TR01_CURVE_ED25519, dummy_key);
     if (LT_L3_UNAUTHORIZED != ret) {
-        fprintf(stderr, "\n\tReturn value is not LT_L3_UNAUTHORIZED, ret=%s\n", (int)TR01_ECC_SLOT_0,
-                lt_ret_verbose(ret));
+        fprintf(stderr, "\n\tReturn value is not LT_L3_UNAUTHORIZED, ret=%s\n", lt_ret_verbose(ret));
         lt_session_abort(h);
         return -1;
     }
@@ -575,8 +573,7 @@ static int session2(lt_handle_t *h)
         printf("\tWriting pairing key slot %" PRIu8 "...", i);
         ret = lt_pairing_key_write(h, dummy_key, i);
         if (LT_L3_UNAUTHORIZED != ret) {
-            fprintf(stderr, "\n\tReturn value is not LT_L3_UNAUTHORIZED, ret=%s\n", (int)TR01_ECC_SLOT_0,
-                    lt_ret_verbose(ret));
+            fprintf(stderr, "\n\tReturn value is not LT_L3_UNAUTHORIZED, ret=%s\n", lt_ret_verbose(ret));
             lt_session_abort(h);
             return -1;
         }
@@ -587,8 +584,7 @@ static int session2(lt_handle_t *h)
     printf("Initializing mcounter 0 (should fail due to unauthorized access)...");
     ret = lt_mcounter_init(h, TR01_MCOUNTER_INDEX_0, mcounter_value);
     if (LT_L3_UNAUTHORIZED != ret) {
-        fprintf(stderr, "\nReturn value is not LT_L3_UNAUTHORIZED, ret=%s\n", (int)TR01_ECC_SLOT_0,
-                lt_ret_verbose(ret));
+        fprintf(stderr, "\nReturn value is not LT_L3_UNAUTHORIZED, ret=%s\n", lt_ret_verbose(ret));
         lt_session_abort(h);
         return -1;
     }
