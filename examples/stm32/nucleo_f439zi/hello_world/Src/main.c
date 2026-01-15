@@ -30,20 +30,6 @@
 #include "libtropic_mbedtls_v4.h"
 #include "psa/crypto.h"
 
-// Message to send with Ping L3 command.
-#define PING_MSG "This is Hello World message from TROPIC01!!"
-// Size of the Ping message, including '\0'.
-#define PING_MSG_SIZE 44
-
-// Choose pairing keypair for slot 0.
-#if LT_USE_SH0_ENG_SAMPLE
-#define LT_EX_SH0_PRIV sh0priv_eng_sample
-#define LT_EX_SH0_PUB sh0pub_eng_sample
-#elif LT_USE_SH0_PROD0
-#define LT_EX_SH0_PRIV sh0priv_prod0
-#define LT_EX_SH0_PUB sh0pub_prod0
-#endif
-
 /** @addtogroup STM32F4xx_HAL_Examples
  * @{
  */
@@ -53,10 +39,23 @@
  */
 
 /* Private typedef -----------------------------------------------------------*/
+
 /* Private define ------------------------------------------------------------*/
+/* Message to send with Ping L3 command. */
+#define PING_MSG "This is Hello World message from TROPIC01!!"
+/* Size of the Ping message, including '\0'. */
+#define PING_MSG_SIZE 44
+
+/* Choose pairing keypair for slot 0. */
+#if LT_USE_SH0_ENG_SAMPLE
+#define LT_EX_SH0_PRIV sh0priv_eng_sample
+#define LT_EX_SH0_PUB sh0pub_eng_sample
+#elif LT_USE_SH0_PROD0
+#define LT_EX_SH0_PRIV sh0priv_prod0
+#define LT_EX_SH0_PUB sh0pub_prod0
+#endif
+
 /* Private macro -------------------------------------------------------------*/
-#define LOG_OUT(f_, ...) printf(f_, ##__VA_ARGS__)
-#define NUM_OF_PING_CMDS 1
 /* Private variables ---------------------------------------------------------*/
 
 /* Private function prototypes -----------------------------------------------*/
@@ -116,8 +115,9 @@ static HAL_StatusTypeDef DBG_UART_Init(void)
  */
 PUTCHAR_PROTOTYPE
 {
-    /* Place your implementation of fputc here */
-    /* e.g. write a character to the USART3 and Loop until the end of transmission */
+    /*  Translates LF to CFLF, as this is what most serial monitors expect
+        by default
+    */
     if (ch == '\n') {
         HAL_UART_Transmit(&UartHandle, (uint8_t *)"\r\n", 2, 0xFFFF);
     } else {

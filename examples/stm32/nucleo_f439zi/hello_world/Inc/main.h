@@ -32,14 +32,6 @@
 /* User can use this section to tailor USART_DBG/UARTx instance used and associated
    resources */
 
-/** This define controls over which pins will board drive UART.
- * if == 0, debug UART can be read when board is plugged over USB (together with stlink)
- * if == 1, debug uart can be read over pins PB_9 and PB_10 pins used on automatized testing rig
- */
-#ifndef LT_TESTING_RIG
-#define LT_TESTING_RIG 0
-#endif
-
 /* Definition for USART_DBG */
 #define USART_DBG USART3
 #define USART_DBG_CLK_ENABLE() __HAL_RCC_USART3_CLK_ENABLE();
@@ -48,23 +40,13 @@
 #define USART_DBG_FORCE_RESET() __HAL_RCC_USART3_FORCE_RESET()
 #define USART_DBG_RELEASE_RESET() __HAL_RCC_USART3_RELEASE_RESET()
 
-#if LT_TESTING_RIG
-// Used by libtropic automating testing rig, USART is wired out on PB_9 and PB_10 pins
-#define USART_DBG_RX_GPIO_CLK_ENABLE() __HAL_RCC_GPIOB_CLK_ENABLE()
-#define USART_DBG_TX_GPIO_CLK_ENABLE() __HAL_RCC_GPIOB_CLK_ENABLE()
-#define USART_DBG_TX_PIN GPIO_PIN_10
-#define USART_DBG_TX_GPIO_PORT GPIOB
-#define USART_DBG_RX_PIN GPIO_PIN_11
-#define USART_DBG_RX_GPIO_PORT GPIOB
-#else
-// Standard Nucleo's way, debug USART is wired out over st-link
+/* Debug USART is wired out over ST-Link */
 #define USART_DBG_RX_GPIO_CLK_ENABLE() __HAL_RCC_GPIOD_CLK_ENABLE()
 #define USART_DBG_TX_GPIO_CLK_ENABLE() __HAL_RCC_GPIOD_CLK_ENABLE()
 #define USART_DBG_TX_PIN GPIO_PIN_8
 #define USART_DBG_TX_GPIO_PORT GPIOD
 #define USART_DBG_RX_PIN GPIO_PIN_9
 #define USART_DBG_RX_GPIO_PORT GPIOD
-#endif
 
 /* Definition for GPIO chip select clock resources */
 #define LT_SPI_CS_CLK_ENABLE() __HAL_RCC_GPIOD_CLK_ENABLE()
