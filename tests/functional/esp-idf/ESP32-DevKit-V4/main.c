@@ -71,7 +71,7 @@ void app_main(void)
     }
 
     // Using VSPI and its default pins from the official pinout diagram.
-    device->spi_host_id = SPI3_HOST;
+    device->spi_host_id = VSPI_HOST;
     device->spi_cs_gpio_pin = GPIO_NUM_5;
     device->spi_miso_pin = GPIO_NUM_19;
     device->spi_mosi_pin = GPIO_NUM_23;
