@@ -40,10 +40,6 @@
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
-/* Message to send with Ping L3 command. */
-#define PING_MSG "This is Hello World message from TROPIC01!!"
-/* Size of the Ping message, including '\0'. */
-#define PING_MSG_SIZE 44
 
 /* Choose pairing keypair for slot 0. */
 #if LT_USE_SH0_ENG_SAMPLE

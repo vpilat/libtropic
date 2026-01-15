@@ -25,7 +25,7 @@ endif()
 
 project(
     libtropic_hello_world
-    DESCRIPTION "Libtropic Hello World example on STM32 Nucleo F439ZI board"
+    DESCRIPTION "Libtropic chip identification example on STM32 Nucleo F439ZI board"
     LANGUAGES C ASM)
 
 ###########################################################################
