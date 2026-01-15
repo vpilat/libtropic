@@ -1,20 +1,12 @@
 /**
- ******************************************************************************
- * @file    UART/UART_Printf/Src/main.c
- * @author  MCD Application Team
- * @brief   This example shows how to retarget the C library printf function
- *          to the UART.
- ******************************************************************************
- * @attention
+ * @file main.c
+ * @brief Simple "Hello, World!" example of using Libtropic on STM32 Nucleo F439ZI board.
+ * @author Tropic Square s.r.o.
  *
- * Copyright (c) 2017 STMicroelectronics.
- * All rights reserved.
+ * @license For the license see file LICENSE.txt file in the root directory of this source tree.
  *
- * This software is licensed under terms that can be found in the LICENSE file
- * in the root directory of this software component.
- * If no LICENSE file comes with this software, it is provided AS-IS.
- *
- ******************************************************************************
+ * This example project is based on the UART/UART_Printf example from STM32 example library
+ * which was created by the MCD Application Team.
  */
 
 /* Includes ------------------------------------------------------------------*/
