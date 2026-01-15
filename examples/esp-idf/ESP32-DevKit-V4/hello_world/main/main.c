@@ -18,7 +18,7 @@
 #include "libtropic_port_esp_idf.h"
 #include "psa/crypto.h"
 
-#define TAG "libtropic_hello_world"
+#define TAG "hello_world"
 
 // Message to send with Ping L3 command.
 #define PING_MSG "This is Hello World message from TROPIC01!!"
@@ -48,7 +48,7 @@ void app_main(void)
     // the first occurrence of any Libtropic function
     psa_status_t status = psa_crypto_init();
     if (status != PSA_SUCCESS) {
-        ESP_LOGE(TAG, "PSA Crypto initialization failed, status=%d (psa_status_t)\n", status);
+        ESP_LOGE(TAG, "PSA Crypto initialization failed, status=%d (psa_status_t)", status);
         return;
     }
 
@@ -87,6 +87,8 @@ void app_main(void)
     }
     ESP_LOGI(TAG, "OK");
 
+    // First, we check versions of both updateable firmwares. To do that, we need TROPIC01 to **not** be in the Start-up
+    // Mode. If there are valid firmwares, TROPIC01 will begin to execute them automatically on boot.
     ESP_LOGI(TAG, "Sending reboot request...");
     ret = lt_reboot(&lt_handle, TR01_REBOOT);
     if (ret != LT_OK) {
