@@ -71,7 +71,7 @@ endif()
 add_subdirectory("${PATH_LIBTROPIC}/hal/esp-idf" "esp_idf_hal")
 target_sources(tropic PRIVATE ${LT_HAL_SRCS})
 target_include_directories(tropic PUBLIC ${LT_HAL_INC_DIRS})
-target_link_libraries(tropic PUBLIC idf::freertos idf::spi_flash idf::driver)
+target_link_libraries(tropic PUBLIC idf::freertos idf::spi_flash idf::esp_driver_spi idf::esp_driver_gpio)
 
 set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/main.c
