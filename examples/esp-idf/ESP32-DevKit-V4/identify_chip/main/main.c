@@ -88,6 +88,8 @@ void app_main(void)
     }
     ESP_LOGI(TAG, "OK");
 
+    // First, we check versions of both updateable firmwares. To do that, we need TROPIC01 to **not** be in the Start-up
+    // Mode. If there are valid firmwares, TROPIC01 will begin to execute them automatically on boot.
     ESP_LOGI(TAG, "Sending reboot request...");
     ret = lt_reboot(&lt_handle, TR01_REBOOT);
     if (ret != LT_OK) {
