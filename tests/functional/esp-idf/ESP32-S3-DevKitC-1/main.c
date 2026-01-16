@@ -83,6 +83,7 @@ void app_main(void)
     // device->spi_handle = spi_handle;
     __lt_handle__->l2.device = device;
 
+#if LT_USE_INT_PIN
     // This function has to be called only once.
     // The call is needed because the Libtropic ESP-IDF HAL uses GPIO interrupts.
     esp_ret = gpio_install_isr_service(0);
@@ -90,6 +91,7 @@ void app_main(void)
         LT_LOG_ERROR("gpio_install_isr_service() failed: %s", esp_err_to_name(esp_ret));
         goto app_main_cleanup;
     }
+#endif
 
     // CAL context
     crypto_ctx = (CRYPTO_CTX_TYPE *)malloc(sizeof(CRYPTO_CTX_TYPE));
