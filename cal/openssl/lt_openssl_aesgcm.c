@@ -128,12 +128,6 @@ lt_ret_t lt_aesgcm_encrypt(void *ctx, const uint8_t *iv, const uint32_t iv_len, 
         LT_LOG_ERROR("Failed to process AES-GCM AAD, err_code=%lu (%s)", err_code, ERR_error_string(err_code, NULL));
         return LT_CRYPTO_ERR;
     }
-    // Check that all AAD data was processed.
-    if (out_len != (int)add_len) {
-        LT_LOG_ERROR("AES-GCM encryption AAD length mismatch! Current: %d bytes, expected: %" PRIu32 " bytes", out_len,
-                     add_len);
-        return LT_CRYPTO_ERR;
-    }
 
     // Encrypt plaintext.
     if (!EVP_EncryptUpdate(_ctx->aesgcm_encrypt_ctx, ciphertext, &out_len, plaintext, (int)plaintext_len)) {
@@ -195,13 +189,6 @@ lt_ret_t lt_aesgcm_decrypt(void *ctx, const uint8_t *iv, const uint32_t iv_len, 
     if (!EVP_DecryptUpdate(_ctx->aesgcm_decrypt_ctx, NULL, &out_len, add, (int)add_len)) {
         err_code = ERR_get_error();
         LT_LOG_ERROR("Failed to process AES-GCM AAD, err_code=%lu (%s)", err_code, ERR_error_string(err_code, NULL));
-        return LT_CRYPTO_ERR;
-    }
-
-    // Check that all AAD data was processed.
-    if (out_len != (int)add_len) {
-        LT_LOG_ERROR("AES-GCM decryption AAD length mismatch! Current: %d bytes, expected: %" PRIu32 " bytes", out_len,
-                     add_len);
         return LT_CRYPTO_ERR;
     }
 
