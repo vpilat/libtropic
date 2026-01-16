@@ -24,7 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-            sudo apt-get install cmake build-essential ninja-build arm-none-eabi-gcc
+            sudo apt-get install cmake build-essential ninja-build gcc-arm-none-eabi
             pip3 install jsonschema
 
       - name: Compile F439ZI examples
