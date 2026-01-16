@@ -42,28 +42,6 @@
 #define USARTx_RCC_CONFIG(__USARTxCLKSource__) __HAL_RCC_USART2_CONFIG(__USARTxCLKSource__)
 #define RCC_USARTxCLKSOURCE_HSI RCC_USART2CLKSOURCE_HSI
 
-// #define USARTx_RCC_CONFIG(__USARTxCLKSource__)   __HAL_RCC_USART1_CONFIG(__USARTxCLKSource__)
-// #define RCC_USARTxCLKSOURCE_HSI                  RCC_USART2CLKSOURCE_HSI
-///* Definition for USART_DBG clock resources */
-// #define USART_DBG                           USART1
-// #define USART_DBG_CLK_ENABLE()              __HAL_RCC_USART1_CLK_ENABLE();
-// #define USART_DBG_RX_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOA_CLK_ENABLE()
-// #define USART_DBG_TX_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOA_CLK_ENABLE()
-//
-// #define USART_DBG_FORCE_RESET()             __HAL_RCC_USART1_FORCE_RESET()
-// #define USART_DBG_RELEASE_RESET()           __HAL_RCC_USART1_RELEASE_RESET()
-//
-// #define USART_DBG_TX_PIN                    GPIO_PIN_9
-// #define USART_DBG_TX_GPIO_PORT              GPIOA
-// #define USART_DBG_TX_AF                     GPIO_AF7_USART1
-// #define USART_DBG_RX_PIN                    GPIO_PIN_10
-// #define USART_DBG_RX_GPIO_PORT              GPIOA
-// #define USART_DBG_RX_AF                     GPIO_AF7_USART1
-//
-///* Power mode related macros */
-// #define USARTx_RCC_CONFIG(__USARTxCLKSource__)   __HAL_RCC_USART1_CONFIG(__USARTxCLKSource__)
-// #define RCC_USARTxCLKSOURCE_HSI                  RCC_USART1CLKSOURCE_HSI
-
 /* Definition for GPIO chip select clock resources */
 #define LT_SPI_CS_CLK_ENABLE() __HAL_RCC_SPI1_CLK_ENABLE()
 
