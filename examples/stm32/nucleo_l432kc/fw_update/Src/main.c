@@ -1,6 +1,7 @@
 /**
  * @file main.c
- * @brief Example showing how to perform an update of the TROPIC01 firmware using Libtropic on STM32 Nucleo L432KC board.
+ * @brief Example showing how to perform an update of the TROPIC01 firmware using Libtropic on STM32 Nucleo L432KC
+ * board.
  * @author Tropic Square s.r.o.
  *
  * @license For the license see file LICENSE.txt file in the root directory of this source tree.
@@ -18,8 +19,8 @@
 #include "fw_CPU.h"
 #include "fw_SPECT.h"
 #include "libtropic.h"
-#include "libtropic_port_stm32_nucleo_l432kc.h"
 #include "libtropic_mbedtls_v4.h"
+#include "libtropic_port_stm32_nucleo_l432kc.h"
 #include "psa/crypto.h"
 
 /** @addtogroup STM32L4xx_HAL_Examples
@@ -51,7 +52,7 @@
    set to 'Yes') calls __io_putchar() */
 #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
 #else
-#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE* f)
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
 #endif /* __GNUC__ */
 static void SystemClock_Config(void);
 static void Error_Handler(void);
@@ -492,7 +493,7 @@ void SystemClock_Config(void)
  * @param  line: assert_param error line source number
  * @retval None
  */
-void assert_failed(uint8_t* file, uint32_t line)
+void assert_failed(uint8_t *file, uint32_t line)
 {
     /* User can add his own implementation to report the file name and line number,
        ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */

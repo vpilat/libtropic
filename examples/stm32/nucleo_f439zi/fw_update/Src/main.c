@@ -1,6 +1,7 @@
 /**
  * @file main.c
- * @brief Example showing how to perform an update of the TROPIC01 firmware using Libtropic on STM32 Nucleo F439ZI board.
+ * @brief Example showing how to perform an update of the TROPIC01 firmware using Libtropic on STM32 Nucleo F439ZI
+ * board.
  * @author Tropic Square s.r.o.
  *
  * @license For the license see file LICENSE.txt file in the root directory of this source tree.
@@ -15,11 +16,11 @@
 #include <inttypes.h>
 #include <string.h>
 
+#include "fw_CPU.h"
+#include "fw_SPECT.h"
 #include "libtropic.h"
 #include "libtropic_mbedtls_v4.h"
 #include "libtropic_port_stm32_nucleo_f439zi.h"
-#include "fw_CPU.h"
-#include "fw_SPECT.h"
 #include "psa/crypto.h"
 #include "syscalls.h"
 
