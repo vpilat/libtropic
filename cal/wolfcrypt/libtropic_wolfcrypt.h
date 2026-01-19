@@ -23,13 +23,6 @@ typedef struct lt_aesgcm_ctx_wolfcrypt_t {
     bool initialized;
 } lt_aesgcm_ctx_wolfcrypt_t;
 
-// typedef struct lt_sha256_ctx_wolfcrypt_t {
-//     /** @private @brief SHA-256 context. */
-//     wc_Sha256 ctx;
-//     /** @private @brief Initialization flag. */
-//     bool initialized;
-// } lt_sha256_ctx_wolfcrypt_t;
-
 /**
  * @brief Context structure for WolfCrypt.
  *

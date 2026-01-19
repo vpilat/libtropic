@@ -34,9 +34,6 @@ lt_ret_t lt_crypto_ctx_deinit(void *ctx)
     if (ret2 != LT_OK) {
         return ret2;
     }
-    if (ret3 != LT_OK) {
-        return ret3;
-    }
 
     return LT_OK;
 }
