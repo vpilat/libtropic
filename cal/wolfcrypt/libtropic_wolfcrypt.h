@@ -3,7 +3,7 @@
 
 /**
  * @file lt_wolfcrypt.h
- * @brief MbedTLS v4.0.0 public declarations.
+ * @brief WolfCrypt public declarations.
  * @copyright Copyright (c) 2020-2025 Tropic Square s.r.o.
  *
  * @license For the license see LICENSE.md in the root directory of this source tree.
