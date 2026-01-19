@@ -27,22 +27,29 @@
  * @param key_len  Length of the key
  * @return         LT_OK if success, otherwise returns other error code.
  */
-static lt_ret_t lt_aesgcm_init(Aes *ctx, void *heap, const int dev_id, const uint8_t *key, const uint32_t key_len)
+static lt_ret_t lt_aesgcm_init(lt_aesgcm_ctx_wolfcrypt_t *ctx, void *heap, const int dev_id, const uint8_t *key,
+                               const uint32_t key_len)
 {
     int ret;
 
-    ret = wc_AesInit(ctx, heap, dev_id);
+    if (ctx->initialized) {
+        LT_LOG_ERROR("AES-GCM context already initialized!");
+        return LT_CRYPTO_ERR;
+    }
+
+    ret = wc_AesInit(&ctx->ctx, heap, dev_id);
     if (ret != 0) {
         LT_LOG_ERROR("Failed to init AES-GCM context, ret=%d (%s)", ret, wc_GetErrorString(ret));
         return LT_CRYPTO_ERR;
     }
 
-    ret = wc_AesGcmSetKey(ctx, key, key_len);
+    ret = wc_AesGcmSetKey(&ctx->ctx, key, key_len);
     if (ret != 0) {
         LT_LOG_ERROR("Failed to set AES-GCM key, ret=%d (%s)", ret, wc_GetErrorString(ret));
         return LT_CRYPTO_ERR;
     }
 
+    ctx->initialized = true;
     return LT_OK;
 }
 
@@ -52,9 +59,13 @@ static lt_ret_t lt_aesgcm_init(Aes *ctx, void *heap, const int dev_id, const uin
  * @param ctx  AES-GCM context structure (WolfCrypt specific)
  * @return     LT_OK if success, otherwise returns other error code.
  */
-static lt_ret_t lt_aesgcm_deinit(Aes *ctx)
+static lt_ret_t lt_aesgcm_deinit(lt_aesgcm_ctx_wolfcrypt_t *ctx)
 {
-    wc_AesFree(ctx);
+    if (ctx->initialized) {
+        wc_AesFree(&ctx->ctx);
+        ctx->initialized = false;
+    }
+
     return LT_OK;
 }
 
@@ -84,7 +95,7 @@ lt_ret_t lt_aesgcm_encrypt(void *ctx, const uint8_t *iv, const uint32_t iv_len, 
 {
     lt_ctx_wolfcrypt_t *_ctx = (lt_ctx_wolfcrypt_t *)ctx;
 
-    int ret = wc_AesGcmEncrypt(&_ctx->aesgcm_encrypt_ctx, ciphertext, plaintext, plaintext_len, iv, iv_len,
+    int ret = wc_AesGcmEncrypt(&_ctx->aesgcm_encrypt_ctx.ctx, ciphertext, plaintext, plaintext_len, iv, iv_len,
                                ciphertext + (ciphertext_len - TR01_L3_TAG_SIZE), TR01_L3_TAG_SIZE, add, add_len);
     if (ret != 0) {
         LT_LOG_ERROR("AES-GCM encryption failed, ret=%d (%s)", ret, wc_GetErrorString(ret));
@@ -100,7 +111,7 @@ lt_ret_t lt_aesgcm_decrypt(void *ctx, const uint8_t *iv, const uint32_t iv_len, 
 {
     lt_ctx_wolfcrypt_t *_ctx = (lt_ctx_wolfcrypt_t *)ctx;
 
-    int ret = wc_AesGcmDecrypt(&_ctx->aesgcm_decrypt_ctx, plaintext, ciphertext, plaintext_len, iv, iv_len,
+    int ret = wc_AesGcmDecrypt(&_ctx->aesgcm_decrypt_ctx.ctx, plaintext, ciphertext, plaintext_len, iv, iv_len,
                                ciphertext + (ciphertext_len - TR01_L3_TAG_SIZE), TR01_L3_TAG_SIZE, add, add_len);
     if (ret != 0) {
         LT_LOG_ERROR("AES-GCM decryption failed, ret=%d (%s)", ret, wc_GetErrorString(ret));

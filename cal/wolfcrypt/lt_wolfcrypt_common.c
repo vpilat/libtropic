@@ -15,7 +15,11 @@
 
 lt_ret_t lt_crypto_ctx_init(void *ctx)
 {
-    LT_UNUSED(ctx);
+    lt_ctx_wolfcrypt_t *_ctx = (lt_ctx_wolfcrypt_t *)ctx;
+
+    _ctx->aesgcm_encrypt_ctx.initialized = false;
+    _ctx->aesgcm_decrypt_ctx.initialized = false;
+
     return LT_OK;
 }
 
@@ -23,7 +27,6 @@ lt_ret_t lt_crypto_ctx_deinit(void *ctx)
 {
     lt_ret_t ret1 = lt_aesgcm_encrypt_deinit(ctx);
     lt_ret_t ret2 = lt_aesgcm_decrypt_deinit(ctx);
-    lt_ret_t ret3 = lt_sha256_deinit(ctx);
 
     if (ret1 != LT_OK) {
         return ret1;

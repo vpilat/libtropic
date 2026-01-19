@@ -13,14 +13,32 @@
 #include <wolfssl/wolfcrypt/sha256.h>
 
 /**
+ * @brief AES-GCM context structure for WolfCrypt.
+ *
+ */
+typedef struct lt_aesgcm_ctx_wolfcrypt_t {
+    /** @private @brief AES-GCM context. */
+    Aes ctx;
+    /** @private @brief Initialization flag. */
+    bool initialized;
+} lt_aesgcm_ctx_wolfcrypt_t;
+
+// typedef struct lt_sha256_ctx_wolfcrypt_t {
+//     /** @private @brief SHA-256 context. */
+//     wc_Sha256 ctx;
+//     /** @private @brief Initialization flag. */
+//     bool initialized;
+// } lt_sha256_ctx_wolfcrypt_t;
+
+/**
  * @brief Context structure for WolfCrypt.
  *
  */
 typedef struct lt_ctx_wolfcrypt_t {
     /** @private @brief AES-GCM context for encryption. */
-    Aes aesgcm_encrypt_ctx;
+    lt_aesgcm_ctx_wolfcrypt_t aesgcm_encrypt_ctx;
     /** @private @brief AES-GCM context for decryption. */
-    Aes aesgcm_decrypt_ctx;
+    lt_aesgcm_ctx_wolfcrypt_t aesgcm_decrypt_ctx;
     /** @private @brief SHA-256 context. */
     wc_Sha256 sha256_ctx;
 } lt_ctx_wolfcrypt_t;
