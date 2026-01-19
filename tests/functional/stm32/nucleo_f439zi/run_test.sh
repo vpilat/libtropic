@@ -23,7 +23,9 @@ else
     echo "Using STLink serial number: $STLINK_SERIAL_NUMBER"
     echo "Looking for corresponding UART device..."
 
-    DEV=$(find /dev/serial/by-id/ -type l -iname "*${STLINK_SERIAL_NUMBER}*" | head -n1)
+    # We are looking for either link (usually on bare metal, link points to /dev/ttyX) or a character device
+    # (usually in Docker when the device connected to host is passed through).
+    DEV=$(find /dev/serial/by-id/ \( -type l -o -type c \) -iname "*${STLINK_SERIAL_NUMBER}*" | head -n1)
 
     if ! ls "$DEV"; then
         echo "Cannot open UART of ST-Link with serial number $STLINK_SERIAL_NUMBER, terminating."
