@@ -81,9 +81,6 @@ endif()
 # Add path to Libtropic source
 add_subdirectory(${PATH_LIBTROPIC} "libtropic")
 
-# Customize Libtropic compilation
-target_compile_options(tropic PRIVATE -ffunction-sections -fdata-sections)
-
 # ------------------------------------------------------------------------
 # MbedTLS v4.0.0
 # ------------------------------------------------------------------------
