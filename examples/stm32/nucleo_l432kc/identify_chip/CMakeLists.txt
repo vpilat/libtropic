@@ -35,7 +35,9 @@ project(
 #                                                                         #
 ###########################################################################
 
-option(LT_USE_INT_PIN "Use INT pin instead of polling for TROPIC01's response" OFF)
+if(LT_USE_INT_PIN)
+    message(FATAL_ERROR "Using interrupt pin is currently not supported on Nucleo L432KC board")
+endif()
 
 # Serial number of the STLink device which will be used for flashing.
 # You need to define this only if you have multiple STM32s connected using built-in STLink or 
@@ -180,13 +182,6 @@ target_compile_definitions(${EXE_NAME} PRIVATE LT_USE_SH0_PROD0=${LT_USE_SH0_PRO
 target_compile_definitions(${EXE_NAME} PRIVATE -D${STM32_DEVICE}) # Configure target MCU (used by STM32 HAL)
 target_include_directories(${EXE_NAME} PRIVATE ${INCLUDE_DIRS})
 target_link_libraries(${EXE_NAME} PRIVATE tropic)
-
-# Use INT pin to check whether TROPIC01 has some response
-# (If not set, by default host will poll every few ms)
-if (LT_USE_INT_PIN)
-    set(LT_USE_INT_PIN ON)
-    target_compile_definitions(${EXE_NAME} PRIVATE LT_USE_INT_PIN)
-endif()
 
 ###########################################################################
 #                                                                         #
