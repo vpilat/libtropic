@@ -1,4 +1,4 @@
-name: Build examples for supported ESP32 boards
+name: Build examples for ESP32 boards
 on:
   push:
     branches:
