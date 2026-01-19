@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Missing secure memory zeroing to `lt_in__session_start()` and `lt_hkdf()` (internal function).
 - Missing check of `lt_handle_t.l3.session_status` in `lt_in__ecc_key_generate()`.
 - CAL: support for OpenSSL.
+- CAL: support for WolfCrypt.
 
 ### Fixed
 - `lt_print_bytes` function now returns `LT_PARAM_ERR` when incorrect parameters are passed instead of `LT_FAIL`.
