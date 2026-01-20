@@ -46,8 +46,8 @@ project(
 ###########################################################################
 
 # Serial number of the STLink device which will be used for flashing.
-# You need to define this only if you have multiple STM32s connected using built-in STLink or 
-# problems with OpenOCD's autodetection.
+# You need to define this only if you have multiple STM32s connected using built-in STLink,
+# or if you encounter problems with OpenOCD's autodetection.
 if (NOT DEFINED STLINK_SERIAL_NUMBER)
     set(STLINK_SERIAL_NUMBER "")
 endif()
