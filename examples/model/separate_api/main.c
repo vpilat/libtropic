@@ -66,6 +66,7 @@ int main(void)
     unsigned int prng_seed;
     if (0 != getentropy(&prng_seed, sizeof(prng_seed))) {
         fprintf(stderr, "main: getentropy() failed (%s)!\n", strerror(errno));
+        mbedtls_psa_crypto_free();
         return -1;
     }
     srand(prng_seed);
@@ -106,6 +107,7 @@ int main(void)
     if (LT_OK != ret) {
         fprintf(stderr, "\nFailed to get Certificate Store, ret=%s\n", lt_ret_verbose(ret));
         lt_deinit(&lt_handle);
+        mbedtls_psa_crypto_free();
         return -1;
     }
     printf("OK\n");
@@ -117,6 +119,7 @@ int main(void)
     if (LT_OK != ret) {
         fprintf(stderr, "\nFailed to get stpub key, ret=%s\n", lt_ret_verbose(ret));
         lt_deinit(&lt_handle);
+        mbedtls_psa_crypto_free();
         return -1;
     }
     printf("OK\n");
@@ -132,6 +135,7 @@ int main(void)
     if (LT_OK != ret) {
         fprintf(stderr, "\nlt_out__session_start() failed, ret=%s\n", lt_ret_verbose(ret));
         lt_deinit(&lt_handle);
+        mbedtls_psa_crypto_free();
         return -1;
     }
     printf("OK\n");
@@ -144,6 +148,7 @@ int main(void)
     if (LT_OK != ret) {
         fprintf(stderr, "\nlt_l2_send() failed, ret=%s\n", lt_ret_verbose(ret));
         lt_deinit(&lt_handle);
+        mbedtls_psa_crypto_free();
         return -1;
     }
     printf("OK\n");
@@ -153,6 +158,7 @@ int main(void)
     if (LT_OK != ret) {
         fprintf(stderr, "\nlt_l2_receive() failed, ret=%s\n", lt_ret_verbose(ret));
         lt_deinit(&lt_handle);
+        mbedtls_psa_crypto_free();
         return -1;
     }
     printf("OK\n");
@@ -168,6 +174,7 @@ int main(void)
     if (LT_OK != ret) {
         fprintf(stderr, "\nlt_in__session_start failed, ret=%s\n", lt_ret_verbose(ret));
         lt_deinit(&lt_handle);
+        mbedtls_psa_crypto_free();
         return -1;
     }
     printf("OK\n");
@@ -180,6 +187,7 @@ int main(void)
         fprintf(stderr, "\nlt_out__ping() failed, ret=%s\n", lt_ret_verbose(ret));
         lt_session_abort(&lt_handle);
         lt_deinit(&lt_handle);
+        mbedtls_psa_crypto_free();
         return -1;
     }
     printf("OK\n");
@@ -190,6 +198,7 @@ int main(void)
         fprintf(stderr, "\nlt_l2_send_encrypted_cmd() failed, ret=%s\n", lt_ret_verbose(ret));
         lt_session_abort(&lt_handle);
         lt_deinit(&lt_handle);
+        mbedtls_psa_crypto_free();
         return -1;
     }
     printf("OK\n");
@@ -200,6 +209,7 @@ int main(void)
         fprintf(stderr, "\nlt_l2_recv_encrypted_res() failed, ret=%s\n", lt_ret_verbose(ret));
         lt_session_abort(&lt_handle);
         lt_deinit(&lt_handle);
+        mbedtls_psa_crypto_free();
         return -1;
     }
     printf("OK\n");
@@ -210,6 +220,7 @@ int main(void)
         fprintf(stderr, "\nlt_in__ping() failed, ret=%s\n", lt_ret_verbose(ret));
         lt_session_abort(&lt_handle);
         lt_deinit(&lt_handle);
+        mbedtls_psa_crypto_free();
         return -1;
     }
     printf("OK\n");
