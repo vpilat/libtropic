@@ -53,6 +53,7 @@ See below for instructions based on your OS.
 2. [Understanding Libtropic](./understanding_libtropic.md)
 3. [Hardware Wallet Example](./hw_wallet_example.md)
 4. [Mac-And-Destroy Example](./macandd_example.md)
+5. [Separate API Example](./separate_api.md)
 
 ---
 
