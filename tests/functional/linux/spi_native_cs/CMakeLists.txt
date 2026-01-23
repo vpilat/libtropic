@@ -38,7 +38,7 @@ endif()
 message(STATUS "Using SPI device: ${LT_SPI_DEVKIT_SPI_PATH}. You can change it by passing -DLT_SPI_DEVKIT_SPI_PATH=<path> to cmake.")
 
 if (NOT DEFINED LT_SPI_DEVKIT_GPIO_PATH)
-    set(LT_SPI_DEVKIT_GPIO_PATH "/dev/gpiochip0" CACHE STRING "Path to the GPIO device to which the SPI devkit's CS is connected.")
+    set(LT_SPI_DEVKIT_GPIO_PATH "/dev/gpiochip0" CACHE STRING "Path to the GPIO device that provides the SPI devkit's interrupt (INT) line.")
 endif()
 message(STATUS "Using GPIO device: ${LT_SPI_DEVKIT_GPIO_PATH}. You can change it by passing -DLT_SPI_DEVKIT_GPIO_PATH=<path> to cmake.")
 
