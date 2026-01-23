@@ -72,7 +72,7 @@ void app_main(void)
     device.spi_clk_pin = GPIO_NUM_18;
     device.spi_clk_hz = 5000000; /* 5 MHz */
 #if LT_USE_INT_PIN
-    device.int_gpio_pin = GPIO_NUM_4;
+    device.int_gpio_pin = GPIO_NUM_32;
 #endif
     lt_handle.l2.device = &device;
 

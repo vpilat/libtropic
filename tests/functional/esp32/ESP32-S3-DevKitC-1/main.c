@@ -78,7 +78,7 @@ void app_main(void)
     device->spi_clk_pin = GPIO_NUM_12;
     device->spi_clk_hz = 5000000;  // 5 MHz
 #if LT_USE_INT_PIN
-    device->int_gpio_pin = GPIO_NUM_46;
+    device->int_gpio_pin = GPIO_NUM_1;
 #endif
     // device->spi_handle = spi_handle;
     __lt_handle__->l2.device = device;
