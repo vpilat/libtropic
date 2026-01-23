@@ -16,11 +16,19 @@
 
 #if LT_USE_TREZOR_CRYPTO
 #include "libtropic_trezor_crypto.h"
+#define CRYPTO_CTX_TYPE lt_ctx_trezor_crypto_t
 #elif LT_USE_MBEDTLS_V4
 #include "libtropic_mbedtls_v4.h"
 #include "psa/crypto.h"
+#define CRYPTO_CTX_TYPE lt_ctx_mbedtls_v4_t
 #elif LT_USE_OPENSSL
 #include "libtropic_openssl.h"
+#define CRYPTO_CTX_TYPE lt_ctx_openssl_t
+#elif LT_USE_WOLFCRYPT
+#include "libtropic_wolfcrypt.h"
+#include "wolfssl/wolfcrypt/error-crypt.h"
+#include "wolfssl/wolfcrypt/wc_port.h"
+#define CRYPTO_CTX_TYPE lt_ctx_wolfcrypt_t
 #endif
 
 int main(void)
@@ -33,6 +41,12 @@ int main(void)
     if (status != PSA_SUCCESS) {
         LT_LOG_ERROR("PSA Crypto initialization failed, status=%d (psa_status_t)", status);
         return -1;
+    }
+#elif LT_USE_WOLFCRYPT
+    ret = wolfCrypt_Init();
+    if (ret != 0) {
+        LT_LOG_ERROR("WolfCrypt initialization failed, ret=%d (%s)", ret, wc_GetErrorString(ret));
+        return ret;
     }
 #endif
 
@@ -60,14 +74,7 @@ int main(void)
     lt_handle.l2.device = &device;
 
     // CAL context (selectable)
-#if LT_USE_TREZOR_CRYPTO
-    lt_ctx_trezor_crypto_t
-#elif LT_USE_MBEDTLS_V4
-    lt_ctx_mbedtls_v4_t
-#elif LT_USE_OPENSSL
-    lt_ctx_openssl_t
-#endif
-        crypto_ctx;
+    CRYPTO_CTX_TYPE crypto_ctx;
     lt_handle.l3.crypto_ctx = &crypto_ctx;
 
     // Test code (correct test function is selected automatically per binary).
@@ -77,6 +84,12 @@ int main(void)
 
 #if LT_USE_MBEDTLS_V4
     mbedtls_psa_crypto_free();
+#elif LT_USE_WOLFCRYPT
+    ret = wolfCrypt_Cleanup();
+    if (ret != 0) {
+        LT_LOG_ERROR("WolfCrypt cleanup failed, ret=%d (%s)", ret, wc_GetErrorString(ret));
+        return ret;
+    }
 #endif
 
     return ret;
