@@ -89,3 +89,23 @@ jobs:
         with:
           name: macandd_valgrind_run_logs
           path: examples/model/mac_and_destroy/build/run_logs/
+
+      - name: Compile and run Separate API example
+        id: run_separate_api
+        run: |
+            cd examples/model/separate_api
+            cmake ./ -B build -G Ninja
+            cd build/
+            ninja
+            python3 ../../../../scripts/tropic01_model/model_runner.py \
+              -e ./libtropic_separate_api \
+              -c ../../../../scripts/tropic01_model/model_cfg.yml \
+              -o run_logs/ \
+              --use-valgrind
+      
+      - name: Upload Separate API run logs
+        if: always() && (steps.run_separate_api.outcome == 'success' || steps.run_separate_api.outcome == 'failure')
+        uses: actions/upload-artifact@v4
+        with:
+          name: separate_api_valgrind_run_logs
+          path: examples/model/separate_api/build/run_logs/

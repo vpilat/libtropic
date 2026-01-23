@@ -64,6 +64,7 @@ int main(void)
     unsigned int prng_seed;
     if (0 != getentropy(&prng_seed, sizeof(prng_seed))) {
         fprintf(stderr, "main: getentropy() failed (%s)!\n", strerror(errno));
+        mbedtls_psa_crypto_free();
         return -1;
     }
     srand(prng_seed);
