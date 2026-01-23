@@ -17,6 +17,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4.1.7
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
       - name: Install dependencies
         run: |
             sudo apt-get install cmake build-essential ninja-build
@@ -24,28 +29,28 @@ jobs:
 
       - name: Build SPI examples
         run: |
-            cd examples/linux/spi_devkit/hello_world
-            cmake ./ -B build -G Ninja
-            cd build && ninja
+          cd examples/linux/spi_devkit/hello_world
+          cmake ./ -B build -G Ninja
+          cd build && ninja
 
-            cd ../../identify_chip
-            cmake ./ -B build -G Ninja
-            cd build && ninja
+          cd ../../identify_chip
+          cmake ./ -B build -G Ninja
+          cd build && ninja
 
-            cd ../../fw_update
-            cmake ./ -B build -G Ninja
-            cd build && ninja
+          cd ../../fw_update
+          cmake ./ -B build -G Ninja
+          cd build && ninja
 
       - name: Build USB Devkit examples
         run: |
-            cd examples/linux/usb_devkit/hello_world
-            cmake ./ -B build -G Ninja
-            cd build && ninja
+          cd examples/linux/usb_devkit/hello_world
+          cmake ./ -B build -G Ninja
+          cd build && ninja
 
-            cd ../../identify_chip
-            cmake ./ -B build -G Ninja
-            cd build && ninja
+          cd ../../identify_chip
+          cmake ./ -B build -G Ninja
+          cd build && ninja
 
-            cd ../../fw_update
-            cmake ./ -B build -G Ninja
-            cd build && ninja
+          cd ../../fw_update
+          cmake ./ -B build -G Ninja
+          cd build && ninja
