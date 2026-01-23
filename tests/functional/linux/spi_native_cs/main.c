@@ -54,7 +54,7 @@ int main(void)
     strcpy(device.gpio_dev,
            LT_SPI_DEVKIT_GPIO_PATH);  // LT_SPI_DEVKIT_GPIO_PATH is defined in CMakeLists.txt. Pass
                                       // -DLT_SPI_DEVKIT_GPIO_PATH=<path> to cmake if you want to change it.
-    device.gpio_int_num = 5;  // GPIO 5 as on RPi shield.
+    device.gpio_int_num = 5;          // GPIO 5 as on RPi shield.
 #endif
     lt_handle.l2.device = &device;
 
