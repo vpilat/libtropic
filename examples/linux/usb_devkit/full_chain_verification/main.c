@@ -19,15 +19,6 @@
 /** @brief Length of the buffers for certificates. */
 #define CERTS_BUF_LEN 700
 
-// Choose pairing keypair for slot 0.
-#if LT_USE_SH0_ENG_SAMPLE
-#define LT_EX_SH0_PRIV sh0priv_eng_sample
-#define LT_EX_SH0_PUB sh0pub_eng_sample
-#elif LT_USE_SH0_PROD0
-#define LT_EX_SH0_PRIV sh0priv_prod0
-#define LT_EX_SH0_PUB sh0pub_prod0
-#endif
-
 lt_ret_t dump_cert_store(lt_handle_t *lt_handle)
 {
     uint8_t cert1[CERTS_BUF_LEN] = {0}, cert2[CERTS_BUF_LEN] = {0}, cert3[CERTS_BUF_LEN] = {0},
