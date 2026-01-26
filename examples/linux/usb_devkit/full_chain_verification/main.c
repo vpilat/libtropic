@@ -32,7 +32,7 @@ lt_ret_t dump_cert_store(lt_handle_t *lt_handle)
     printf("Reading certificates from TROPIC01...\n");
     lt_ret_t ret = lt_get_info_cert_store(lt_handle, &store);
     if (ret != LT_OK) {
-        fprintf(stderr, "Failed to retrieve the certificates, ret=%d\n", ret);
+        fprintf(stderr, "Failed to retrieve the certificates, ret=%s\n", lt_ret_verbose(ret));
         return LT_FAIL;
     }
 
