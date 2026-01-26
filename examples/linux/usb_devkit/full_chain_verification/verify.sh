@@ -41,9 +41,9 @@ L2=$(openssl x509 -in "$T01_CERTS_DIR/t01_xxxx_ca_cert.der" -inform DER -text | 
 L1=$(openssl x509 -in "$T01_CERTS_DIR/t01_ca_cert.der" -inform DER -text | grep URI | cut -d ':' -f 2-)
 
 # Download CRLs
-curl $L3 -o "$TMPDIR/t01-Tv1.crl" # Downloads t01-Tv1.crl
-curl $L2 -o "$TMPDIR/t01v1.crl" # Downloads t01v1.crl
-curl $L1 -o "$TMPDIR/tsrv1.crl" # Downloads tsrv1.crl
+curl "$L3" -o "$TMPDIR/t01-Tv1.crl" # Downloads t01-Tv1.crl
+curl "$L2" -o "$TMPDIR/t01v1.crl" # Downloads t01v1.crl
+curl "$L1" -o "$TMPDIR/tsrv1.crl" # Downloads tsrv1.crl
 
 # Verify (chip) device certificate
 echo "Verificating (chip) device certificate..."
