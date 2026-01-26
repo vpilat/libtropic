@@ -31,9 +31,9 @@ TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
 
 # Download certificate authorities from Tropic Square PKI web
-curl http://pki.tropicsquare.com/l0/tropic01_xxxx_ca_certificate_sn_30001.pem -o "$TMPDIR/tropic01_xxxx_ca_certificate_sn_30001.pem"
-curl http://pki.tropicsquare.com/l0/tropic01_ca_certificate_sn_3001.pem -o "$TMPDIR/tropic01_ca_certificate_sn_3001.pem"
-curl http://pki.tropicsquare.com/l0/tropicsquare_root_ca_certificate_sn_301.pem -o "$TMPDIR/tropicsquare_root_ca_certificate_sn_301.pem"
+curl --fail http://pki.tropicsquare.com/l0/tropic01_xxxx_ca_certificate_sn_30001.pem -o "$TMPDIR/tropic01_xxxx_ca_certificate_sn_30001.pem"
+curl --fail http://pki.tropicsquare.com/l0/tropic01_ca_certificate_sn_3001.pem -o "$TMPDIR/tropic01_ca_certificate_sn_3001.pem"
+curl --fail http://pki.tropicsquare.com/l0/tropicsquare_root_ca_certificate_sn_301.pem -o "$TMPDIR/tropicsquare_root_ca_certificate_sn_301.pem"
 
 # Parse CRLs from certificates read from device in previous example
 L3=$(openssl x509 -in "$T01_CERTS_DIR/t01_ese_cert.der" -inform DER -text | grep URI | cut -d ':' -f 2-)
@@ -41,9 +41,9 @@ L2=$(openssl x509 -in "$T01_CERTS_DIR/t01_xxxx_ca_cert.der" -inform DER -text | 
 L1=$(openssl x509 -in "$T01_CERTS_DIR/t01_ca_cert.der" -inform DER -text | grep URI | cut -d ':' -f 2-)
 
 # Download CRLs
-curl "$L3" -o "$TMPDIR/t01-Tv1.crl" # Downloads t01-Tv1.crl
-curl "$L2" -o "$TMPDIR/t01v1.crl" # Downloads t01v1.crl
-curl "$L1" -o "$TMPDIR/tsrv1.crl" # Downloads tsrv1.crl
+curl --fail "$L3" -o "$TMPDIR/t01-Tv1.crl" # Downloads t01-Tv1.crl
+curl --fail "$L2" -o "$TMPDIR/t01v1.crl" # Downloads t01v1.crl
+curl --fail "$L1" -o "$TMPDIR/tsrv1.crl" # Downloads tsrv1.crl
 
 # Verify (chip) device certificate
 echo "Verifying (chip) device certificate..."
