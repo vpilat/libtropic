@@ -52,6 +52,10 @@ lt_ret_t dump_cert_store(lt_handle_t *lt_handle)
             return LT_FAIL;
         }
         FILE *f = fopen(names[i], "wb");
+        if (!f) {
+            fprintf(stderr, "Error: Couldn't open file %s!", names[i]);
+            return LT_FAIL;
+        }
         if (fwrite(store.certs[i], 1, store.cert_len[i], f) != store.cert_len[i]) {
             fprintf(stderr,  "Error: Failed to write certificate %d to file!", i);
             fclose(f);
