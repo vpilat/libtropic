@@ -3,9 +3,13 @@
 set -e
 
 if [[ $# -ne 1 ]]; then
-    echo "Full chain verification example."
+    echo "TROPIC01 full certificate chain verification example."
+    echo "This script verifies certificates downloaded from TROPIC01."
+    echo
     echo "Usage:"
     echo "$0 <path_to_certs_from_tropic01>"
+    echo
+    echo "Hint: Use provided C application to download the certificates from TROPIC01 chip."
     exit 1
 fi
 
