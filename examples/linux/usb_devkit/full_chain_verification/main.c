@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * @brief
+ * @brief Utility for dumping certificates from TROPIC01 USB Devkit for Linux. Part of the Full chain verification example.
  * @author Tropic Square s.r.o.
  *
  * @license For the license see file LICENSE.txt file in the root directory of this source tree.
@@ -60,9 +60,9 @@ lt_ret_t dump_cert_store(lt_handle_t *lt_handle)
 
 int main(void)
 {
-    printf("======================================\n");
-    printf("==== TROPIC01 Hello World Example ====\n");
-    printf("======================================\n");
+    printf("====================================================\n");
+    printf("==== TROPIC01 Certificate Chain Dumping Utility ====\n");
+    printf("====================================================\n");
 
     // Cryptographic function provider initialization.
     //
