@@ -74,6 +74,4 @@ set(SOURCES
 # Define executable, pass defines, and link dependencies.
 add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE LT_USB_DEVKIT_PATH=\"${LT_USB_DEVKIT_PATH}\")
-target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE LT_USE_SH0_ENG_SAMPLE=${LT_USE_SH0_ENG_SAMPLE})
-target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE LT_USE_SH0_PROD0=${LT_USE_SH0_PROD0})
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE tropic)
