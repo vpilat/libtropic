@@ -33,7 +33,6 @@ trap 'rm -rf "$TMPDIR"' EXIT
 # Download certificate authorities from Tropic Square PKI web
 curl --fail http://pki.tropicsquare.com/l0/tropic01_xxxx_ca_certificate_sn_30001.pem -o "$TMPDIR/tropic01_xxxx_ca_certificate_sn_30001.pem"
 curl --fail http://pki.tropicsquare.com/l0/tropic01_ca_certificate_sn_3001.pem -o "$TMPDIR/tropic01_ca_certificate_sn_3001.pem"
-curl --fail http://pki.tropicsquare.com/l0/tropicsquare_root_ca_certificate_sn_301.pem -o "$TMPDIR/tropicsquare_root_ca_certificate_sn_301.pem"
 
 # Parse CRLs from certificates read from device in previous example
 L3=$(openssl x509 -in "$T01_CERTS_DIR/t01_ese_cert.der" -inform DER -text | grep URI | cut -d ':' -f 2-)
@@ -51,7 +50,7 @@ cat "$TMPDIR/tropic01_xxxx_ca_certificate_sn_30001.pem" \
     "$TMPDIR/t01-Tv1.crl" \
     "$TMPDIR/tropic01_ca_certificate_sn_3001.pem" \
     "$TMPDIR/t01v1.crl" \
-    "$TMPDIR/tropicsquare_root_ca_certificate_sn_301.pem" \
+    "./tropicsquare_root_ca_certificate_sn_301.pem" \
     "$TMPDIR/tsrv1.crl" > "$TMPDIR/chain.pem"
 openssl verify -verbose -crl_check -CAfile "$TMPDIR/chain.pem" "$T01_CERTS_DIR/t01_ese_cert.der"
 
@@ -59,18 +58,23 @@ openssl verify -verbose -crl_check -CAfile "$TMPDIR/chain.pem" "$T01_CERTS_DIR/t
 echo "Verifying 'Part Number (group)' certificate..."
 cat "$TMPDIR/tropic01_ca_certificate_sn_3001.pem" \
     "$TMPDIR/t01v1.crl" \
-    "$TMPDIR/tropicsquare_root_ca_certificate_sn_301.pem" \
+    "./tropicsquare_root_ca_certificate_sn_301.pem" \
     "$TMPDIR/tsrv1.crl" > "$TMPDIR/chain.pem"
 openssl verify -verbose -crl_check -CAfile "$TMPDIR/chain.pem" "$T01_CERTS_DIR/t01_xxxx_ca_cert.der"
 
 # Verify the "Product (Part Name)" certificate
 echo "Verifying 'Product (Part Name)' certificate..."
-cat "$TMPDIR/tropicsquare_root_ca_certificate_sn_301.pem" "$TMPDIR/tsrv1.crl" > "$TMPDIR/chain.pem"
+cat "./tropicsquare_root_ca_certificate_sn_301.pem" "$TMPDIR/tsrv1.crl" > "$TMPDIR/chain.pem"
 openssl verify -verbose -crl_check -CAfile "$TMPDIR/chain.pem" "$T01_CERTS_DIR/t01_ca_cert.der"
 
 # Verify Tropic Square Root Certificate
 echo "Verifying Tropic Square Root certificate..."
-# Out-of-band verification of Root Certificate is not included
-openssl verify -verbose -CAfile "$TMPDIR/tropicsquare_root_ca_certificate_sn_301.pem" "$TMPDIR/tropicsquare_root_ca_certificate_sn_301.pem"
+
+# We provide the root certificate here, in this repository, for convenience.
+# HOWEVER. Do not blindly trust this certificate file from GitHub alone.
+# To protect against repository compromise, you must verify the certificate
+# fingerprint through an independent channel. Contact Tropic Square directly
+# to obtain the verified fingerprint.
+openssl verify -verbose -CAfile "./tropicsquare_root_ca_certificate_sn_301.pem" "./tropicsquare_root_ca_certificate_sn_301.pem"
 
 echo "All certificates verified successfully!"
