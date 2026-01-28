@@ -33,9 +33,6 @@ message(STATUS "Using serial port: ${LT_USB_DEVKIT_PATH}. You can change it by p
 # Add path to Libtropic source
 add_subdirectory(${PATH_LIBTROPIC} "libtropic")
 
-# Customize libtropic's compilation
-target_compile_options(tropic PRIVATE -ffunction-sections -fdata-sections)
-
 # ------------------------------------------------------------------------
 # External dependencies
 # ------------------------------------------------------------------------
