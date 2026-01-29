@@ -1,4 +1,4 @@
-# 1. Chip Identification Example
+# 1. Chip Identification Example Tutorial
 
 --8<-- "docs/common/examples_descriptions/identify_chip.md"
 

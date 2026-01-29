@@ -11,7 +11,7 @@ Continue with the [TROPIC01 Model Tutorials](model/index.md).
 ## B. I want the real deal
 If you have already experimented with our TROPIC01 Model and you are ready to try the TROPIC01 chip, go ahead!
 
-Pick a tutorial based on your host platform:
+Pick a set of tutorials based on your host platform:
 
 - :fontawesome-brands-linux: Linux
     - [:fontawesome-solid-microchip: Linux SPI](linux/spi/index.md)

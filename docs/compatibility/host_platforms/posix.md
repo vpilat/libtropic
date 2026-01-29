@@ -19,7 +19,7 @@ We use this port with the [TROPIC01 Python Model](../../tutorials/model/index.md
     The TCP HAL does not support TROPIC01's interrupt pin.
 
 ## TROPIC01 USB Devkit
-Libtropic communicates with our USB Devkits using the USB protocol. See our [TROPIC01 USB Devkit Tutorial](../../tutorials/linux/usb_devkit/index.md) to quickly get started.
+Libtropic communicates with our USB Devkits using the USB protocol. See our [TROPIC01 USB Devkit Tutorials](../../tutorials/linux/usb_devkit/index.md) to quickly get started.
 
 !!! bug "Raspberry Pi 4 Issues"
     When testing with Raspberry Pi 4, we have encountered [issues with its USB](https://github.com/raspberrypi/linux/issues/3259#), which seems to lose some of the USB packets sent to it.

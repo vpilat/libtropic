@@ -1,12 +1,12 @@
-# ESP32 Tutorial
-This tutorial will help you get started with TROPIC01 on ESP32-based platforms using Libtropic. We will go through our examples in the `examples/esp32/` directory. In this directory, there are multiple subdirectories for each supported ESP32 board. Most of the instructions in this tutorial are common for all of the boards.
+# ESP32 Tutorials
+These tutorials will help you get started with TROPIC01 on ESP32-based platforms using Libtropic. We will go through our examples in the `examples/esp32/` directory. In this directory, there are multiple subdirectories for each supported ESP32 board. Most of the instructions in this tutorial are common for all of the boards.
 
 ## Hardware Setup
 ### TROPIC01
 !!! info "TROPIC01 Devkit for ESP32 boards"
     Currently, we don't offer a devkit for ESP32 boards. However, you can use any of our devkits that use SPI, except the USB DevKit.
 
-For the purpose of this tutorial, we will use our TROPIC01 Arduino Shield:
+For the purpose of these tutorials, we will use our TROPIC01 Arduino Shield:
 <figure style="text-align: center;">
 <img src="../../img/arduino-shield-pinout.svg" alt="TROPIC01 Arduino Shield pinout" width="500"/>
 <figcaption style="font-size: 0.9em; color: #555; margin-top: 0.5em;">
@@ -90,9 +90,9 @@ See below for instructions based on your OS:
     === ":fontawesome-brands-windows: Windows"
         TBA
 
-## Start with our Examples!
+## Start with our Tutorials!
 !!! warning "Do not skip!"
-    We strongly recommend going through each example in this specific order without skipping. You will gather basic information about the chip and update your TROPIC01's firmware, which will guarantee compatibility with the latest Libtropic API.
+    We strongly recommend going through each tutorial in this specific order without skipping. You will gather basic information about the chip and update your TROPIC01's firmware, which will guarantee compatibility with the latest Libtropic API.
 
 1. [Chip Identification](identify_chip.md)
 2. [FW Update](fw_update.md)

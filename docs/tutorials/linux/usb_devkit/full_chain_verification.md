@@ -1,4 +1,4 @@
-# 4. Full Chain Verification Example
+# 4. Full Chain Verification Example Tutorial
 
 In this tutorial, you will learn about one of the steps required to verify the authenticity of the TROPIC01 certificate chain — a process that should be done by Tropic Square customers during provisioning of their device which integrates TROPIC01.
 

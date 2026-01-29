@@ -1,4 +1,4 @@
-# 2. Hardware Wallet Example
+# 2. Hardware Wallet Example Tutorial
 This example demonstrates how to use configuration objects and different pairing keys to manage access to TROPIC01 features. A hardware wallet device scenario is used as a model for this example.
 
 !!! success "Prerequisites"
@@ -57,4 +57,4 @@ Now, you can build and run the example:
 !!! warning "Irreversible Changes"
     Because this example writes and invalidates some Pairing Key slots (which are **irreversible** changes), the model has to be terminated and started again before running the example binary again. This action results in making the model behave like a fresh TROPIC01 chip again.
 
-[Next tutorial :material-arrow-right:](macandd_example.md){ .md-button }
+[Next tutorial :material-arrow-right:](macandd.md){ .md-button }

@@ -1,5 +1,5 @@
-# STM32 Tutorial
-This tutorial will help you get started with TROPIC01 on STM32-based platforms using Libtropic. Currently, we officially support [Nucleo F439ZI](https://www.st.com/en/evaluation-tools/nucleo-f439zi.html) and [Nucleo L432KC](https://www.st.com/en/evaluation-tools/nucleo-l432kc.html) development boards.
+# STM32 Tutorials
+These tutorials will help you get started with TROPIC01 on STM32-based platforms using Libtropic. Currently, we officially support [Nucleo F439ZI](https://www.st.com/en/evaluation-tools/nucleo-f439zi.html) and [Nucleo L432KC](https://www.st.com/en/evaluation-tools/nucleo-l432kc.html) development boards.
 
 We will go through our examples in the `examples/stm32/` directory. In this directory, there are multiple subdirectories for each supported Nucleo board. Most of the instructions in this tutorial are common for all of the boards.
 
@@ -98,9 +98,9 @@ After that, setup your system:
     === ":fontawesome-brands-windows: Windows"
         TBA
 
-## Start with our Examples!
+## Start with our Tutorials!
 !!! warning "Do not skip!"
-    We strongly recommend going through each example in this specific order without skipping. You will gather basic information about the chip and update your TROPIC01's firmware, which will guarantee compatibility with the latest Libtropic API.
+    We strongly recommend going through each tutorial in this specific order without skipping. You will gather basic information about the chip and update your TROPIC01's firmware, which will guarantee compatibility with the latest Libtropic API.
 
 1. [Chip Identification](identify_chip.md)
 2. [FW Update](fw_update.md)

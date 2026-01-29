@@ -1,4 +1,4 @@
-# 3. Hello, World! Example
+# 3. Hello, World! Example Tutorial
 
 --8<-- "docs/common/examples_descriptions/hello_world.md"
 

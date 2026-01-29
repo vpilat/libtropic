@@ -7,4 +7,4 @@ Currently supported STM32 platforms are:
 
 HALs for these ports are available in the `libtropic/hal/stm32/` directory.
 
-See our [STM32 Tutorial](../../tutorials/stm32/index.md) to quickly get started.
+See our [STM32 Tutorials](../../tutorials/stm32/index.md) to quickly get started.

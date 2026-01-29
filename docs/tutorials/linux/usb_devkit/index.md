@@ -1,5 +1,5 @@
-# TROPIC01 USB Devkit Tutorial
-This tutorial will help you get started with our TROPIC01 USB Devkit (available [here](https://www.tropicsquare.com/order-devkit)) mainly on Linux-based systems, but it should also be compatible with other POSIX systems. We will go through our examples in the `examples/linux/usb_devkit/` directory.
+# TROPIC01 USB Devkit Tutorials
+These tutorials will help you get started with our TROPIC01 USB Devkit (available [here](https://www.tropicsquare.com/order-devkit)) mainly on Linux-based systems, but it should also be compatible with other POSIX systems. We will go through our examples in the `examples/linux/usb_devkit/` directory.
 
 ## Hardware Setup
 As mentioned above, we will use our TROPIC01 USB Devkit (available [here](https://www.tropicsquare.com/order-devkit)), specifically the TS1303 version, but other versions should also work:
@@ -35,9 +35,9 @@ After that, setup your system:
     # Log out and log in again to reflect changes.
     ```
 
-## Start with our Examples!
+## Start with our Tutorials!
 !!! warning "Do not skip!"
-    We strongly recommend going through each example in this specific order without skipping. You will gather basic information about the chip and update your TROPIC01's firmware, which will guarantee compatibility with the latest Libtropic API.
+    We strongly recommend going through each tutorial in this specific order without skipping. You will gather basic information about the chip and update your TROPIC01's firmware, which will guarantee compatibility with the latest Libtropic API.
 
 1. [Chip Identification](identify_chip.md)
 2. [FW Update](fw_update.md)

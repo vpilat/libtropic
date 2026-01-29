@@ -1,4 +1,4 @@
-# 2. FW Update Example
+# 2. FW Update Example Tutorial
 
 --8<-- "docs/common/examples_descriptions/fw_update.md"
 

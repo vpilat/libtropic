@@ -1,8 +1,8 @@
-# Linux SPI Tutorial
-This tutorial will help you get started with TROPIC01 on Linux-based systems with a hardware SPI interface. We will go through our examples in the `examples/linux/spi/` directory. The used port should be compatible with most Linux-based systems with a hardware SPI interface, including popular single-board computers such as the Raspberry Pi.
+# Linux SPI Tutorials
+These tutorials will help you get started with TROPIC01 on Linux-based systems with a hardware SPI interface. We will go through our examples in the `examples/linux/spi/` directory. The used port should be compatible with most Linux-based systems with a hardware SPI interface, including popular single-board computers such as the Raspberry Pi.
 
 ## Hardware Setup
-For the purpose of this example, we will use [Raspberry Pi 4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) as the host platform and our **TROPIC01 Raspberry Pi Shield** (available [here](https://www.tropicsquare.com/order-devkit)). However, any other shield with TROPIC01's SPI pins exposed should work.
+For the purpose of these tutorials, we will use [Raspberry Pi 4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) as the host platform and our **TROPIC01 Raspberry Pi Shield** (available [here](https://www.tropicsquare.com/order-devkit)). However, any other shield with TROPIC01's SPI pins exposed should work.
 <figure style="text-align: center;">
 <img src="../../../img/TS1501_Raspberry_Pi_Shield_prod_photo.png" alt="TROPIC01 Raspberry Pi Shield" width="250"/>
 <figcaption style="font-size: 0.9em; color: #555; margin-top: 0.5em;">
@@ -52,9 +52,9 @@ After that, setup your system:
     # Log out and log in again to reflect changes.
     ```
 
-## Start with our Examples!
+## Start with our Tutorials!
 !!! warning "Do not skip!"
-    We strongly recommend going through each example in this specific order without skipping. You will gather basic information about the chip and update your TROPIC01's firmware, which will guarantee compatibility with the latest Libtropic API.
+    We strongly recommend going through each tutorial in this specific order without skipping. You will gather basic information about the chip and update your TROPIC01's firmware, which will guarantee compatibility with the latest Libtropic API.
 
 1. [Chip Identification](identify_chip.md)
 2. [FW Update](fw_update.md)
