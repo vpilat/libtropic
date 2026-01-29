@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * @brief Simple "Hello, World!" example of using Libtropic with the SPI devkit.
+ * @brief Simple "Hello, World!" example of using Libtropic with Linux SPI.
  * @copyright Copyright (c) 2020-2026 Tropic Square s.r.o.
  *
  * @license For the license see file LICENSE.txt file in the root directory of this source tree.
