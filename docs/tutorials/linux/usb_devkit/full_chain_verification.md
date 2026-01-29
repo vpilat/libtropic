@@ -73,7 +73,7 @@ After loading the certificates from the TROPIC01 chip, we will verify the certif
         TBA
 
 ### Understanding the Script
-The script demonstrates the important steps in the verification process:
+The script demonstrates almost all important steps in the verification process:
 
 1. Download revocation lists from the URLs specified in the certificates which we obtained from the TROPIC01.
 2. Check all certificates we obtained from the TROPIC01 using the chain and revocation lists we downloaded from the Tropic Square PKI website.
