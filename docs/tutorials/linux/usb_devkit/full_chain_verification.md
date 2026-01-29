@@ -78,7 +78,7 @@ After we loaded the certificates from the TROPIC01 chip, we will verify the cert
 The script demonstrates almost all important steps in the verification process:
 
 1. Download revocation lists from the URLs specified in the certificates which we obtained from the TROPIC01.
-2. Check all certificates we obtained from the TROPIC01 using chain and revocation lists we downloaded from Tropic Square PKI website.
+2. Check all certificates we obtained from the TROPIC01 using the chain and revocation lists we downloaded from the Tropic Square PKI website.
 3. Check the root certificate (simplified, no out-of-band check provided).
 
 Authenticity check of the root certificate in the step 3 is not fully implemented. The root certificate can be obtained from the chip, we provide it in this repository and it is also available in the Tropic Square PKI website. **Do not blindly trust this certificate** file from GitHub alone. To protect against repository compromise, the trust has to be established by verifying the certificate fingerprint through an independent channel. Tropic Square customers can obtain the verified fingerprint via direct contact with [Customer Support](https://support.tropicsquare.com).
