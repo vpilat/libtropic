@@ -55,6 +55,6 @@ Now, you can build and run the example:
         TBA
 
 !!! warning "Irreversible Changes"
-    Because this example performs some irreversible changes, the model has to be terminated and started again before running the example binary again. This action results in making the model behave like a fresh TROPIC01 chip again.
+    Because this example writes and invalidates some Pairing Key slots (which are **irreversible** changes), the model has to be terminated and started again before running the example binary again. This action results in making the model behave like a fresh TROPIC01 chip again.
 
 [Next tutorial :material-arrow-right:](macandd_example.md){ .md-button }
