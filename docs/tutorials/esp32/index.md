@@ -16,7 +16,7 @@ For the purpose of these tutorials, we will use our TROPIC01 Arduino Shield:
 You can get TROPIC01 Arduino Shield and other devkits [here](https://www.tropicsquare.com/order-devkit).
 
 ### Your ESP32 Board
-Unfortunately, ESP32 boards and our Arduino shield are not a plug-and-play, so, please, prepare some jump wires and use the figure above with Arduino Shield Pinout to help you during the setup. Follow the connection instructions for your ESP32 board below:
+Unfortunately, ESP32 boards and our Arduino shield are not plug-and-play, so please prepare some jump wires and use the figure above with Arduino Shield Pinout to help you during the setup. Follow the connection instructions for your ESP32 board below:
 !!! example "Connection Instructions"
     === "ESP32-DevKitC-V4"
         ESP32-DevKitC-V4 pin layout [here](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32_devkitC_v4_pinlayout.png).
@@ -99,4 +99,4 @@ See below for instructions based on your OS:
 3. [Hello, World!](hello_world.md)
 
 ## FAQ
-If you encounter any issues, please check the [FAQ](../../faq.md) before filing an issue or reaching out to our [support](https://support.desk.tropicsquare.com/).
+If you encounter any issues, please check the [FAQ](../../faq.md) before filing an issue or reaching out to our [support](https://support.tropicsquare.com/).

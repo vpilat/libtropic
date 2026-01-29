@@ -67,7 +67,7 @@ First, install the dependencies and prepare the repository:
                 - Fedora: `sudo dnf install gtkterm`
         6. Get the Libtropic repository:
             - Using git: `git clone https://github.com/tropicsquare/libtropic.git`
-            - Or you can [download latest release](https://github.com/tropicsquare/libtropic/releases/latest).
+            - Or you can [download the latest release](https://github.com/tropicsquare/libtropic/releases/latest).
 
     === ":fontawesome-brands-apple: macOS"
         TBA
@@ -107,4 +107,4 @@ After that, setup your system:
 3. [Hello, World!](hello_world.md)
 
 ## FAQ
-If you encounter any issues, please check the [FAQ](../../faq.md) before filing an issue or reaching out to our [support](https://support.desk.tropicsquare.com/).
+If you encounter any issues, please check the [FAQ](../../faq.md) before filing an issue or reaching out to our [support](https://support.tropicsquare.com/).

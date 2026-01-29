@@ -22,7 +22,7 @@ First, install the dependencies and prepare the repository:
         - `sudo apt update && sudo apt install build-essential`
     3. Get the Libtropic repository:
         - Using git: `git clone https://github.com/tropicsquare/libtropic.git`
-        - Or you can [download latest release](https://github.com/tropicsquare/libtropic/releases/latest).
+        - Or you can [download the latest release](https://github.com/tropicsquare/libtropic/releases/latest).
 
 After that, setup your system:
 !!! example "System Setup Instructions"
@@ -45,4 +45,4 @@ After that, setup your system:
 4. [Full Chain Verification](full_chain_verification.md)
 
 ## FAQ
-If you encounter any issues, please check the [FAQ](../../../faq.md) before filing an issue or reaching out to our [support](https://support.desk.tropicsquare.com/).
+If you encounter any issues, please check the [FAQ](../../../faq.md) before filing an issue or reaching out to our [support](https://support.tropicsquare.com/).
