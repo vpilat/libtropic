@@ -72,6 +72,7 @@ nav:
           - 1. Chip Identification: tutorials/linux/usb_devkit/identify_chip.md
           - 2. FW Update: tutorials/linux/usb_devkit/fw_update.md
           - 3. Hello, World!: tutorials/linux/usb_devkit/hello_world.md
+          - 4. Full Chain Verification: tutorials/linux/usb_devkit/full_chain_verification.md
       - ESP32:
         - tutorials/esp32/index.md
         - 1. Chip Identification: tutorials/esp32/identify_chip.md
