@@ -60,7 +60,7 @@ After we loaded the certificates from the TROPIC01 chip, we will verify the cert
         cd examples/linux/usb_devkit/full_chain_verification/
         ```
 
-        Run the `verify.sh` script. It accepts a single argument, a path to a directory where certificates loaded from the TROPIC01 are located.
+        Run the `verify.sh` script. It accepts a single argument: a path to a directory where certificates loaded from the TROPIC01 are located.
         ```bash { .copy }
         ./verify.sh build/
         ```
