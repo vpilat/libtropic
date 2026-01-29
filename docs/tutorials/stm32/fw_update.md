@@ -11,7 +11,7 @@
         ```
 
         Create a `build/` directory and switch to it:
-        ```bash { copy }
+        ```bash { .copy }
         mkdir build/
         cd build/
         ```

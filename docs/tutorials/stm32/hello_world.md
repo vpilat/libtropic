@@ -43,7 +43,7 @@ If your TROPIC01 has engineering sample pairing keys, you can switch to them usi
 !!! example "Switching to engineering sample pairing keys"
     === ":fontawesome-brands-linux: Linux"
         You can pass `LT_SH0_KEYS` to `cmake` as follows:
-        ```bash { .yaml .copy }
+        ```bash { .copy }
         cmake -DLT_SH0_KEYS="eng_sample" ..
         make
         ```
