@@ -1,7 +1,7 @@
 # Provisioning Data
 The `scripts/tropic01_model/provisioning_data` directory contains so-called **lab batch packages**, which are data used for provisioning TROPIC01 chips in the Tropic Square lab for testing purposes. In Libtropic, these lab batch packages are used for configuring the [TROPIC01 Model](../tutorials/model/index.md).
 > [!NOTE]
-> Lab batch packages in this directory are stripped — they contain only the data needed by libtropic.
+> Lab batch packages in this directory are stripped — they contain only the data needed by Libtropic.
 
 ## Lab Batch Package Contents
 For example, the `2025-06-27T07-51-29Z__prod_C2S_T200__provisioning__lab_batch_package/` lab batch package:

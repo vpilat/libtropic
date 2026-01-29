@@ -7,7 +7,7 @@ This example demonstrates how to use configuration objects and different pairing
 In this example, you will:
 
 - Understand how the R-config is structured and how permissions are managed using the R-config.
-- Learn how the R-config can be modified using the libtropic API:
+- Learn how the R-config can be modified using the Libtropic API:
     - `lt_r_config_erase()`: L3 command to erase the R-config.
     - `lt_write_whole_R_config()`: helper function to write the whole R-config with an instance of `struct lt_config_t`.
     - `lt_read_whole_R_config()`: helper function to read the whole R-config into an instance of `struct lt_config_t`.

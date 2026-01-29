@@ -23,14 +23,14 @@ The following bare-bone example shows how to initialize Libtropic, so it can be 
 int main(void) {
     // 1. Declare a handle variable.
     //
-    // The handle is a context for the whole communication between libtropic
+    // The handle is a context for the whole communication between Libtropic
     // and TROPIC01. Multiple handle instances can exist if it is needed to
     // communicate with multiple TROPIC01 chips.
     lt_handle_t h;
 
     // 2. Declare a device structure.
     //
-    // The device structure provides libtropic with the device-specific
+    // The device structure provides Libtropic with the device-specific
     // information.
     //
     // IMPORTANT: This structure must exist throughout the whole life-cycle
@@ -58,7 +58,7 @@ int main(void) {
     // 5. Declare a context structure for the CFP (Cryptographic Functionality
     // Provider).
     //
-    // The context structure provides libtropic with the memory location where
+    // The context structure provides Libtropic with the memory location where
     // it can save contexts of cryptographic functions. None of its members have
     // to be initialized.
     //

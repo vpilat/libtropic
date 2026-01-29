@@ -1,4 +1,4 @@
-This example demonstrates the basic libtropic API and can be used to verify that the chip works correctly.
+This example demonstrates the basic Libtropic API and can be used to verify that the chip works correctly.
 In this example, you will learn about the following functions:
 
 - `lt_init()`: function used to initialize context for communication with the TROPIC01,

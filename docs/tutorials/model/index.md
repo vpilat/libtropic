@@ -60,7 +60,7 @@ This section provides more details about the TROPIC01 model for those interested
 The model is provided by [TROPIC Verification Library](https://github.com/tropicsquare/ts-tvl). See the repository for more details about the model and the source code. Below we discuss specifics of the TROPIC01 Model usage with Libtropic.
 
 ### How it works?
-The Libtropic uses the TCP HAL implemented in `hal/posix/tcp/libtropic_port_posix_tcp.c`, so both processes (the compiled binary and the model) communicate through a TCP socket at 127.0.0.1:28992. The SPI layer between libtropic and the model is emulated through this TCP connection. The model responses match those of the physical TROPIC01 chip.
+The Libtropic uses the TCP HAL implemented in `hal/posix/tcp/libtropic_port_posix_tcp.c`, so both processes (the compiled binary and the model) communicate through a TCP socket at 127.0.0.1:28992. The SPI layer between Libtropic and the model is emulated through this TCP connection. The model responses match those of the physical TROPIC01 chip.
 
 ### Model Configuration
 !!! warning "Custom model configuration"

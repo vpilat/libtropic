@@ -7,7 +7,7 @@ We provide the following ports, which should be compatible with most POSIX compl
 HALs for these ports are available in the `libtropic/hal/posix/` directory.
 
 ## TCP
-We use this port with the [TROPIC01 Python Model](../../tutorials/model/index.md), which acts as a server, to which libtropic connects via the specified TCP port. See our [TROPIC01 Model Tutorials](../../tutorials/model/index.md) to quickly get started.
+We use this port with the [TROPIC01 Python Model](../../tutorials/model/index.md), which acts as a server, to which Libtropic connects via the specified TCP port. See our [TROPIC01 Model Tutorials](../../tutorials/model/index.md) to quickly get started.
 
 !!! warning "Disclaimer"
     The TCP HAL is implemented with consideration of the following:

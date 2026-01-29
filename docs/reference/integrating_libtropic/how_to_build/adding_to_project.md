@@ -23,7 +23,7 @@ add_subdirectory(${PATH_LIBTROPIC} "libtropic")
     ```cmake { .copy }
     target_link_libraries(tropic PUBLIC mbedtls)
     ```
-4. By default, libtropic does not link platform-specific code or its HAL, so it can be built as a static library. This is the consumer's responsibility:
+4. By default, Libtropic does not link platform-specific code or its HAL, so it can be built as a static library. This is the consumer's responsibility:
     1. For the chosen platform (e.g. Linux with HW SPI), add a corresponding HAL using `add_subdirectory`:
     ```cmake { .copy }
     add_subdirectory("${PATH_TO_LIBTROPIC}hal/linux/spi")
@@ -39,7 +39,7 @@ target_link_libraries(my_binary_name PRIVATE tropic)
 ```
 
 !!! note "Inspiration for CMakeLists.txt"
-    The exact CMake calls depend on a configuration of the project into which libtropic is being added. For more inspiration, refer to our standalone example projects in `examples/` (explained in [Tutorials](../../../tutorials/index.md)) and the [CMake Documentation](https://cmake.org/cmake/help/latest/index.html).
+    The exact CMake calls depend on a configuration of the project into which Libtropic is being added. For more inspiration, refer to our standalone example projects in `examples/` (explained in [Tutorials](../../../tutorials/index.md)) and the [CMake Documentation](https://cmake.org/cmake/help/latest/index.html).
 
 !!! info "Supported Host Platforms and CFPs"
     Refer to [Compatibility](../../../compatibility/index.md) section to see what is supported.
@@ -58,5 +58,5 @@ If you use a Makefile instead of CMake, you need to:
     2. Configure Libtropic using CMake and then execute `grep LT_ CMakeCache.txt` in your `build/` directory to see all used options/defines.
 
 !!! tip "Tip: Build Libtropic as a Static Library"
-    You can compile libtropic as a static library (see [Compile as a Static Library](compile_as_static_library.md)) using CMake separately and include only the resulting library file in your Makefile.
-    This approach eliminates the need to compile the entire libtropic library and its dependencies in your Makefile. However, you will still need to manually add the HAL files for your platform (`libtropic/hal/`) and the CAL files for your [CFP](../../../compatibility/cfps/index.md) (`libtropic/cal/`).
+    You can compile Libtropic as a static library (see [Compile as a Static Library](compile_as_static_library.md)) using CMake separately and include only the resulting library file in your Makefile.
+    This approach eliminates the need to compile the entire Libtropic library and its dependencies in your Makefile. However, you will still need to manually add the HAL files for your platform (`libtropic/hal/`) and the CAL files for your [CFP](../../../compatibility/cfps/index.md) (`libtropic/cal/`).

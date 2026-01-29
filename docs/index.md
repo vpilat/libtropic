@@ -1,5 +1,5 @@
 # Introduction
-Welcome to the documentation page for **libtropic**!
+Welcome to the documentation page for **Libtropic**!
 
 Libtropic is a C-based Software Development Kit (SDK) developed by [Tropic Square](https://tropicsquare.com/). Designed for seamless integration, it offers a user-friendly, high-level API that enables host platforms to easily interface with the [TROPIC01](https://tropicsquare.com/tropic01) secure element.
 

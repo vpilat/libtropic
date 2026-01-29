@@ -2,7 +2,7 @@
 Libtropic documentation is built using the two following frameworks, each building a different part of the documentation:
 
 1. [MkDocs](https://www.mkdocs.org/), used to generate the pages you are seeing right now,
-2. [Doxygen](https://www.doxygen.nl/), used to generate the API Reference from the libtropic source code.
+2. [Doxygen](https://www.doxygen.nl/), used to generate the API Reference from the Libtropic source code.
 
 Normally, you should not need to build the documentation yourself - it is available on our [GitHub Pages](https://tropicsquare.github.io/libtropic/latest/), where versions for the [master](https://github.com/tropicsquare/libtropic/tree/master) branch and all [releases](https://github.com/tropicsquare/libtropic/releases) are automatically built and released by our GitHub Actions. However, in the case of contributing to the documentation, it is handy to be able to build it locally and preview the new changes. Refer to the following sections for steps on how to do that.
 
@@ -46,7 +46,7 @@ The API Reference should be now built in `docs/doxygen/build/html/`.
     These steps have to be done each time the contents of `docs/doxygen/` change and you want to preview the changes.
 
 ## Build MkDocs Documentation
-MkDocs has the ability to run a builtin development server on localhost, where the documentation is automatically deployed. To run it, switch to the root libtropic directory, where `mkdocs.yml` is located, and do:
+MkDocs has the ability to run a builtin development server on localhost, where the documentation is automatically deployed. To run it, switch to the root Libtropic directory, where `mkdocs.yml` is located, and do:
 !!! example "Building MkDocs Documentation"
     ```bash { .copy }
     mkdocs serve
