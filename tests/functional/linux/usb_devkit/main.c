@@ -31,6 +31,23 @@
 #define CRYPTO_CTX_TYPE lt_ctx_wolfcrypt_t
 #endif
 
+static int cleanup(void)
+{
+    int ret = 0;
+
+#if LT_USE_MBEDTLS_V4
+    mbedtls_psa_crypto_free();
+#elif LT_USE_WOLFCRYPT
+    ret = wolfCrypt_Cleanup();
+    if (ret != 0) {
+        LT_LOG_ERROR("WolfCrypt cleanup failed, ret=%d (%s)", ret, wc_GetErrorString(ret));
+        return ret;
+    }
+#endif
+
+    return ret;
+}
+
 int main(void)
 {
     int ret = 0;
@@ -60,7 +77,16 @@ int main(void)
 
     // Device mappings
     lt_dev_posix_usb_dongle_t device = {0};
-    strcpy(device.dev_path, "/dev/ttyACM0");
+
+    // LT_USB_DEVKIT_PATH is defined in CMakeLists.txt.
+    int dev_path_len = snprintf(device.dev_path, sizeof(device.dev_path), "%s", LT_USB_DEVKIT_PATH);
+    if (dev_path_len < 0 || (size_t)dev_path_len >= sizeof(device.dev_path)) {
+        LT_LOG_ERROR("Error: LT_USB_DEVKIT_PATH is too long for device.dev_path buffer (limit is %zu bytes).",
+                     sizeof(device.dev_path));
+        LT_UNUSED(cleanup());  // Not caring about return val - we fail anyway.
+        return -1;
+    }
+
     device.baud_rate = 115200;
     lt_handle.l2.device = &device;
 
@@ -73,15 +99,7 @@ int main(void)
     lt_handle_t *__lt_handle__ = &lt_handle;
 #include "lt_test_registry.c.inc"
 
-#if LT_USE_MBEDTLS_V4
-    mbedtls_psa_crypto_free();
-#elif LT_USE_WOLFCRYPT
-    ret = wolfCrypt_Cleanup();
-    if (ret != 0) {
-        LT_LOG_ERROR("WolfCrypt cleanup failed, ret=%d (%s)", ret, wc_GetErrorString(ret));
-        return ret;
-    }
-#endif
+    ret = cleanup();
 
     return ret;
 }
