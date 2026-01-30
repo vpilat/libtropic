@@ -77,12 +77,27 @@ int main(void)
     // Modify this according to your environment. Default values
     // are compatible with RPi and our RPi shield.
     lt_dev_linux_spi_t device = {0};
-    strcpy(device.gpio_dev,
-           LT_GPIO_DEV_PATH);  // LT_GPIO_DEV_PATH is defined in CMakeLists.txt. Pass
-                               // -DLT_GPIO_DEV_PATH=<path> to cmake if you want to change it.
-    strcpy(device.spi_dev,
-           LT_SPI_DEV_PATH);     // LT_SPI_DEV_PATH is defined in CMakeLists.txt. Pass
-                                 // -DLT_SPI_DEV_PATH=<path> to cmake if you want to change it.
+
+    // LT_GPIO_DEV_PATH is defined in CMakeLists.txt. Pass
+    // -DLT_GPIO_DEV_PATH=<path> to cmake if you want to change it.
+    int dev_path_len = snprintf(device.gpio_dev, sizeof(device.gpio_dev), "%s", LT_GPIO_DEV_PATH);
+    if (dev_path_len < 0 || (size_t)dev_path_len >= sizeof(device.gpio_dev)) {
+        fprintf(stderr, "Error: LT_GPIO_DEV_PATH is too long for device.gpio_dev buffer (limit is %zu bytes).\n",
+                sizeof(device.gpio_dev));
+        mbedtls_psa_crypto_free();
+        return -1;
+    }
+
+    // LT_SPI_DEV_PATH is defined in CMakeLists.txt. Pass
+    // -DLT_SPI_DEV_PATH=<path> to cmake if you want to change it.
+    dev_path_len = snprintf(device.spi_dev, sizeof(device.spi_dev), "%s", LT_SPI_DEV_PATH);
+    if (dev_path_len < 0 || (size_t)dev_path_len >= sizeof(device.spi_dev)) {
+        fprintf(stderr, "Error: LT_SPI_DEV_PATH is too long for device.spi_dev buffer (limit is %zu bytes).\n",
+                sizeof(device.spi_dev));
+        mbedtls_psa_crypto_free();
+        return -1;
+    }
+
     device.spi_speed = 5000000;  // 5 MHz (change if needed).
     device.gpio_cs_num = 25;     // GPIO 25 as on RPi shield.
 #if LT_USE_INT_PIN
