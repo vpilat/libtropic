@@ -1,6 +1,6 @@
 # 1. Your First Steps with Libtropic
 
-Hello and welcome to Libtropic SDK! In the first tutorial, we will compile our first examples.
+Hello and welcome to Libtropic SDK! In the first tutorial, we will compile our first example.
 
 Before proceeding, make sure you have activated the virtual environment you installed the TROPIC01 Model in:
 
