@@ -52,37 +52,70 @@ theme:
 # Navigation menu setup
 nav:
   - Introduction: index.md
-  - Get Started:
-    - get_started/index.md
-    - Tutorials:
-      - get_started/tutorials/index.md
+  - Tutorials:
+      - tutorials/index.md
       - Model:
-        - get_started/tutorials/model/index.md
-        - 1. Your First Steps: get_started/tutorials/model/first_steps.md
-        - 2. Understanding Libtropic: get_started/tutorials/model/understanding_libtropic.md
-        - 3. HW Wallet Example: get_started/tutorials/model/hw_wallet_example.md
-        - 4. Mac-And-Destroy Example: get_started/tutorials/model/macandd_example.md
-        - 5. Separate API Example: get_started/tutorials/model/separate_api.md
+        - tutorials/model/index.md
+        - 1. Your First Steps: tutorials/model/first_steps.md
+        # - 2. Understanding Libtropic: tutorials/model/understanding_libtropic.md
+        - 2. HW Wallet: tutorials/model/hw_wallet.md
+        - 3. Mac-And-Destroy: tutorials/model/macandd.md
+        - 4. Separate API: tutorials/model/separate_api.md
       - Linux:
-        - RPi / Arduino Devkit: get_started/tutorials/linux/arduino_rpi_shield.md
-        - USB Devkit: get_started/tutorials/linux/usb_devkit.md
-      - ESP32: get_started/tutorials/esp32/index.md
-    - Libtropic Architecture: get_started/libtropic_architecture.md
+        - Linux SPI:
+          - tutorials/linux/spi/index.md
+          - 1. Chip Identification: tutorials/linux/spi/identify_chip.md
+          - 2. FW Update: tutorials/linux/spi/fw_update.md
+          - 3. Hello, World!: tutorials/linux/spi/hello_world.md
+        - USB Devkit:
+          - tutorials/linux/usb_devkit/index.md
+          - 1. Chip Identification: tutorials/linux/usb_devkit/identify_chip.md
+          - 2. FW Update: tutorials/linux/usb_devkit/fw_update.md
+          - 3. Hello, World!: tutorials/linux/usb_devkit/hello_world.md
+          - 4. Full Chain Verification: tutorials/linux/usb_devkit/full_chain_verification.md
+      - ESP32:
+        - tutorials/esp32/index.md
+        - 1. Chip Identification: tutorials/esp32/identify_chip.md
+        - 2. FW Update: tutorials/esp32/fw_update.md
+        - 3. Hello, World!: tutorials/esp32/hello_world.md
+      - STM32:
+        - tutorials/stm32/index.md
+        - 1. Chip Identification: tutorials/stm32/identify_chip.md
+        - 2. FW Update: tutorials/stm32/fw_update.md
+        - 3. Hello, World!: tutorials/stm32/hello_world.md
+  - Reference:
+    - reference/index.md
+    - Libtropic Architecture: reference/libtropic_architecture.md
     - Integrating Libtropic:
-      - get_started/integrating_libtropic/index.md
+      - reference/integrating_libtropic/index.md
       - How to Build:
-        - get_started/integrating_libtropic/how_to_build/index.md
-        - Add to an Existing Project: get_started/integrating_libtropic/how_to_build/adding_to_project.md
-        - Compile as a Static Library: get_started/integrating_libtropic/how_to_build/compile_as_static_library.md
-      - How to Configure: get_started/integrating_libtropic/how_to_configure/index.md
-      - How to Use: get_started/integrating_libtropic/how_to_use/index.md
-      - Integration Examples: get_started/integrating_libtropic/integration_examples.md
-    - TROPIC01 Firmware: get_started/tropic01_fw.md
-    - Default Pairing Keys for a Secure Channel Handshake: get_started/default_pairing_keys.md
-    - Logging: get_started/logging.md
-    - Debugging: get_started/debugging.md
-  - API Reference:
-    - doxygen/build/html/index.html
+        - reference/integrating_libtropic/how_to_build/index.md
+        - Add to an Existing Project: reference/integrating_libtropic/how_to_build/adding_to_project.md
+        - Compile as a Static Library: reference/integrating_libtropic/how_to_build/compile_as_static_library.md
+      - How to Configure: reference/integrating_libtropic/how_to_configure/index.md
+      - How to Use: reference/integrating_libtropic/how_to_use/index.md
+    - API Reference:
+      - doxygen/build/html/index.html
+    - TROPIC01 Firmware: reference/tropic01_fw.md
+    - Default Pairing Keys for a Secure Channel Handshake: reference/default_pairing_keys.md
+    - Logging: reference/logging.md
+    - Debugging: reference/debugging.md
+    - Provisioning Data: reference/provisioning_data.md
+  - Compatibility:
+    - compatibility/index.md
+    - Host Platforms:
+      - compatibility/host_platforms/index.md
+      - STM32: compatibility/host_platforms/stm32.md
+      - ESP32: compatibility/host_platforms/esp32.md
+      - Linux: compatibility/host_platforms/linux.md
+      - POSIX: compatibility/host_platforms/posix.md
+      - Arduino: compatibility/host_platforms/arduino.md
+    - Cryptographic Functionality Providers:
+      - compatibility/cfps/index.md
+      - Trezor Crypto: compatibility/cfps/trezor_crypto.md
+      - MbedTLS: compatibility/cfps/mbedtls.md
+      - OpenSSL: compatibility/cfps/openssl.md
+      - WolfCrypt: compatibility/cfps/wolfcrypt.md
   - For Contributors:
     - for_contributors/index.md
     - Contributing Guide: for_contributors/contributing_guide.md
@@ -95,22 +128,6 @@ nav:
     - Adding a New Host Platform: for_contributors/adding_host_platform.md
     - Adding a New Cryptographic Functionality Provider: for_contributors/adding_cfp.md
   - FAQ: faq.md
-  - Other:
-    - other/index.md
-    - Provisioning Data: other/provisioning_data.md
-    - Supported Host Platforms:
-      - other/supported_host_platforms/index.md
-      - STM32: other/supported_host_platforms/stm32.md
-      - ESP32: other/supported_host_platforms/esp32.md
-      - Linux: other/supported_host_platforms/linux.md
-      - POSIX: other/supported_host_platforms/posix.md
-      - Arduino: other/supported_host_platforms/arduino.md
-    - Supported Cryptographic Functionality Providers:
-      - other/supported_cfps/index.md
-      - Trezor Crypto: other/supported_cfps/trezor_crypto.md
-      - MbedTLS: other/supported_cfps/mbedtls.md
-      - OpenSSL: other/supported_cfps/openssl.md
-      - WolfCrypt: other/supported_cfps/wolfcrypt.md
 
 plugins:
   - search
@@ -146,6 +163,9 @@ markdown_extensions:
   - pymdownx.tabbed:       # Tabs. Requires superfences.
       alternate_style: true
   - pymdownx.keys          # Allow rendering of keys (Ctrl, ...) to illustrate shortcuts.
+
+validation:
+  absolute_links: relative_to_docs
 
 extra:
   version:

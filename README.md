@@ -34,7 +34,7 @@ The following table outlines the tested and supported compatibility between rele
 > [!WARNING]
 > Using mismatched versions of the components may result in unpredictable behavior or errors. It is strongly advised to use the latest compatible versions of all components to ensure proper functionality. 
 
-For retrieving firmware versions from TROPIC01 and updating its firmware, refer to the [Tutorials](https://tropicsquare.github.io/libtropic/latest/get_started/tutorials/) and select your platform. Follow the instructions for **Chip Identification** and **Firmware Update** example.
+For retrieving firmware versions from TROPIC01 and updating its firmware, refer to the [Tutorials](https://tropicsquare.github.io/libtropic/latest/tutorials/) and select your platform. Follow the instructions for **Chip Identification** and **Firmware Update** example.
 
 ## Repository structure
 * `CMakeLists.txt` Root CMake project file
@@ -49,14 +49,6 @@ For retrieving firmware versions from TROPIC01 and updating its firmware, refer 
 * `tests/` Functional tests
 * `TROPIC01_fw_update_files/` Files used for updating TROPIC01's firmware
 * `vendor/` Third party libraries and tools
-
-## Get started!
-
-Platform repositories, showing example usage of libtropic on known platforms:
-* [libtropic-stm32](https://github.com/tropicsquare/libtropic-stm32)
-* [libtropic-linux](https://github.com/tropicsquare/libtropic-linux)
-* [libtropic-arduino](https://github.com/tropicsquare/libtropic-arduino)
-* [libtropic-util](https://github.com/tropicsquare/libtropic-util)
 
 ## FAQ
 We provide the [FAQ](https://tropicsquare.github.io/libtropic/latest/faq/) section in our documentation with frequently asked questions and troubleshooting tips.

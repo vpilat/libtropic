@@ -4,20 +4,25 @@ Functional Mock Tests run against the *mock HAL* (not a real target or a model).
 ## Compilation and Running
 These tests are compiled standalone in the `tests/functional_mock` directory. The tests can be compiled and run as follows:
 
-```shell
-cd tests/functional_mock
-mkdir -p build
-cd build
-cmake ..
-make -j
-ctest -V
-```
+!!! example "Compiling and Running Functional Mock Tests"
+    Create a `build/` directory and switch to it:
+    ```bash { .copy }
+    cd tests/functional_mock/
+    mkdir -p build/
+    cd build/
+    ```
+    Build and run the tests:
+    ```bash { .copy }
+    cmake ..
+    make
+    ctest -V
+    ```
 
 !!! info "Strict Compilation"
     Strict compilation flags are applied by default. It is strongly recommended to develop tests with strict compilation flags enabled. You can disable the flags by passing `-DLT_STRICT_COMPILATION=0` to `cmake`.
 
 ### Debugging
-We support running tests with GNU Debugger, Valgrind and Address Sanitizer. See [Debugging](../../get_started/debugging.md).
+We support running tests with GNU Debugger, Valgrind and Address Sanitizer. See [Debugging](../../reference/debugging.md).
 
 ## Adding a New Test
 
@@ -86,7 +91,7 @@ To add a new test, do the following:
 ### Test Template
 Change the lines marked with `TODO`.
 
-```c
+```c { .copy }
 /**
  * @file TODO: FILL ME
  * @brief TODO: FILL ME
