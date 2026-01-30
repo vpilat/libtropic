@@ -2,7 +2,7 @@
 #define LT_TREZOR_CRYPTO_H
 
 /**
- * @file lt_trezor_crypto.h
+ * @file libtropic_trezor_crypto.h
  * @brief Trezor crypto public declarations.
  * @copyright Copyright (c) 2020-2026 Tropic Square s.r.o.
  *

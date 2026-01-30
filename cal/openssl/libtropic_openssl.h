@@ -2,7 +2,7 @@
 #define LT_OPENSSL_H
 
 /**
- * @file lt_openssl.h
+ * @file libtropic_openssl.h
  * @brief OpenSSL public declarations.
  * @copyright Copyright (c) 2020-2026 Tropic Square s.r.o.
  *

@@ -2,7 +2,7 @@
 #define LT_WOLFCRYPT_H
 
 /**
- * @file lt_wolfcrypt.h
+ * @file libtropic_wolfcrypt.h
  * @brief WolfCrypt public declarations.
  * @copyright Copyright (c) 2020-2026 Tropic Square s.r.o.
  *

@@ -2,7 +2,7 @@
 #define LT_MBEDTLS_V4_H
 
 /**
- * @file lt_mbedtls_v4.h
+ * @file libtropic_mbedtls_v4.h
  * @brief MbedTLS v4.0.0 public declarations.
  * @copyright Copyright (c) 2020-2026 Tropic Square s.r.o.
  *
