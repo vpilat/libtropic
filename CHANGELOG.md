@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Merged all Libtropic platform repositories into this main Libtropic repository.
-  - Examples and functional tests are no longer part of the core Libtropic (related CMake options were removed from Libtropic's `CMakeLists.txt`). They are now standalone CMake projects (note that the tests are no longer beginner friendly).
+  - Examples and functional tests are no longer part of the core Libtropic (related CMake options were removed from Libtropic's `CMakeLists.txt`) - they are now standalone CMake projects. Note that we provide the tests just for a reference and executing them is at user's risk, as they can cause irreversible changes to their TROPIC01 chip.
   - `examples/`: contains platform directories, where **Chip Identification**, **FW Update** and **Hello, World!** standalone example projects are always implemented for each platform (except the TROPIC01 Model). Each platform may contain additional example projects.
   - HW Wallet, Mac-And-Destroy and Separate API examples are now implemented only for the TROPIC01 Model (`examples/model/`).
   - `tests/functional/`: contains `src/`, where the functional tests CMake project is implemented and platform directories with entry points for each target.
