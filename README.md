@@ -24,12 +24,13 @@ For more information about each of these, refer to the [TROPIC01](https://github
 
 The following table outlines the tested and supported compatibility between released versions:
 
-| Libtropic | Application FW | SPECT FW | Bootloader FW |  Tests                                    |
-|:---------:|:--------------:|:--------:|:-------------:|:----------------------------------------: |
-| 1.0.0     | 1.0.0          | 1.0.0    | 1.0.1-2.0.1   | <code style="color : green">Passed</code> |
-| 2.0.0     | 1.0.0–1.0.1    | 1.0.0    | 2.0.1         | <code style="color : green">Passed</code> |
-| 2.0.1     | 1.0.0–1.0.1    | 1.0.0    | 2.0.1         | <code style="color : green">Passed</code> |
-| 3.0.0     | 1.0.0–2.0.0    | 1.0.0    | 2.0.1         | <code style="color : green">Passed</code> |
+| Libtropic | Application FW | SPECT FW | Bootloader FW |  Tests             |
+|:---------:|:--------------:|:--------:|:-------------:|:------------------:|
+| 1.0.0     | 1.0.0          | 1.0.0    | 1.0.1-2.0.1   | :white_check_mark: |
+| 2.0.0     | 1.0.0–1.0.1    | 1.0.0    | 2.0.1         | :white_check_mark: |
+| 2.0.1     | 1.0.0–1.0.1    | 1.0.0    | 2.0.1         | :white_check_mark: |
+| 3.0.0     | 1.0.0–2.0.0    | 1.0.0    | 2.0.1         | :white_check_mark: |
+| 3.1.0     | 1.0.0–2.0.0    | 1.0.0    | 2.0.1         | :white_check_mark: |
 
 > [!WARNING]
 > Using mismatched versions of the components may result in unpredictable behavior or errors. It is strongly advised to use the latest compatible versions of all components to ensure proper functionality. 
