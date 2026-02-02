@@ -5,9 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [3.1.0]
 
 ### Changed
+- Merged all Libtropic platform repositories into this main Libtropic repository.
+  - Examples and functional tests are no longer part of the core Libtropic (related CMake options were removed from Libtropic's `CMakeLists.txt`) - they are now standalone CMake projects. Note that we provide the tests just for a reference and executing them is at user's risk, as they can cause irreversible changes to the TROPIC01 chip.
+  - `examples/`: contains platform directories, where **Chip Identification**, **FW Update** and **Hello, World!** standalone example projects are always implemented for each platform (except the TROPIC01 Model). Each platform may contain additional example projects.
+  - HW Wallet, Mac-And-Destroy and Separate API examples are now implemented only for the TROPIC01 Model (`examples/model/`).
+  - `tests/functional/`: contains `src/`, where the functional tests CMake project is implemented and platform directories with entry points for each target.
+  - Restructured [documentation](https://tropicsquare.github.io/libtropic/latest/), it is now generated only for release versions, added *Tutorials* section to help users quickly get started with Libtropic on supported platforms.
 - STM32 HAL: updated L432KC and started active support again.
 - STM32 HAL: moved clock initialization out of the HALs to remove dependency on user's `main.h` and allow for higher flexibility.
   - Clock initialization is up to the user now and it is demonstrated in our integration examples.
@@ -16,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   need to modify the behavior yourself (e.g., by modifiying `_write` syscall on STM32), or (in the case of the embedded platforms)
   you just need to configure your serial monitor correctly, so it expects only LF character (and not CR+LF pair).
 - TCP HAL: Fixed `lt_port_init()` cleanup, refactored local functions.
-- Moved TROPIC01 Model related files to `scripts/tropic01_model`.
+- Moved TROPIC01 Model related files to `scripts/tropic01_model/`.
 
 ### Added
 - Logging: `lt_port_log` function for platform-specific logging mechanism; is used by the logging macros declared in `libtropic_logging.h`.
@@ -26,7 +32,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Missing check of `lt_handle_t.l3.session_status` in `lt_in__ecc_key_generate()`.
 - CAL: support for OpenSSL.
 - CAL: support for WolfCrypt.
-- Linux HAL: added new HAL for Linux which utilizes spidev for chip select instead of GPIO.
+- Linux HAL: added new experimental HAL for Linux which utilizes spidev for chip select instead of GPIO.
+- Linux USB Devkit: added full chain verification example with tutorial.
+- ESP32: added examples and functional tests support for ESP32-DevKitC-V4, ESP32-S3-DevKitC-1 and ESP32-C3-DevKit-RUST-1.
 
 ### Fixed
 - `lt_print_bytes` function now returns `LT_PARAM_ERR` when incorrect parameters are passed instead of `LT_FAIL`.
@@ -39,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Arduino HAL: Removed `rng_seed` from `lt_dev_arduino_t`, as it should be user's responsibility to initialize the PRNG.
 - Arduino HAL: Removed `SPI.begin()` and `SPI.end()` calls (fixes [this](https://github.com/tropicsquare/libtropic-arduino/issues/15) issue). It is now expected that users initialize SPI in their code themselves.
 - Redundant checks of `lt_handle_t.l3.session_status` in `lt_l3_encrypt_request()` and `lt_l3_decrypt_response()`.
-- Legacy internal scripts in `scripts/test_runner`.
+- Legacy internal scripts in `scripts/test_runner/`.
 
 ## [3.0.0]
 
